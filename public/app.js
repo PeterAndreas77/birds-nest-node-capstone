@@ -84,7 +84,7 @@ function getRecentStories(callbackFunction) {
 function displayRecentStories(data) {
     const stories = data.recentStories;
     for (let index in stories) {
-        $('.content').append(`<p><a>${stories[index].title}</a></p>`);
+        $('.content-view').append(`<p class="story-item"><a>${stories[index].title}</a></p>`);
     }
 }
 // populate data with recents
@@ -108,8 +108,8 @@ function displayMyStories(data) {
         }
     }
     for(let i in myStories){
-        $('.content').empty();
-        $('.content').append(`<p><a>${myStories[i].title}</a></p>
+        $('.content-view').empty();
+        $('.content-view').append(`<p><a class="story-item">${myStories[i].title}</a></p>
         <p><a>${myStories[i].content}</a></p>`);
     }
 }
@@ -120,15 +120,86 @@ function getAndDisplayMyStories() {
     })
 }
 
-function addStories() {
-    
+// ADD STORY FUNCTIONALITY
+// handle event when user click 'add story'
+function getAddForm() {
+    $('#add-story').click(()=>{
+        $('.content-view').empty();
+        displayAddForm();
+    })
+}
+// display add story form
+function displayAddForm(){
+    $('.content-view').append(`<form class="add-form" action="">
+    <fieldset>
+      <legend>Add Your Story</legend>
+      <div class="input-field">
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title">
+      </div>
+      <div class="input-field">
+        <div><label for="content">Story</label></div>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+      </div>
+      <button type="submit" class="btn-add">submit</button>
+    </fieldset>
+  </form>`);
 }
 
+// submit user stories PROBLEM HERE
+function handleStorySubmission() {
+    $('.content-view').submit(event => {
+        event.preventDefault();
+        let obj = {};
+        obj.id = "xxx";
+        let title = $('#title').val();
+        obj.content = $('#content').val();
+        obj.author = "Oscar Wilde";
+        obj.date = Date.now();
+        console.log(obj);
+        FAKE_DATA.recentStories.push(obj);
+    })
+}
 
-$(function getter(){
+// SEARCH STORIES FUNCTIONALITY
+// handle when user want to search for stories
+function getSearchBar(){
+    $('#search-stories').click(()=>{
+        $('.content-view').empty();
+        displaySearchBar();
+    })
+}
+// render search bar into the dom
+function displaySearchBar(){
+    $('.content-view').append(`<form class="search-form" action="">
+    <fieldset>
+      <legend>Search Stories</legend>
+      <div class="input-field">
+        <label for="query">Search</label>
+        <input type="text" id="query" name="query">
+      </div>
+      <div class="input-field">
+        <label for="by">By</label>
+        <select name="by" id="by">
+          <option value="author">author</option>
+          <option value="title">title</option>
+          <option value="date">date</option>
+        </select>
+      </div>
+      <button class="btn-search" type="submit">Submit</button>
+    </fieldset>
+  </form>`);
+}
+// function handleSearchQueries(){
+//     $('.content-wrapper').
+// }
+
+function getter(){
+    getAddForm();
+    handleStorySubmission();
+    getSearchBar();
     getAndDisplayRecent();
     getAndDisplayMyStories();
-});
-
+};
 
 $(getter());

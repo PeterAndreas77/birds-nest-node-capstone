@@ -58,7 +58,7 @@ fieldset {
 .navbar {
   grid-area: navbar;
 }
-.content {
+.content-container {
   grid-area: content;
 }
 li > a {
@@ -71,7 +71,7 @@ li > a,
 ul {
   list-style-type: none;
 }
-.user-input,
+.input-field,
 button,
 .flip {
   margin-top: 20px;
@@ -108,16 +108,16 @@ button:hover {
   backface-visibility: hidden;
   transition: 0.5s;
 }
-.flip:hover {
-  color: #fdc561;
-  cursor: pointer;
-}
 .card.back {
   display: block;
 }
 .navitem{
   margin-top: 10px;
 }
-.navitem>a:hover{
+.flip:hover, .navitem>a:hover, .story-item:hover{
   color: #fdc561;
+  cursor: pointer;
+}
+.content-container{
+  text-align: left;
 }
