@@ -1,33 +1,36 @@
-// function handleSignin() {
-//   $(".btn-signup").on("click", event => {
-//     event.preventDefault();
-//     $(".landing-page").hide();
-//     $(".user-page").show();
-//   });
-// }
-
-// function handleLogin() {
-//   $(".btn-login").on("click", event => {
-//     event.preventDefault();
-//     $(".landing-page").hide();
-//     $(".user-page").show();
-//   });
-// }
-
-// function handleFlip() {
-//   $(".flip").on("click", () => {
-//     $(".card").toggleClass("flipped");
-//   });
-// }
-
-// function handler() {
-//   handleSignin();
-//   handleLogin();
-//   handleFlip();
-// }
-// $(handler);
-
 "use strict";
+
+function handleSignin() {
+  $(".btn-signin").on("click", event => {
+    event.preventDefault();
+    $(".landing-page").hide();
+    $(".user-page").show();
+  });
+}
+
+function handleLogin() {
+  $(".btn-login").on("click", event => {
+    event.preventDefault();
+    $(".landing-page").hide();
+    $(".user-page").show();
+  });
+}
+
+function handleFlip() {
+  $(".flip").on("click", () => {
+    $(".card").toggleClass("flipped");
+  });
+}
+
+function handleLogout() {
+    $('#logout').on('click', event=>{
+        event.preventDefault();
+        $('.user-page').hide();
+        $('.landing-page').show();
+    })
+}
+
+
 let FAKE_DATA = {
     "recentStories": [
       {
@@ -152,11 +155,10 @@ function handleStorySubmission() {
         event.preventDefault();
         let obj = {};
         obj.id = "xxx";
-        let title = $('#title').val();
+        obj.title = $('#title').val();
         obj.content = $('#content').val();
         obj.author = "Oscar Wilde";
         obj.date = Date.now();
-        console.log(obj);
         FAKE_DATA.recentStories.push(obj);
     })
 }
@@ -169,37 +171,59 @@ function getSearchBar(){
         displaySearchBar();
     })
 }
-// render search bar into the dom
+// render search bar into the DOM
 function displaySearchBar(){
     $('.content-view').append(`<form class="search-form" action="">
     <fieldset>
       <legend>Search Stories</legend>
       <div class="input-field">
-        <label for="query">Search</label>
-        <input type="text" id="query" name="query">
-      </div>
-      <div class="input-field">
-        <label for="by">By</label>
-        <select name="by" id="by">
-          <option value="author">author</option>
-          <option value="title">title</option>
-          <option value="date">date</option>
-        </select>
+        <label for="search">Search</label>
+        <input type="text" id="search" name="search">
       </div>
       <button class="btn-search" type="submit">Submit</button>
     </fieldset>
-  </form>`);
+  </form>
+  <section class="search-view">
+</section>`);
 }
-// function handleSearchQueries(){
-//     $('.content-wrapper').
-// }
+// handle when user submitted their search queries
+function handleSearchSubmission(){
+    $('.content-view').submit(event=>{
+        event.preventDefault();
+        let search = $('#search').val();
+        getSearchQueries(search);
+    })
+}
+// get queries from database
+function getSearchQueries(search){
+    const stories = FAKE_DATA.recentStories;
+    const queries = [];
+    for(let i in stories){
+        if(Object.values(stories[i]).includes(search)){
+            queries.push(stories[i]);
+        }
+    }
+    displaySearchQueries(queries);
+}
+// display queries below search
+function displaySearchQueries(data){
+    for(let i in data){
+        $('.search-view').append(`<p><a class="story-item">${data[i].title}</a></p>
+        <p><a>${data[i].content}</a></p>`);
+    }
+}
 
 function getter(){
+    getAndDisplayRecent();
+    getAndDisplayMyStories();
     getAddForm();
     handleStorySubmission();
     getSearchBar();
-    getAndDisplayRecent();
-    getAndDisplayMyStories();
+    handleSearchSubmission();
+    handleSignin();
+    handleLogin();
+    handleFlip();
+    handleLogout();
 };
 
 $(getter());

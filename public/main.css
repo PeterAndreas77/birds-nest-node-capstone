@@ -38,12 +38,12 @@ body {
 }
 
 /* HERE, DISPLAY THIS */
-.landing-page {
-  display: none;
-}
-/* .user-page {
+/* .landing-page {
   display: none;
 } */
+.user-page {
+  display: none;
+}
 /* HERE DISPLAY THIS*/
 
 fieldset {
