@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '0.11'
+- '0.10'
+deploy:
+  provider: heroku
+  api_key:
+    secure: io2Pd7cLOZq+iU6PL+ZEgZsi8w6pdVMNpm6I7q/IObvSvlI6nAvOWmmXVd03A4xrLmF4zZSBHFsNIZC+MjAx0YPCJoQSnxyYOu8sw5cZM61dm/Etkg7lpd1c0mwDHM+aHWATU0OIF+5z3RDucbOFdxzuQaaIi1fZU956iwYbZHKMnWzivSR8glxJ1W9aQr2JRmO2c4x6qbj8tEeRA3mQ9dFiflsV5sGEaxzcylTo41nMDYVzireJx/eTYzsAX8uxMaWOU+3zDgJ3RE3SxPk/PduY6/mEO0uIB80eH3kB32GDVofh9LDvxUGHbhNQMdmdfQOaRnzbFxYSwmyHAqghtC+3SXaebP94mBp16yEFwX/026MDG0fv3lpAeNysyClbonJFu8pWfmtS9LukE34Hi6AeOEKTh9g+UYdiwlsPDC1i1S4WjAaDoeO0btmyJ2gaITFTS1/TkZK7ktXZh0ENKb/e0mzd0g12GJkSynbJXvsP3+EHtc/zgGZRqBMqGELs4w5rk+oZrQbkHx3kenxnVEui9/ev4CHNHtufl5XO8B0N9YDWIGv31VcNBrERocEF4U5BfF/w0GtOluWDdHM0nFMBsmbSmLQ7x4lSWR15FczEQ6IOa37Aj/fMSesjfu8Y13A09tmy0x+62bogarNv+wFVIoRTAgOGvo+6cuRTQ2w=
+  app: birds-nest
+  on:
+    repo: PeterAndreas77/birds-nest
