@@ -27,6 +27,7 @@
 // }
 // $(handler);
 
+"use strict";
 let FAKE_DATA = {
     "recentStories": [
       {
@@ -73,17 +74,61 @@ let FAKE_DATA = {
       }
     ]
   }
-  function getRecentStories(callbackFunction) {
-    setTimeOut(function(){callbackFunction(FAKE_DATA)}, 100);
-  }
-  // THIS FUNCTION STAYS THE SAME WHEN WE CONNECT TO REAL API LATER
-  function displayRecentStories(data) {
+
+// POPULATE ON INITIAL RENDER
+// populate beginning with recent stories
+function getRecentStories(callbackFunction) {
+    setTimeout(function(){callbackFunction(FAKE_DATA)}, 100);
+}
+// this function stays the same with the data
+function displayRecentStories(data) {
     const stories = data.recentStories;
-    for (index in stories) {
-      $('.content').append(`<a>${stories[index].title}</a>`);
+    for (let index in stories) {
+        $('.content').append(`<p><a>${stories[index].title}</a></p>`);
     }
-  }
-  function getAndDisplayStories(data) {
+}
+// populate data with recents
+function getAndDisplayRecent() {
     getRecentStories(displayRecentStories);
-  }
-  $(getRecentStories());
+}
+
+// MY STORIES
+// get my data when I click my stories
+function getMyStories(callbackFunction) {
+    setTimeout(function(){callbackFunction(FAKE_DATA)}, 100);
+}
+// render my stories in the DOM
+function displayMyStories(data) {
+    let me = "Oscar Wilde";
+    let myStories = [];
+    let stories = data.recentStories;
+    for(let i in stories) {
+        if(stories[i].author == me){
+            myStories.push(stories[i]);
+        }
+    }
+    for(let i in myStories){
+        $('.content').empty();
+        $('.content').append(`<p><a>${myStories[i].title}</a></p>
+        <p><a>${myStories[i].content}</a></p>`);
+    }
+}
+// get my stories when I click on my stories
+function getAndDisplayMyStories() {
+    $('#my-stories').on('click', ()=>{
+        getMyStories(displayMyStories);
+    })
+}
+
+function addStories() {
+    
+}
+
+
+$(function getter(){
+    getAndDisplayRecent();
+    getAndDisplayMyStories();
+});
+
+
+$(getter());
