@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bird's Nest</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+  <title>Bird's Nest</title>
 </head>
+
 <body>
-    <p>Hello World!</p>
+  
+  <header class="header">
+    <h1><i class="fas fa-crow"></i> Bird's Nest</h1>
+  </header>
+  
+  <main class="main">
+    
+    <section class="landing-page">
+      <h2 class="motto">Where weary travellers share their stories.</h2>
+      <div class="card">
+        
+        <div class="front">
+          <form action="" class="js-signin">
+            <fieldset>
+              <legend>Sign In</legend>
+              <div class="input-field">
+                <label for="user-signin">username</label>
+                <input type="text" id="user-signin" name="username">
+              </div>
+              <div class="input-field">
+                <label for="pwd-signin">password</label>
+                <input type="password" id="pwd-signin" name="password">
+              </div>
+              <button class="btn-signin">sign in <i class="fas fa-sign-in-alt"></i></button>
+            </fieldset>
+          </form>
+          <a class="flip">>>Already have an account? Log in here>></a>
+        </div>
+        
+        <div class="back">
+          <form action="" class="js-login">
+            <fieldset>
+              <legend>Log In</legend>
+              <div class="input-field">
+                <label for="user-login">username</label>
+                <input type="text" id="user-login" name="username">
+              </div>
+              <div class="input-field">
+                <label for="pwd-login">password</label>
+                <input type="password" id="pwd-login" name="password">
+              </div>
+              <button class="btn-login">log in <i class="fas fa-sign-in-alt"></i></button>
+            </fieldset>
+          </form>
+          <a class="flip">>>Do not have an account? Sign in here>></a>
+        </div>
+        
+      </div>
+    </section>
+    
+    <section class="user-page">
+      <div class="user-view">
+        <nav class="navbar">
+          <ul>
+            <li class="navitem"><a id="my-stories" href="#"><i class="fas fa-book"></i> My Stories</a></li>
+            <li class="navitem"><a id="add-story" href="#"><i class="fas fa-plus"></i> Add Story</a></li>
+            <li id="search-stories" class="navitem"><a href="#"><i class="fas fa-search"></i> Search Stories</a></li>
+            <li id="logout" class="navitem"><a href="#"><i class="fas fa-sign-in-alt"></i> Logout</a></li>
+          </ul>
+        </nav>
+        <div class="content-container">
+          <section class="content-view">
+
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>2018 &copy; Andreas Soedharto</p>
+  </footer>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>
