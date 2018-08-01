@@ -1,0 +1,123 @@
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  color: #78758d;
+  grid-template-rows: 60px auto 40px;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+.header {
+  grid-area: header;
+}
+.main {
+  font-family: "Roboto", sans-serif;
+  grid-area: main;
+}
+.footer {
+  grid-area: footer;
+}
+.header,
+.footer,
+.form {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+.header,
+.footer,
+.landing-page {
+  text-align: center;
+}
+
+/* HERE, DISPLAY THIS */
+.landing-page {
+  display: none;
+}
+/* .user-page {
+  display: none;
+} */
+/* HERE DISPLAY THIS*/
+
+fieldset {
+  border: none;
+}
+.user-view {
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-rows: auto;
+  grid-template-areas: "navbar content";
+}
+.navbar {
+  grid-area: navbar;
+}
+.content {
+  grid-area: content;
+}
+
+li > a {
+  text-decoration: none;
+}
+li > a,
+.user-view {
+  color: #78758d;
+}
+ul {
+  list-style-type: none;
+}
+.user-input,
+button,
+.flip {
+  margin-top: 20px;
+}
+button {
+  padding: 5px 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: 2px solid #fdc561;
+  color: #fefeff;
+  background-color: #fdc561;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #fefeff;
+  color: #fdc561;
+}
+.card {
+  width: 100%;
+  height: 50vh;
+  position: absolute;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+.card.flipped,
+.card .back {
+  transform: rotateY(180deg);
+}
+.card .front,
+.card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: 0.5s;
+}
+.flip:hover {
+  color: #fdc561;
+  cursor: pointer;
+}
+.card.back {
+  display: block;
+}
+.navitem{
+  margin-top: 10px;
+}
+.navitem>a:hover{
+  color: #fdc561;
+}
