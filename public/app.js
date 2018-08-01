@@ -3,7 +3,7 @@
 function handleSignin() {
   $(".btn-signin").on("click", event => {
     event.preventDefault();
-    $(".landing-page").hide();
+    $(".signin-login-page").hide();
     $(".user-page").show();
   });
 }
@@ -11,7 +11,7 @@ function handleSignin() {
 function handleLogin() {
   $(".btn-login").on("click", event => {
     event.preventDefault();
-    $(".landing-page").hide();
+    $(".signin-login-page").hide();
     $(".user-page").show();
   });
 }
@@ -22,6 +22,18 @@ function handleFlip() {
   });
 }
 
+function handleNav(){
+    $('.toggle-menu').on('click', ()=>{
+        $('.navbar').toggleClass('toggle');
+        $('.content-box').toggleClass('toggle');
+    })
+}
+function handleStart(){
+    $('.btn-start').on('click', ()=>{
+        $('.landing-page').hide();
+        $('.signin-login-page').show();
+    })
+}
 function handleLogout() {
     $('#logout').on('click', event=>{
         event.preventDefault();
@@ -87,7 +99,7 @@ function getRecentStories(callbackFunction) {
 function displayRecentStories(data) {
     const stories = data.recentStories;
     for (let index in stories) {
-        $('.content-view').append(`<p class="story-item"><a>${stories[index].title}</a></p>`);
+        $('.content').append(`<p class="story-item"><a>${stories[index].title}</a></p>`);
     }
 }
 // populate data with recents
@@ -111,8 +123,8 @@ function displayMyStories(data) {
         }
     }
     for(let i in myStories){
-        $('.content-view').empty();
-        $('.content-view').append(`<p><a class="story-item">${myStories[i].title}</a></p>
+        $('.content').empty();
+        $('.content').append(`<p><a class="story-item">${myStories[i].title}</a></p>
         <p><a>${myStories[i].content}</a></p>`);
     }
 }
@@ -127,13 +139,13 @@ function getAndDisplayMyStories() {
 // handle event when user click 'add story'
 function getAddForm() {
     $('#add-story').click(()=>{
-        $('.content-view').empty();
+        $('.content').empty();
         displayAddForm();
     })
 }
 // display add story form
 function displayAddForm(){
-    $('.content-view').append(`<form class="add-form" action="">
+    $('.content').append(`<form class="add-form" action="">
     <fieldset>
       <legend>Add Your Story</legend>
       <div class="input-field">
@@ -151,7 +163,7 @@ function displayAddForm(){
 
 // submit user stories PROBLEM HERE
 function handleStorySubmission() {
-    $('.content-view').submit(event => {
+    $('.content').submit(event => {
         event.preventDefault();
         let obj = {};
         obj.id = "xxx";
@@ -167,13 +179,13 @@ function handleStorySubmission() {
 // handle when user want to search for stories
 function getSearchBar(){
     $('#search-stories').click(()=>{
-        $('.content-view').empty();
+        $('.content').empty();
         displaySearchBar();
     })
 }
 // render search bar into the DOM
 function displaySearchBar(){
-    $('.content-view').append(`<form class="search-form" action="">
+    $('.content').append(`<form class="search-form" action="">
     <fieldset>
       <legend>Search Stories</legend>
       <div class="input-field">
@@ -188,7 +200,7 @@ function displaySearchBar(){
 }
 // handle when user submitted their search queries
 function handleSearchSubmission(){
-    $('.content-view').submit(event=>{
+    $('.content').submit(event=>{
         event.preventDefault();
         let search = $('#search').val();
         getSearchQueries(search);
@@ -220,9 +232,11 @@ function getter(){
     handleStorySubmission();
     getSearchBar();
     handleSearchSubmission();
+    handleStart();
     handleSignin();
     handleLogin();
     handleFlip();
+    handleNav();
     handleLogout();
 };
 

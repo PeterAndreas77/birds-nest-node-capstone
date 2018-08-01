@@ -20,7 +20,14 @@
   <main class="main">
     
     <section class="landing-page">
-      <h2 class="motto">Where weary travellers share their stories.</h2>
+      <div class="landing-container">
+          <h2 class="motto">Where weary travellers share their stories.</h2>
+          <button class="btn-start">start</button>
+      </div>
+    </section>
+    
+
+    <section class="signin-login-page">
       <div class="card">
         
         <div class="front">
@@ -28,17 +35,19 @@
             <fieldset>
               <legend>Sign In</legend>
               <div class="input-field">
-                <label for="user-signin">username</label>
-                <input type="text" id="user-signin" name="username">
+                <label for="name-signin">username </label>
+                <input type="text" id="name-signin" name="username">
               </div>
               <div class="input-field">
-                <label for="pwd-signin">password</label>
+                <label for="pwd-signin">password </label>
                 <input type="password" id="pwd-signin" name="password">
               </div>
-              <button class="btn-signin">sign in <i class="fas fa-sign-in-alt"></i></button>
+              <button class="btn-signin">sign in<i class="fas fa-sign-in-alt"></i></button>
             </fieldset>
           </form>
-          <a class="flip">>>Already have an account? Log in here>></a>
+          <div class="flip">
+              <span>>>Already have an account? Log in here>></span>
+          </div>
         </div>
         
         <div class="back">
@@ -46,22 +55,28 @@
             <fieldset>
               <legend>Log In</legend>
               <div class="input-field">
-                <label for="user-login">username</label>
-                <input type="text" id="user-login" name="username">
+                <label for="name-login">username </label>
+                <input type="text" id="name-login" name="username">
               </div>
               <div class="input-field">
-                <label for="pwd-login">password</label>
+                <label for="pwd-login">password </label>
                 <input type="password" id="pwd-login" name="password">
               </div>
-              <button class="btn-login">log in <i class="fas fa-sign-in-alt"></i></button>
+              <div class="input-field">
+                  <label for="pwd-conf">confirm password </label>
+                  <input type="password" id="pwd-conf" name="password">
+                </div>
+              <button class="btn-login">log in<i class="fas fa-sign-in-alt"></i></button>
             </fieldset>
           </form>
-          <a class="flip">>>Do not have an account? Sign in here>></a>
+          <div class="flip">
+              <span>>>Do not have an account? Sign in here>></span>
+          </div>
         </div>
-        
       </div>
     </section>
     
+
     <section class="user-page">
       <div class="user-view">
         <nav class="navbar">
@@ -72,17 +87,22 @@
             <li id="logout" class="navitem"><a href="#"><i class="fas fa-sign-in-alt"></i> Logout</a></li>
           </ul>
         </nav>
-        <div class="content-container">
-          <section class="content-view">
+        <section class="content-box">
 
+        <span class="toggle-menu"><i class="fas fa-2x fa-bars"></i></span>
+        <section class="content">
+          
           </section>
-        </div>
+        </section>
       </div>
     </section>
   </main>
+
+
   <footer class="footer">
     <p>2018 &copy; Andreas Soedharto</p>
   </footer>
+
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

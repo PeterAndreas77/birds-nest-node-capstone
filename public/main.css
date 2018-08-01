@@ -1,13 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 html,
 body {
   height: 100vh;
   width: 100vw;
-  margin: 0;
-  padding: 0;
 }
 body {
   display: grid;
-  color: #78758d;
+  color: #062F63;
   grid-template-rows: 60px auto 40px;
   grid-template-areas:
     "header"
@@ -18,7 +20,7 @@ body {
   grid-area: header;
 }
 .main {
-    margin: 10px;
+  padding: 0 20px;
   font-family: "Roboto", sans-serif;
   grid-area: main;
 }
@@ -33,40 +35,61 @@ body {
 }
 .header,
 .footer,
+.signin-login-page,
 .landing-page {
   text-align: center;
 }
+legend{
+  font-size: 20px;
+}
+.landing-page{
+  margin-top: 20vh;
+}
+.signin-login-page{
+  margin-top: 10vh;
+}
 
 /* HERE, DISPLAY THIS */
-/* .landing-page {
+/* .landing-page{
   display: none;
 } */
+
+.signin-login-page {
+  display: none;
+}
+
 .user-page {
   display: none;
 }
+
 /* HERE DISPLAY THIS*/
 
 fieldset {
   border: none;
 }
-.user-view {
-  display: grid;
-  grid-gap: 0.5em;
-  grid-template-rows: auto;
-  grid-template-areas: "navbar content";
-}
 .navbar {
-  grid-area: navbar;
+  position: fixed;
+  left: 20px;
+  height: 90%;
+  transform: translateX(-180px);
+  transition: transform 0.75s ease;
 }
-.content-container {
-  grid-area: content;
+.navbar.toggle{
+  transform: translateX(0);
+}
+.content-box {
+  transform: translateX(0);
+  transition: transform 0.75s ease;
+}
+.content-box.toggle{
+  transform: translateX(180px);
 }
 li > a {
   text-decoration: none;
 }
 li > a,
 .user-view {
-  color: #78758d;
+  color: #062F63;
 }
 ul {
   list-style-type: none;
@@ -74,19 +97,20 @@ ul {
 .input-field,
 button,
 .flip {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 button {
-  padding: 5px 10px;
+  font-weight: bold;
+  padding: 8px 12px;
   font-size: 16px;
   text-transform: uppercase;
   border: 2px solid #fdc561;
-  color: #fefeff;
+  color: #fff;
   background-color: #fdc561;
 }
 button:hover {
   cursor: pointer;
-  background-color: #fefeff;
+  background-color: #fff;
   color: #fdc561;
 }
 .card {
@@ -118,6 +142,6 @@ button:hover {
   color: #fdc561;
   cursor: pointer;
 }
-.content-container{
+.content{
   text-align: left;
 }
