@@ -3,16 +3,113 @@
 function handleSignin() {
   $(".btn-signin").on("click", event => {
     event.preventDefault();
+    //take the input from the user
+    const username = $("#loginUsername").val();
+    const password = $("#loginPassword").val();
+
+    //validate the input
+    if (username == "") {
+        alert('Please input user name');
+    } else if (password == "") {
+        alert('Please input password');
+    }
+    //if the input is valid
+    else {
+        //create the payload object (what data we send to the api call)
+        const loginUserObject = {
+            username: username,
+            password: password
+        };
+        //console.log(loginUserObject);
+
+        //make the api call using the payload above
+        $.ajax({
+                type: 'POST',
+                url: '/users/login',
+                dataType: 'json',
+                data: JSON.stringify(loginUserObject),
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done(function (result) {
+                console.log(result);
+                $('section').hide();
+                $('.navbar').show();
+                $('#user-dashboard').show();
+                $('#loggedInName').text(result.name);
+                $('#loggedInUserName').val(result.username);
+                //            htmlUserDashboard();
+                populateUserDashboardDate(result.username); //AJAX call in here??
+                //                noEntries();
+
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+                alert('Incorrect Username or Password');
+            });
+    };
+    
     $(".signin-login-page").hide();
     $(".user-page").show();
   });
 }
 
-function handleLogin() {
-  $(".btn-login").on("click", event => {
+function handleSignup() {
+  $(".btn-signup").on("click", event => {
     event.preventDefault();
-    $(".signin-login-page").hide();
-    $(".user-page").show();
+
+    //take the input from the user
+    const username = $("#name-signup").val();
+    const password = $("#pwd-signup").val();
+    const confirmPassword = $("#pwd-conf").val();
+
+    //validate the input
+    if (username == "") {
+        alert('Please add an user name');
+    } else if (password == "") {
+        alert('Please add a password');
+    } else if (password != confirmPassword) {
+        alert('The passwords do not match');
+    }
+    //if the input is valid
+    else {
+        //create the payload object (what data we send to the api call)
+        const newUserObject = {
+            username: username,
+            password: password
+        };
+        console.log(newUserObject);
+
+        //make the api call using the payload above
+        $.ajax({
+                type: 'POST',
+                url: '/users/create',
+                dataType: 'json',
+                data: JSON.stringify(newUserObject),
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done(function (result) {
+                console.log(result);
+                $(".signin-login-page").hide();
+                $(".user-page").show();
+                // $('#loggedInName').text(result.name);
+                // $('#loggedInUserName').val(result.username);
+                // $('section').hide();
+                // $('.navbar').show();
+                // $('#user-dashboard').show();
+                // populateUserDashboardDate(result.username);
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+    };
   });
 }
 
@@ -234,7 +331,7 @@ function getter(){
     handleSearchSubmission();
     handleStart();
     handleSignin();
-    handleLogin();
+    handleSignup();
     handleFlip();
     handleNav();
     handleLogout();

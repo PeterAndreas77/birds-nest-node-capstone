@@ -1,23 +1,34 @@
 {
-  "name": "birds-nest",
+  "name": "birds-nest-node-capstone",
   "version": "1.0.0",
   "description": "where weary travellers share their stories",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.16.3"
-  },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "mocha": "^5.2.0"
-  },
+    "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.4",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.9",
+    "moment": "^2.18.1",
+    "mongoose": "^4.5.10",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "unirest": "^0.5.1"
+},
+"devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "faker": "^3.1.0",
+    "mocha": "^3.2.0"
+},
   "scripts": {
     "test": "mocha",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PeterAndreas77/birds-nest.git"
+    "url": "git+https://github.com/PeterAndreas77/birds-nest-node-capstone.git"
   },
   "keywords": [
     "birds",
@@ -28,7 +39,7 @@
   "author": "PeterAndreas77",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PeterAndreas77/birds-nest/issues"
+    "url": "https://github.com/PeterAndreas77/birds-nest-node-capstone/issues"
   },
-  "homepage": "https://github.com/PeterAndreas77/birds-nest#readme"
+  "homepage": "https://github.com/PeterAndreas77/birds-nest-node-capstone#readme"
 }
