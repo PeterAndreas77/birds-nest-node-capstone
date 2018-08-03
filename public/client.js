@@ -182,7 +182,6 @@ $(document).ready(function () {
     $('#my-stories').on('click', () => {
         let myname = localStorage.getItem('signedInUser');
         getMyStories(myname);
-        console.log('clicked');
         $('#recent-stories-view').hide();
         $('#my-stories-view').show();
     });
@@ -197,7 +196,6 @@ $(document).ready(function () {
         })
             // if the call is successful, display user stories
             .done((result) => {
-                console.log(result);
                 displayMyStories(result);
             })
             // if the call failed, log the error
@@ -227,20 +225,48 @@ $(document).ready(function () {
         $('.my-stories-wrapper').append(myStories);
     }
     // handle when user wanted to update their stories
-    
+    $('.my-stories-wrapper').on('click', '.edit-btn', event => {
+        let updateID = $(event.currentTarget).closest('.story-item').attr('story-id');
+        localStorage.setItem('updateID', updateID);
+        $('#my-stories-view').hide();
+        $('#update-story-view').show();
+    });
+    $('.update-form').submit(event => {
+            event.preventDefault();
+            const storyTitle = $('#updateTitle').val();
+            const storyLocation = $('#updateLocation').val();
+            const storyContent = $('#updateContent').val();
+            const updateID = localStorage.getItem('updateID');
+            const updateObject = {
+                storyTitle: storyTitle,
+                storyLocation: storyLocation,
+                storyContent: storyContent
+            }
+            console.log(updateObject);
+            $.ajax({
+                type: 'PUT',
+                url: `/story/${updateID}`,
+                data: JSON.stringify(updateObject),
+                dataType: 'json',
+                contentType: 'application/json'
+            }).done(result => {
+                console.log('story updated');
+            }).fail(err =>
+                console.log(err));
+    });
+
     // handle when user want to delete their stories
-    $('.my-stories-wrapper').on('click', '.delete-btn', event=>{
+    $('.my-stories-wrapper').on('click', '.delete-btn', event => {
         let deleteID = $(event.currentTarget).closest('.story-item').attr('story-id');
         $.ajax({
             type: 'DELETE',
             url: `/story/${deleteID}`,
             dataType: 'json',
             contentType: 'application/json'
-        }).done(result=>{
+        }).done(result => {
             console.log('story deleted');
-
         }).fail(err =>
-        console.log(err));
+            console.log(err));
     });
 
     //****************************/

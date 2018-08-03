@@ -203,22 +203,19 @@ app.post('/story/create', (req, res) => {
 });
 
 // PUT --------------------------------------
-app.put('/entry/:id', function (req, res) {
+app.put('/story/:id', (req, res) => {
     let toUpdate = {};
-    //    let updateableFields = ['achieveWhat', 'achieveHow', 'achieveWhen', 'achieveWhy']; //<--Marius? 'entryType
-    let updateableFields = ['entryType', 'inputDate', 'inputPlay', 'inputAuthor', 'inputRole', 'inputCo', 'inputLocation', 'inputNotes', 'loggedInUserName'];
-    updateableFields.forEach(function (field) {
+    let updateableFields = ['storyTitle', 'storyContent', 'storyLocation'];
+    updateableFields.forEach( (field)=> {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    //    console.log(toUpdate);
-    Entry
-        .findByIdAndUpdate(req.params.id, {
-            $set: toUpdate
-        }).exec().then(function (achievement) {
-            return res.status(204).end();
-        }).catch(function (err) {
+    console.log(toUpdate);
+    Story
+        .findByIdAndUpdate(req.params.id, {$set: toUpdate}, { new: true })
+        .then(updatedStory =>  res.status(204).end())
+        .catch(function (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
             });
