@@ -1,141 +1,10 @@
 "use strict";
 
-function handleSignin() {
-  $(".btn-signin").on("click", event => {
-    event.preventDefault();
-    //take the input from the user
-    const username = $("#loginUsername").val();
-    const password = $("#loginPassword").val();
-
-    //validate the input
-    if (username == "") {
-        alert('Please input user name');
-    } else if (password == "") {
-        alert('Please input password');
-    }
-    //if the input is valid
-    else {
-        //create the payload object (what data we send to the api call)
-        const loginUserObject = {
-            username: username,
-            password: password
-        };
-        //console.log(loginUserObject);
-
-        //make the api call using the payload above
-        $.ajax({
-                type: 'POST',
-                url: '/users/login',
-                dataType: 'json',
-                data: JSON.stringify(loginUserObject),
-                contentType: 'application/json'
-            })
-            //if call is succefull
-            .done(function (result) {
-                console.log(result);
-                $('section').hide();
-                $('.navbar').show();
-                $('#user-dashboard').show();
-                $('#loggedInName').text(result.name);
-                $('#loggedInUserName').val(result.username);
-                //            htmlUserDashboard();
-                populateUserDashboardDate(result.username); //AJAX call in here??
-                //                noEntries();
-
-            })
-            //if the call is failing
-            .fail(function (jqXHR, error, errorThrown) {
-                console.log(jqXHR);
-                console.log(error);
-                console.log(errorThrown);
-                alert('Incorrect Username or Password');
-            });
-    };
-    
-    $(".signin-login-page").hide();
-    $(".user-page").show();
-  });
-}
-
-function handleSignup() {
-  $(".btn-signup").on("click", event => {
-    event.preventDefault();
-
-    //take the input from the user
-    const username = $("#name-signup").val();
-    const password = $("#pwd-signup").val();
-    const confirmPassword = $("#pwd-conf").val();
-
-    //validate the input
-    if (username == "") {
-        alert('Please add an user name');
-    } else if (password == "") {
-        alert('Please add a password');
-    } else if (password != confirmPassword) {
-        alert('The passwords do not match');
-    }
-    //if the input is valid
-    else {
-        //create the payload object (what data we send to the api call)
-        const newUserObject = {
-            username: username,
-            password: password
-        };
-        console.log(newUserObject);
-
-        //make the api call using the payload above
-        $.ajax({
-                type: 'POST',
-                url: '/users/create',
-                dataType: 'json',
-                data: JSON.stringify(newUserObject),
-                contentType: 'application/json'
-            })
-            //if call is succefull
-            .done(function (result) {
-                console.log(result);
-                $(".signin-login-page").hide();
-                $(".user-page").show();
-                // $('#loggedInName').text(result.name);
-                // $('#loggedInUserName').val(result.username);
-                // $('section').hide();
-                // $('.navbar').show();
-                // $('#user-dashboard').show();
-                // populateUserDashboardDate(result.username);
-            })
-            //if the call is failing
-            .fail(function (jqXHR, error, errorThrown) {
-                console.log(jqXHR);
-                console.log(error);
-                console.log(errorThrown);
-            });
-    };
-  });
-}
-
-function handleFlip() {
-  $(".flip").on("click", () => {
-    $(".card").toggleClass("flipped");
-  });
-}
-
-function handleNav(){
-    $('.toggle-menu').on('click', ()=>{
-        $('.navbar').toggleClass('toggle');
-        $('.content-box').toggleClass('toggle');
-    })
-}
-function handleStart(){
-    $('.btn-start').on('click', ()=>{
-        $('.landing-page').hide();
-        $('.signin-login-page').show();
-    })
-}
 function handleLogout() {
     $('#logout').on('click', event=>{
         event.preventDefault();
-        $('.user-page').hide();
-        $('.landing-page').show();
+        $('#user-page').hide();
+        $('#landing-page').show();
     })
 }
 
@@ -232,45 +101,6 @@ function getAndDisplayMyStories() {
     })
 }
 
-// ADD STORY FUNCTIONALITY
-// handle event when user click 'add story'
-function getAddForm() {
-    $('#add-story').click(()=>{
-        $('.content').empty();
-        displayAddForm();
-    })
-}
-// display add story form
-function displayAddForm(){
-    $('.content').append(`<form class="add-form" action="">
-    <fieldset>
-      <legend>Add Your Story</legend>
-      <div class="input-field">
-        <label for="title">Title</label>
-        <input id="title" type="text" name="title">
-      </div>
-      <div class="input-field">
-        <div><label for="content">Story</label></div>
-        <textarea name="content" id="content" cols="30" rows="10"></textarea>
-      </div>
-      <button type="submit" class="btn-add">submit</button>
-    </fieldset>
-  </form>`);
-}
-
-// submit user stories PROBLEM HERE
-function handleStorySubmission() {
-    $('.content').submit(event => {
-        event.preventDefault();
-        let obj = {};
-        obj.id = "xxx";
-        obj.title = $('#title').val();
-        obj.content = $('#content').val();
-        obj.author = "Oscar Wilde";
-        obj.date = Date.now();
-        FAKE_DATA.recentStories.push(obj);
-    })
-}
 
 // SEARCH STORIES FUNCTIONALITY
 // handle when user want to search for stories
@@ -325,16 +155,204 @@ function displaySearchQueries(data){
 function getter(){
     getAndDisplayRecent();
     getAndDisplayMyStories();
-    getAddForm();
-    handleStorySubmission();
     getSearchBar();
     handleSearchSubmission();
-    handleStart();
-    handleSignin();
-    handleSignup();
-    handleFlip();
-    handleNav();
     handleLogout();
 };
 
 $(getter());
+
+// all handlers can be used when your document is ready
+$(document).ready(function(){
+
+    //****************************/
+    //  LANDING PAGE
+    //**************************/
+    // handle when user click start button on landing page
+    $('.start-btn').on('click', ()=>{
+        $('#landing-page').hide();
+        $('#signin-signup-page').show();
+    });
+
+
+    //****************************/
+    //  SIGN IN & SIGN UP PAGE
+    //**************************/
+    // handle when user sign in to the app
+    $(".signInForm").submit(event => {
+        event.preventDefault();
+        //take the input from the user
+        const username = $("#signInUsername").val();
+        const password = $("#signInPassword").val();
+    
+        //validate the input
+        if (username == "") {
+            alert('Please input username');
+        } else if (password == "") {
+            alert('Please input password');
+        }
+        //if the input is valid
+        else {
+            //create the payload object (what data we send to the api call)
+            const signinUserObject = {
+                username: username,
+                password: password
+            };
+            //console.log(signinUserObject);
+    
+            //make the api call using the payload above
+            $.ajax({
+                    type: 'POST',
+                    url: '/users/signin',
+                    dataType: 'json',
+                    data: JSON.stringify(signinUserObject),
+                    contentType: 'application/json'
+                })
+                //if call is succefull
+                .done(function (result) {
+                    //console.log(result);
+                    $("#signin-signup-page").hide();
+                    $("#user-page").show();
+                    // $('section').hide();
+                    // $('.navbar').show();
+                    // $('#user-dashboard').show();
+                    // $('#loggedInName').text(result.name);
+                    // $('#loggedInUserName').val(result.username);
+                    //            htmlUserDashboard();
+                    // populateUserDashboardDate(result.username); //AJAX call in here??
+                    //                noEntries();
+    
+                })
+                //if the call is failing
+                .fail(function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                    alert('Incorrect Username or Password');
+                });
+        };
+      });
+
+    // handle when user sign up for the app
+    $(".signUpForm").on("click", event => {
+        event.preventDefault();
+    
+        //take the input from the user
+        const username = $("#signUpUsername").val();
+        const password = $("#signUpPassword").val();
+        const confirmPassword = $("#confirmPassword").val();
+    
+        //validate the input
+        if (username == "") {
+            alert('Please add an user name');
+        } else if (password == "") {
+            alert('Please add a password');
+        } else if (password != confirmPassword) {
+            alert('The passwords do not match');
+        }
+        //if the input is valid
+        else {
+            //create the payload object (what data we send to the api call)
+            const newUserObject = {
+                username: username,
+                password: password
+            };
+            console.log(newUserObject);
+    
+            //make the api call using the payload above
+            $.ajax({
+                    type: 'POST',
+                    url: '/users/signup',
+                    dataType: 'json',
+                    data: JSON.stringify(newUserObject),
+                    contentType: 'application/json'
+                })
+                //if call is succefull
+                .done(function (result) {
+                    console.log(result);
+                    $("#signin-signup-page").hide();
+                    $("#user-page").show();
+                    // $('#loggedInName').text(result.name);
+                    // $('#loggedInUserName').val(result.username);
+                    // $('section').hide();
+                    // $('.navbar').show();
+                    // $('#user-dashboard').show();
+                    // populateUserDashboardDate(result.username);
+                })
+                //if the call is failing
+                .fail(function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                });
+        };
+      });
+
+    // handle when user want to click to switch to other form
+    $(".flip").on("click", () => {
+        $(".card").toggleClass("flipped");
+    });
+
+    //****************************/
+    //  MAIN USER PAGE
+    //**************************/
+    // handle when user click menu to open & close side navbar
+    $('.toggle-menu').on('click', ()=>{
+        $('#navbar').toggleClass('toggle');
+        $('#content-container').toggleClass('toggle');
+    });
+
+    
+
+    //****************************/
+    //  CREATE STORY PAGE
+    //**************************/
+    // handle when user want to click create story
+    $('#create-story').on('click', ()=>{
+        $('#recent-container').hide();
+        $('#create-story-container').show();
+    });
+
+    // handle when user click submit to create new story
+    $('.create-form').submit(event => {
+        event.preventDefault();
+
+        // get input from the form user filled
+        const storyTitle = $('#createTitle').val();
+        const storyLocation = $('#createLocation').val();
+        const storyContent = $('#createContent').val();
+        const storyAuthor = 'demo';
+        $('#createTitle').value = '';
+        $('#createLocation').value = '';
+        $('#createContent').value = '';
+        // make a new object to send to the server
+        let createdObject = {
+            storyTitle: storyTitle,
+            storyLocation: storyLocation,
+            storyContent: storyContent,
+            storyAuthor: storyAuthor,
+            storyDate: Date.now(),
+            signedInUsername: storyAuthor
+        };
+        // make a post request to the server
+        $.ajax({
+            type: 'POST',
+            url: '/story/create',
+            dataType: 'json',
+            data: JSON.stringify(createdObject),
+            contentType: 'application/json'
+        })
+        // if the post request is successful, show recent container
+        .done((response) => {
+            alert('story has been created!');
+            $('#create-story-container').hide();
+            $('#recent-container').show();
+        })
+        // if the post request fail, log the error
+        .fail((err) => {
+            console.log(err);
+        });
+    });
+
+
+});

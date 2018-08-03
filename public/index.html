@@ -19,54 +19,54 @@
   
   <main class="main">
     
-    <section class="landing-page">
+    <section id="landing-page">
       <div class="landing-container">
           <h2 class="motto">Where weary travellers share their stories.</h2>
-          <button class="btn-start">start</button>
+          <button class="start-btn">start</button>
       </div>
     </section>
     
 
-    <section class="signin-login-page">
+    <section id="signin-signup-page">
       <div class="card">
         
         <div class="front">
-          <form action="" class="js-signin">
+          <form class="signInForm">
             <fieldset>
               <legend>Sign In</legend>
               <div class="input-field">
-                <label for="name-signin">username </label>
-                <input value="demo" type="text" id="name-signin" name="username">
+                <label for="signInUsername">username </label>
+                <input value="demo" type="text" id="signInUsername" name="signInUsername">
               </div>
               <div class="input-field">
-                <label for="pwd-signin">password </label>
-                <input value="password123" type="password" id="pwd-signin" name="password">
+                <label for="signInPassword">password </label>
+                <input value="password123" type="password" id="signInPassword" name="signInPassword">
               </div>
-              <button class="btn-signin">sign in<i class="fas fa-sign-in-alt"></i></button>
+              <button class="signin-btn" type="submit">sign in <i class="fas fa-sign-in-alt"></i></button>
             </fieldset>
           </form>
           <div class="flip">
-              <span>>>Don't have an account? Sign up here>></span>
+              <span>>> Don't have an account? Sign up here >></span>
           </div>
         </div>
         
         <div class="back">
-          <form action="" class="js-signup">
+          <form action="" class="signUpForm">
             <fieldset>
               <legend>Sign Up</legend>
               <div class="input-field">
-                <label for="name-signup">username </label>
-                <input value="demo" type="text" id="name-signup" name="username">
+                <label for="signUpUsername">username </label>
+                <input value="demo" type="text" id="signUpUsername" name="signUpUsername">
               </div>
               <div class="input-field">
-                <label for="pwd-signup">password </label>
-                <input value="password123" type="password" id="pwd-signup" name="password">
+                <label for="signUpPassword">password </label>
+                <input value="password123" type="password" id="signUpPassword" name="signUpPassword">
               </div>
               <div class="input-field">
-                  <label for="pwd-conf">confirm password </label>
-                  <input value="password123" type="password" id="pwd-conf" name="password">
+                  <label for="confirmPassword">confirm password </label>
+                  <input value="password123" type="password" id="confirmPassword" name="confirmPassword">
                 </div>
-              <button class="btn-signup">sign up<i class="fas fa-sign-in-alt"></i></button>
+              <button class="signup-btn" type="submit">sign up <i class="fas fa-sign-in-alt"></i></button>
             </fieldset>
           </form>
           <div class="flip">
@@ -77,21 +77,43 @@
     </section>
     
 
-    <section class="user-page">
+    <section id="user-page">
       <div class="user-view">
-        <nav class="navbar">
+        <nav id="navbar">
           <ul>
             <li class="navitem"><a id="my-stories" href="#"><i class="fas fa-book"></i> My Stories</a></li>
-            <li class="navitem"><a id="add-story" href="#"><i class="fas fa-plus"></i> Add Story</a></li>
-            <li id="search-stories" class="navitem"><a href="#"><i class="fas fa-search"></i> Search Stories</a></li>
-            <li id="logout" class="navitem"><a href="#"><i class="fas fa-sign-in-alt"></i> Logout</a></li>
+            <li class="navitem"><a id="create-story" href="#"><i class="fas fa-plus"></i> Create Story</a></li>
+            <li class="navitem"><a id="search-stories" href="#"><i class="fas fa-search"></i> Search Stories</a></li>
+            <li class="navitem"><a id="logout" href="#"><i class="fas fa-sign-in-alt"></i> Logout</a></li>
           </ul>
         </nav>
-        <section class="content-box">
+        <section id="content-container">
 
         <span class="toggle-menu"><i class="fas fa-2x fa-bars"></i></span>
-        <section class="content">
+        <section id="recent-container">
           
+          </section>
+          <section id="create-story-container">
+              <form class="create-form">
+                  <fieldset>
+                    <legend>Create Your Story</legend>
+                    <div class="input-field">
+                      <label for="createTitle">Title</label>
+                      <input id="createTitle" type="text" name="createTitle" required>
+                    </div>
+                    <div class="input-field">
+                      <label for="createLocation">Location</label>
+                      <input id="createLocation" type="text" name="createLocation" required>
+                    </div>
+                    <div class="input-field">
+                      <div>
+                      <label for="createContent">Story</label>
+                      </div>
+                      <textarea name="createContent" id="createContent" cols="50" rows="20" required></textarea>
+                    </div>
+                    <button type="submit" class="create-story-btn">submit</button>
+                  </fieldset>
+                </form>
           </section>
         </section>
       </div>

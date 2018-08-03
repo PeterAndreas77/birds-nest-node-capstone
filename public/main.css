@@ -35,17 +35,17 @@ body {
 }
 .header,
 .footer,
-.signin-login-page,
-.landing-page {
+#signin-signup-page,
+#landing-page {
   text-align: center;
 }
 legend{
   font-size: 20px;
 }
-.landing-page{
+#landing-page{
   margin-top: 20vh;
 }
-.signin-login-page{
+#signin-signup-page{
   margin-top: 10vh;
 }
 
@@ -54,11 +54,11 @@ legend{
   display: none;
 } */
 
-.signin-login-page {
+#signin-signup-page {
   display: none;
 }
 
-.user-page {
+#user-page {
   display: none;
 }
 
@@ -67,21 +67,21 @@ legend{
 fieldset {
   border: none;
 }
-.navbar {
+#navbar {
   position: fixed;
   left: 20px;
   height: 90%;
   transform: translateX(-180px);
   transition: transform 0.75s ease;
 }
-.navbar.toggle{
+#navbar.toggle{
   transform: translateX(0);
 }
-.content-box {
+#content-container {
   transform: translateX(0);
   transition: transform 0.75s ease;
 }
-.content-box.toggle{
+#content-container.toggle{
   transform: translateX(180px);
 }
 li > a {
@@ -142,6 +142,11 @@ button:hover {
   color: #fdc561;
   cursor: pointer;
 }
-.content{
-  text-align: left;
+#recent-container{
+  text-align: center;
+}
+
+#create-story-container{
+  display: none;
+  text-align: center;
 }

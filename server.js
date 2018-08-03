@@ -1,5 +1,5 @@
 const User = require('./models/user');
-const Entry = require('./models/entry');
+const Story = require('./models/story');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -36,10 +36,6 @@ function runServer(urlToUse) {
     });
 }
 
-if (require.main === module) {
-    runServer(config.DATABASE_URL).catch(err => console.error(err));
-}
-
 function closeServer() {
     return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
         console.log('Closing server');
@@ -52,10 +48,14 @@ function closeServer() {
     }));
 }
 
+if (require.main === module) {
+    runServer(config.DATABASE_URL).catch(err => console.error(err));
+}
+
 // ---------------USER ENDPOINTS-------------------------------------
 // POST -----------------------------------
 // creating a new user
-app.post('/users/create', (req, res) => {
+app.post('/users/signup', (req, res) => {
 
     //take the name, username and the password from the ajax api call
     let username = req.body.username;
@@ -80,7 +80,7 @@ app.post('/users/create', (req, res) => {
         //using the encryption key above generate an encrypted pasword
         bcrypt.hash(password, salt, (err, hash) => {
 
-            //if creating the ncrypted pasword returns an error..
+            //if creating the encrypted pasword returns an error..
             if (err) {
 
                 //display it
@@ -102,7 +102,7 @@ app.post('/users/create', (req, res) => {
                         message: 'Internal Server Error'
                     });
                 }
-                //if creating a new user in the DB is succefull
+                //if creating a new user in the DB is succesful
                 if (item) {
 
                     //display the new user
@@ -115,7 +115,7 @@ app.post('/users/create', (req, res) => {
 });
 
 // signing in a user
-app.post('/users/login', function (req, res) {
+app.post('/users/signin', function (req, res) {
 
     //take the username and the password from the ajax api call
     const username = req.body.username;
@@ -177,27 +177,21 @@ app.post('/users/login', function (req, res) {
 // -------------entry ENDPOINTS------------------------------------------------
 // POST -----------------------------------------
 // creating a new Entry
-app.post('/entry/create', (req, res) => {
-    let entryType = req.body.entryType;
-    let inputDate = req.body.inputDate;
-    let inputPlay = req.body.inputPlay;
-    let inputAuthor = req.body.inputAuthor;
-    let inputRole = req.body.inputRole;
-    let inputCo = req.body.inputCo;
-    let inputLocation = req.body.inputLocation;
-    let inputNotes = req.body.inputNotes;
-    let loggedInUserName = req.body.loggedInUserName;
+app.post('/story/create', (req, res) => {
+    let storyTitle = req.body.storyTitle;
+    let storyContent = req.body.storyContent;
+    let storyLocation = req.body.storyLocation;
+    let storyAuthor = req.body.storyAuthor;
+    let storyDate = req.body.storyDate;
+    let signedInUserName = req.body.signedInUserName;
 
-    Entry.create({
-        entryType,
-        inputDate,
-        inputPlay,
-        inputAuthor,
-        inputRole,
-        inputCo,
-        inputLocation,
-        inputNotes,
-        loggedInUserName
+    Story.create({
+        storyTitle,
+        storyContent,
+        storyLocation,
+        storyAuthor,
+        storyDate,
+        signedInUserName
     }, (err, item) => {
         if (err) {
             return res.status(500).json({
