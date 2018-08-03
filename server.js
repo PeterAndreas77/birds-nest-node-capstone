@@ -226,29 +226,11 @@ app.put('/entry/:id', function (req, res) {
 });
 
 // GET ------------------------------------
-// accessing all of user' stories
-// app.get('/stories/:user', function (req, res) {
-
-//     Story
-//     .find({ 'storyAuthor': req.params.username })
-//     .then((stories) => {
-//         console.log(req.params.username);
-//         res.json({ stories });
-//     })
-//     .catch((err) => {
-//             console.error(err);
-//             res.status(500).json({
-//                 message: 'Internal server error'
-//             });
-//         });
-// });
-
-// processing recent stories
+// accessing all recent stories
 app.get('/stories/recent', function (req, res) {
-    Story
-    .find()
-    .then(stories => res.json( stories.map( story => story.serialize())))
-    .catch((err) => {
+    Story.find()
+        .then(stories => res.json(stories.map(story => story.serialize())))
+        .catch((err) => {
             console.error(err);
             res.status(500).json({
                 message: 'Internal server error'
@@ -256,24 +238,22 @@ app.get('/stories/recent', function (req, res) {
         });
 });
 
-app.get('/entry-seen/:user', function (req, res) {
+// accessing user's stories
+app.get('/mystories/:user', function (req, res) {
+    Story.find({ storyAuthor: req.params.user })
+        .then(stories => res.json(stories.map(story => story.serialize())))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
+});
 
-    Entry
-        .find({
-            "entryType": "seen"
-        })
-        .sort('inputDate')
-        .then(function (entries) {
-            let entriesOutput = [];
-            entries.map(function (entry) {
-                if (entry.loggedInUserName == req.params.user) {
-                    entriesOutput.push(entry);
-                }
-            });
-            res.json({
-                entriesOutput
-            });
-        })
+app.get('/stories/location/:query', function (req, res) {
+    Story
+        .find({ storyLocation: req.params.query })
+        .then(stories => res.json(stories.map(story => story.serialize())))
         .catch(function (err) {
             console.error(err);
             res.status(500).json({
@@ -281,6 +261,7 @@ app.get('/entry-seen/:user', function (req, res) {
             });
         });
 });
+
 app.get('/entry-performed/:user', function (req, res) {
 
     Entry
@@ -322,9 +303,9 @@ app.get('/entry/:id', function (req, res) {
 });
 
 // DELETE ----------------------------------------
-// deleting an achievement by id
-app.delete('/entry/:id', function (req, res) {
-    Entry.findByIdAndRemove(req.params.id).exec().then(function (entry) {
+// deleting story by id
+app.delete('/story/:id', function (req, res) {
+    Story.findByIdAndRemove(req.params.id).then(()=> {
         return res.status(204).end();
     }).catch(function (err) {
         return res.status(500).json({

@@ -33,9 +33,10 @@ const storySchema = new mongoose.Schema({
 storySchema.methods.serialize = function() {
     return {
         id: this._id,
-        author: this.storyAuthor,
-        content: this.storyContent,
         title: this.storyTitle,
+        location: this.storyLocation,
+        content: this.storyContent,
+        author: this.storyAuthor,
         date: this.storyDate
     };
 };

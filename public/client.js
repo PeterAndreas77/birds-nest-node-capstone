@@ -1,70 +1,5 @@
 'use strict';
 
-function handleLogout() {
-    $('#logout').on('click', event => {
-        event.preventDefault();
-        $('#user-page').hide();
-        $('#landing-page').show();
-    })
-}
-
-// SEARCH STORIES FUNCTIONALITY
-// handle when user want to search for stories
-function getSearchBar() {
-    $('#search-stories').click(() => {
-        $('.content').empty();
-        displaySearchBar();
-    })
-}
-// render search bar into the DOM
-function displaySearchBar() {
-    $('.content').append(`<form class="search-form" action="">
-    <fieldset>
-      <legend>Search Stories</legend>
-      <div class="input-field">
-        <label for="search">Search</label>
-        <input type="text" id="search" name="search">
-      </div>
-      <button class="btn-search" type="submit">Submit</button>
-    </fieldset>
-  </form>
-  <section class="search-view">
-</section>`);
-}
-// handle when user submitted their search queries
-function handleSearchSubmission() {
-    $('.content').submit(event => {
-        event.preventDefault();
-        let search = $('#search').val();
-        getSearchQueries(search);
-    })
-}
-// get queries from database
-function getSearchQueries(search) {
-    const stories = FAKE_DATA.recentStories;
-    const queries = [];
-    for (let i in stories) {
-        if (Object.values(stories[i]).includes(search)) {
-            queries.push(stories[i]);
-        }
-    }
-    displaySearchQueries(queries);
-}
-// display queries below search
-function displaySearchQueries(data) {
-    for (let i in data) {
-        $('.search-view').append(`<p><a class="story-item">${data[i].title}</a></p>
-        <p><a>${data[i].content}</a></p>`);
-    }
-}
-
-function getter() {
-    getSearchBar();
-    handleSearchSubmission();
-    handleLogout();
-};
-
-$(getter());
 
 // all handlers can be used when your document is ready
 $(document).ready(function () {
@@ -117,6 +52,7 @@ $(document).ready(function () {
                     //console.log(result);
                     $("#signin-signup-page").hide();
                     $("#user-page").show();
+                    localStorage.setItem('signedInUser', result.username);
                     // $('section').hide();
                     // $('.navbar').show();
                     // $('#user-dashboard').show();
@@ -176,6 +112,7 @@ $(document).ready(function () {
                     console.log(result);
                     $("#signin-signup-page").hide();
                     $("#user-page").show();
+                    localStorage.setItem('signedInUser', result.username);
                     // $('#loggedInName').text(result.name);
                     // $('#loggedInUserName').val(result.username);
                     // $('section').hide();
@@ -213,78 +150,98 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: 'application/json'
         })
-        // if ajax call is successful, show recent view
-        .done((results) => {
-            $('#recent-stories-view').show();
-            displayRecentStories(results);
-        })
-        // if ajax call failed, show error on terminal
-        .fail((err) => {
-            console.log(err);
-        })
+            // if ajax call is successful, show recent view
+            .done((results) => {
+                displayRecentStories(results);
+            })
+            // if ajax call failed, show error on terminal
+            .fail((err) => {
+                console.log(err);
+            })
     }
     // display recent stories into the DOM
     function displayRecentStories(stories) {
-        const recentStories = [];
+        let recentStories = [];
         for (let index in stories) {
-            recentStories += `<div class="story-item">
-            <h3 class="story-titles"><a>${stories[index].title}</a></h3>
-            <p class="story-author">${stories[index].author}</p> 
-            <p class="story-date">${stories[index].date}</p>
-            <p class="story-content">${stories[index].content}</p>
-        </div>`;
+            recentStories +=
+                `<div class="story-item">
+                <h4 class="story-title">${stories[index].title}</h4>
+                <h6 class="story-location">${stories[index].location}</h6>
+                <p class="story-content">${stories[index].content}</p>
+                <p class="story-info">created: ${stories[index].date}, 
+                by: ${stories[index].author}</p>
+                </div>`;
         };
         $('.recent-stories-wrapper').append(recentStories);
     }
 
     //****************************/
-    //  MY STORIES PAGE
+    // MY STORIES PAGE
     //**************************/
     // handle when user want to see their own stories
-    // $('#my-stories').on('click', () => {
-    //     $('#recent-stories-view').hide();
-    //     $('#my-stories-view').show();
-    // });
-    // // GET user stories by making ajax call to the server
-    // function getMyStories(username) {
-    //     // if username is empty, then signed in username is username
-    //     if (username == "" || username == undefined || username == null) {
-    //         username = $('#signedInUsername').val();
-    //     }
-    //     // make an object for the call
-    //     const userObject = { username: username };
-    //     console.log(userObject);
-    //     // make an ajax call to the server
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: `/stories/${username}`,
-    //         dataType: 'json',
-    //         data: JSON.stringify(userObject),
-    //         contentType: 'application/json'
-    //     })
-    //     // if the call is successful, display user stories
-    //     .done((result) => {
-    //         console.log(result);
-    //         //displayMyStories(result);
-    //     })
-    //     // if the call failed, log the error
-    //     .fail((err) => {
-    //         console.log(err);
-    //     });
-    // }
-    // // render my stories in the DOM
-    // function displayMyStories(data) {
-    //     for (let i in stories) {
-    //         if (stories[i].author == me) {
-    //             myStories.push(stories[i]);
-    //         }
-    //     }
-    //     for (let i in myStories) {
-    //         $('.content').empty();
-    //         $('.content').append(`<p><a class="story-item">${myStories[i].title}</a></p>
-    //     <p><a>${myStories[i].content}</a></p>`);
-    //     }
-    // }
+    $('#my-stories').on('click', () => {
+        let myname = localStorage.getItem('signedInUser');
+        getMyStories(myname);
+        console.log('clicked');
+        $('#recent-stories-view').hide();
+        $('#my-stories-view').show();
+    });
+    // get user stories by making ajax call to the server
+    function getMyStories(myname) {
+        // make an object for the call
+        $.ajax({
+            type: 'GET',
+            url: `/mystories/${myname}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+            // if the call is successful, display user stories
+            .done((result) => {
+                console.log(result);
+                displayMyStories(result);
+            })
+            // if the call failed, log the error
+            .fail((err) => {
+                console.log(err);
+            });
+    }
+    // render my stories in the DOM
+    function displayMyStories(stories) {
+        let myname = localStorage.getItem('signedInUser');
+        let myStories = [];
+        for (let index in stories) {
+            if (stories[index].author === myname) {
+                stories[index].author = 'Me';
+            }
+            myStories +=
+                `<div class="story-item" story-id="${stories[index].id}">
+                <h4 class="story-title">${stories[index].title}</h4>
+                <h6 class="story-location">${stories[index].location}</h6>
+                <p class="story-content">${stories[index].content}</p>
+                <p class="story-info">created: ${stories[index].date}, 
+                by: ${stories[index].author}</p>
+                <button class="edit-btn">edit</button>
+                <button class="delete-btn">delete</button>
+                </div>`;
+        };
+        $('.my-stories-wrapper').append(myStories);
+    }
+    // handle when user wanted to update their stories
+    
+    // handle when user want to delete their stories
+    $('.my-stories-wrapper').on('click', '.delete-btn', event=>{
+        let deleteID = $(event.currentTarget).closest('.story-item').attr('story-id');
+        $.ajax({
+            type: 'DELETE',
+            url: `/story/${deleteID}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        }).done(result=>{
+            console.log('story deleted');
+
+        }).fail(err =>
+        console.log(err));
+    });
 
     //****************************/
     //  CREATE STORY PAGE
@@ -303,7 +260,7 @@ $(document).ready(function () {
         const storyTitle = $('#createTitle').val();
         const storyLocation = $('#createLocation').val();
         const storyContent = $('#createContent').val();
-        const storyAuthor = 'demo';
+        const storyAuthor = localStorage.getItem('signedInUser');
         $('#createTitle').value = '';
         $('#createLocation').value = '';
         $('#createContent').value = '';
@@ -336,5 +293,47 @@ $(document).ready(function () {
             });
     });
 
+    //****************************/
+    //  SEARCH LOCATION PAGE
+    //**************************/
+    // handle when user want to search for stories
+    $('#search-stories-by-loc').click(() => {
+        $('#recent-stories-view').hide();
+        $('#search-loc-view').show();
+    });
+    // handle when user submitted their search queries
+    $('.search-loc-form').submit(event => {
+        event.preventDefault();
+        let query = $('#search').val();
+        $.ajax({
+            type: 'GET',
+            url: `/stories/location/${query}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+            // if the call is successful, display user stories
+            .done((result) => {
+                console.log(result);
+                //display(result);
+            })
+            // if the call failed, log the error
+            .fail((err) => {
+                console.log(err);
+            });
+    });
+
+    // function displaySearchQueries(data) {
+    //     for (let i in data) {
+    //         $('.search-view').append(`<p><a class="story-item">${data[i].title}</a></p>
+    //     <p><a>${data[i].content}</a></p>`);
+    //     }
+    // }
+
+    // handle logout
+    $('#logout').on('click', event => {
+        localStorage.removeItem('signedInUser');
+        $('#user-page').hide();
+        $('#landing-page').show();
+    });
 
 });

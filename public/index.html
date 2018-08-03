@@ -96,8 +96,8 @@
                 <i class="fas fa-plus"></i> Create Story</a>
             </li>
             <li class="navitem">
-              <a id="search-stories" href="#">
-                <i class="fas fa-search"></i> Search Stories</a>
+              <a id="search-stories-by-loc" href="#">
+                <i class="fas fa-search"></i> Search Location</a>
             </li>
             <li class="navitem">
               <a id="logout" href="#">
@@ -112,13 +112,13 @@
 
           <section id="recent-stories-view">
             <div class="recent-stories-wrapper">
-
+              <!-- RECENT STORIES GO HERE -->
             </div>
           </section>
 
           <section id="my-stories-view">
             <div class="my-stories-wrapper">
-
+              <!-- MY STORIES GO HERE -->
             </div>
           </section>
 
@@ -144,6 +144,29 @@
                   <button type="submit" class="create-story-btn">submit</button>
                 </fieldset>
               </form>
+            </div>
+          </section>
+
+
+          <section id="search-loc-view">
+            <div class="search-loc-wrapper">
+              <form class="search-loc-form">
+                <fieldset>
+                  <legend>Search Stories by Location</legend>
+                  <div class="input-field">
+                    <label for="search">Location </label>
+                    <input type="text" id="search" name="search">
+                  </div>
+                  <button class="search-loc-btn" type="submit">Submit</button>
+                </fieldset>
+              </form>
+
+              <section id="search-results-view">
+                <div class="search-results-wrapper">
+                  <!-- SEARCH QUERIES GO HERE -->
+                </div>
+              </section>
+
             </div>
           </section>
 

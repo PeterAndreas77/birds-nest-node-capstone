@@ -138,15 +138,22 @@ button:hover {
 .navitem{
   margin-top: 10px;
 }
-.flip:hover, .navitem>a:hover, .story-titles:hover, .toggle-menu:hover{
+.flip:hover, .navitem>a:hover, .toggle-menu:hover{
   color: #fdc561;
   cursor: pointer;
 }
-#recent-container{
+#recent-stories-view, #my-stories-view{
   text-align: center;
 }
-
-#create-story-container{
+#search-loc-view{
+  display: none;
+  text-align: center;
+}
+.story-item{
+  border: #062F63 2px solid;
+  margin: 2px;
+}
+#create-story-view{
   display: none;
   text-align: center;
 }
