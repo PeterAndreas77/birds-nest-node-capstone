@@ -5,31 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
   <title>Bird's Nest</title>
 </head>
 
 <body>
-  
+
   <header class="header">
-    <h1><i class="fas fa-crow"></i> Bird's Nest</h1>
+    <h1>
+      <i class="fas fa-crow"></i> Bird's Nest</h1>
   </header>
-  
+
   <main class="main">
-    
+
     <section id="landing-page">
       <div class="landing-container">
-          <h2 class="motto">Where weary travellers share their stories.</h2>
-          <button class="start-btn">start</button>
+        <h2 class="motto">Where weary travellers share their stories.</h2>
+        <button class="start-btn">start</button>
       </div>
     </section>
-    
+
 
     <section id="signin-signup-page">
       <div class="card">
-        
+
         <div class="front">
           <form class="signInForm">
             <fieldset>
@@ -42,14 +44,16 @@
                 <label for="signInPassword">password </label>
                 <input value="password123" type="password" id="signInPassword" name="signInPassword">
               </div>
-              <button class="signin-btn" type="submit">sign in <i class="fas fa-sign-in-alt"></i></button>
+              <button class="signin-btn" type="submit">sign in
+                <i class="fas fa-sign-in-alt"></i>
+              </button>
             </fieldset>
           </form>
           <div class="flip">
-              <span>>> Don't have an account? Sign up here >></span>
+            <span>>> Don't have an account? Sign up here >></span>
           </div>
         </div>
-        
+
         <div class="back">
           <form action="" class="signUpForm">
             <fieldset>
@@ -63,61 +67,90 @@
                 <input value="password123" type="password" id="signUpPassword" name="signUpPassword">
               </div>
               <div class="input-field">
-                  <label for="confirmPassword">confirm password </label>
-                  <input value="password123" type="password" id="confirmPassword" name="confirmPassword">
-                </div>
-              <button class="signup-btn" type="submit">sign up <i class="fas fa-sign-in-alt"></i></button>
+                <label for="confirmPassword">confirm password </label>
+                <input value="password123" type="password" id="confirmPassword" name="confirmPassword">
+              </div>
+              <button class="signup-btn" type="submit">sign up
+                <i class="fas fa-sign-in-alt"></i>
+              </button>
             </fieldset>
           </form>
           <div class="flip">
-              <span>>>Already have an account? Sign in here>></span>
+            <span>>>Already have an account? Sign in here>></span>
           </div>
         </div>
       </div>
     </section>
-    
+
 
     <section id="user-page">
       <div class="user-view">
         <nav id="navbar">
           <ul>
-            <li class="navitem"><a id="my-stories" href="#"><i class="fas fa-book"></i> My Stories</a></li>
-            <li class="navitem"><a id="create-story" href="#"><i class="fas fa-plus"></i> Create Story</a></li>
-            <li class="navitem"><a id="search-stories" href="#"><i class="fas fa-search"></i> Search Stories</a></li>
-            <li class="navitem"><a id="logout" href="#"><i class="fas fa-sign-in-alt"></i> Logout</a></li>
+            <li class="navitem">
+              <a id="my-stories" href="#">
+                <i class="fas fa-book"></i> My Stories</a>
+            </li>
+            <li class="navitem">
+              <a id="create-story" href="#">
+                <i class="fas fa-plus"></i> Create Story</a>
+            </li>
+            <li class="navitem">
+              <a id="search-stories" href="#">
+                <i class="fas fa-search"></i> Search Stories</a>
+            </li>
+            <li class="navitem">
+              <a id="logout" href="#">
+                <i class="fas fa-sign-in-alt"></i> Logout</a>
+            </li>
           </ul>
         </nav>
         <section id="content-container">
+          <span class="toggle-menu">
+            <i class="fas fa-2x fa-bars"></i>
+          </span>
 
-        <span class="toggle-menu"><i class="fas fa-2x fa-bars"></i></span>
-        <section id="recent-container">
-          
+          <section id="recent-stories-view">
+            <div class="recent-stories-wrapper">
+
+            </div>
           </section>
-          <section id="create-story-container">
+
+          <section id="my-stories-view">
+            <div class="my-stories-wrapper">
+
+            </div>
+          </section>
+
+          <section id="create-story-view">
+            <div class="create-story-wrapper">
               <form class="create-form">
-                  <fieldset>
-                    <legend>Create Your Story</legend>
-                    <div class="input-field">
-                      <label for="createTitle">Title</label>
-                      <input id="createTitle" type="text" name="createTitle" required>
-                    </div>
-                    <div class="input-field">
-                      <label for="createLocation">Location</label>
-                      <input id="createLocation" type="text" name="createLocation" required>
-                    </div>
-                    <div class="input-field">
-                      <div>
+                <fieldset>
+                  <legend>Create Your Story</legend>
+                  <div class="input-field">
+                    <label for="createTitle">Title</label>
+                    <input id="createTitle" type="text" name="createTitle" required>
+                  </div>
+                  <div class="input-field">
+                    <label for="createLocation">Location</label>
+                    <input id="createLocation" type="text" name="createLocation" required>
+                  </div>
+                  <div class="input-field">
+                    <div>
                       <label for="createContent">Story</label>
-                      </div>
-                      <textarea name="createContent" id="createContent" cols="50" rows="20" required></textarea>
                     </div>
-                    <button type="submit" class="create-story-btn">submit</button>
-                  </fieldset>
-                </form>
+                    <textarea name="createContent" id="createContent" cols="50" rows="20" required></textarea>
+                  </div>
+                  <button type="submit" class="create-story-btn">submit</button>
+                </fieldset>
+              </form>
+            </div>
           </section>
+
         </section>
       </div>
     </section>
+
   </main>
 
 
@@ -125,10 +158,8 @@
     <p>2018 &copy; Andreas Soedharto</p>
   </footer>
 
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <script src="client.js"></script>
 </body>
 

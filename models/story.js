@@ -30,6 +30,16 @@ const storySchema = new mongoose.Schema({
     }
 });
 
-const Story = mongoose.model('Story', storySchema);
+storySchema.methods.serialize = function() {
+    return {
+        id: this._id,
+        author: this.storyAuthor,
+        content: this.storyContent,
+        title: this.storyTitle,
+        date: this.storyDate
+    };
+};
+
+const Story = mongoose.model('Story', storySchema, 'stories');
 
 module.exports = Story;

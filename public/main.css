@@ -138,7 +138,7 @@ button:hover {
 .navitem{
   margin-top: 10px;
 }
-.flip:hover, .navitem>a:hover, .story-item:hover{
+.flip:hover, .navitem>a:hover, .story-titles:hover, .toggle-menu:hover{
   color: #fdc561;
   cursor: pointer;
 }

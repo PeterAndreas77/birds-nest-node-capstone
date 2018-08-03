@@ -2,7 +2,7 @@ const User = require('./models/user');
 const Story = require('./models/story');
 const bodyParser = require('body-parser');
 const config = require('./config');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose').set('debug', true);
 const moment = require('moment');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -125,10 +125,8 @@ app.post('/users/signin', function (req, res) {
     User.findOne({
         username: username
     }, function (err, items) {
-
         //if the there is an error connecting to the DB
         if (err) {
-
             //display it
             return res.status(500).json({
                 message: "Internal server error"
@@ -214,7 +212,7 @@ app.put('/entry/:id', function (req, res) {
             toUpdate[field] = req.body[field];
         }
     });
-//    console.log(toUpdate);
+    //    console.log(toUpdate);
     Entry
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
@@ -228,55 +226,36 @@ app.put('/entry/:id', function (req, res) {
 });
 
 // GET ------------------------------------
-// accessing all of a user's entries
-app.get('/entry-date/:user', function (req, res) {
+// accessing all of user' stories
+// app.get('/stories/:user', function (req, res) {
 
-    Entry
-        .find()
-        .sort('inputDate')
-        .then(function (entries) {
-            let entriesOutput = [];
-            entries.map(function (entry) {
-                if (entry.loggedInUserName == req.params.user) {
-                    entriesOutput.push(entry);
-                }
-            });
-            res.json({
-                entriesOutput
-            });
-        })
-        .catch(function (err) {
+//     Story
+//     .find({ 'storyAuthor': req.params.username })
+//     .then((stories) => {
+//         console.log(req.params.username);
+//         res.json({ stories });
+//     })
+//     .catch((err) => {
+//             console.error(err);
+//             res.status(500).json({
+//                 message: 'Internal server error'
+//             });
+//         });
+// });
+
+// processing recent stories
+app.get('/stories/recent', function (req, res) {
+    Story
+    .find()
+    .then(stories => res.json( stories.map( story => story.serialize())))
+    .catch((err) => {
             console.error(err);
             res.status(500).json({
                 message: 'Internal server error'
             });
         });
 });
-app.get('/entry-read/:user', function (req, res) {
 
-    Entry
-        .find({
-            "entryType": "read"
-        })
-        .sort('inputDate')
-        .then(function (entries) {
-            let entriesOutput = [];
-            entries.map(function (entry) {
-                if (entry.loggedInUserName == req.params.user) {
-                    entriesOutput.push(entry);
-                }
-            });
-            res.json({
-                entriesOutput
-            });
-        })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal server error'
-            });
-        });
-});
 app.get('/entry-seen/:user', function (req, res) {
 
     Entry
