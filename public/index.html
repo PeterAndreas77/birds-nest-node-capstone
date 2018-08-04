@@ -101,9 +101,11 @@
             </li>
           </ul>
         </nav>
+        
         <section id="content-container">
 
           <section id="flight-plans-view">
+
             <div class="flight-plans-controls">
               <span class="toggle-menu control-item">
                 <i class="fas fa-2x fa-bars"></i>
@@ -112,13 +114,14 @@
                 <i class="fas fa-plus"></i> Create Flight Plan
               </span>
               <span class="control-item search-flight-plan">
-                <label for="searchCountry">Search by Country
-                  <i class="fas fa-search"></i></label>
-                <input type="text" id"searchCountry" name="searchCountry">
+                <label for="searchPlace">Search Plan
+                  <i class="fas fa-search"></i>
+                </label>
+                <input type="text" id="searchPlace" name="searchPlace">
                 <button class="search-plan-btn">search</button>
               </span>
-
             </div>
+
 
             <section id="my-flight-plans-view">
               <div class="my-flight-plans-wrapper">
@@ -128,68 +131,108 @@
               </div>
             </section>
 
+
             <section id="create-flight-plan-view">
               <div class="create-flight-plan-wrapper">
+
                 <form class="create-plan-form">
                   <fieldset>
                     <legend>Create Your Flight Plan</legend>
+
                     <div class="input-field">
                       <label for="createCountry">Country</label>
                       <input id="createCountry" type="text" name="createCountry" required>
                     </div>
+
                     <div class="input-field">
                       <label for="createLocation">Location</label>
                       <input id="createLocation" type="text" name="createLocation" required>
                     </div>
+
                     <div class="input-field">
                       <label for="createStartDate">Start Date</label>
                       <input id="createStartDate" type="date" name="createStartDate" required>
                     </div>
+
                     <div class="input-field">
                       <label for="createEndDate">End Date</label>
                       <input id="createEndDate" type="date" name="createEndDate" required>
                     </div>
+
                     <button type="submit" class="create-flight-plan-btn">submit</button>
+                  </fieldset>
+                </form>
+
+              </div>
+            </section>
+
+
+            <section id="update-flight-plan-view">
+              <div class="update-flight-plan-wrapper">
+
+                <form class="update-plan-form">
+                  <fieldset>
+                    <legend>Update Your Flight Plan</legend>
+
+                    <div class="input-field">
+                      <label for="updateCountry">Country</label>
+                      <input id="updateCountry" type="text" name="updateCountry" required>
+                    </div>
+
+                    <div class="input-field">
+                      <label for="updateLocation">Location</label>
+                      <input id="updateLocation" type="text" name="updateLocation" required>
+                    </div>
+
+                    <div class="input-field">
+                      <label for="updateStartDate">Start Date</label>
+                      <input id="updateStartDate" type="date" name="updateStartDate" required>
+                    </div>
+
+                    <div class="input-field">
+                      <label for="updateEndDate">End Date</label>
+                      <input id="updateEndDate" type="date" name="updateEndDate" required>
+                    </div>
+
+                    <button type="submit" class="update-flight-plan-btn">submit</button>
                   </fieldset>
                 </form>
               </div>
             </section>
 
-            <section id="update-flight-plan-view">
-              <div class="update-flight-plan-wrapper">
-                <form class="update-flight-plan-form">
+            <section id="create-flight-history-view">
+              <div class="create-flight-history-wrapper">
+
+                <form class="create-history-form">
                   <fieldset>
-                    <legend>Update Your Flight Plan</legend>
+                    <legend>How was your flight?</legend>
+
                     <div class="input-field">
-                      <label for="updateCountry">Country</label>
-                      <input id="updateCountry" type="text" name="updateCountry" required>
+                      <label for="createTitle">Title</label>
+                      <input id="createTitle" type="text" name="createTitle" required>
                     </div>
+
                     <div class="input-field">
-                      <label for="updateLocation">Location</label>
-                      <input id="updateLocation" type="text" name="updateLocation" required>
+                      <label for="createRating">Rating</label>
+                      <input id="createRating" type="number" min="1" max="5" name="createRating" required>
                     </div>
+
                     <div class="input-field">
-                      <div class="input-field">
-                        <label for="updateDuration">Duration</label>
-                        <input id="updateDuration" type="text" name="updateDuration" required>
-                      </div>
-                      <div class="input-field">
-                        <label for="updateBudget">Budget</label>
-                        <input id="updateBudget" type="number" name="updateBudget" required>
-                      </div>
-                      <button type="submit" class="update-flight-plan-btn">submit</button>
+                      <label for="createStory">Your Story</label>
+                      <textarea id="createStory" type="text" name="createStory" required>
+                        </textarea>
+                    </div>
+
+                    <button type="submit" class="create-flight-history-btn">submit</button>
                   </fieldset>
                 </form>
-                </div>
+              </div>
             </section>
-
-
 
           </section>
 
-
         </section>
-        </div>
+      </div>
     </section>
 
   </main>

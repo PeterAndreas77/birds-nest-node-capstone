@@ -11,6 +11,7 @@ const flightPlanSchema = new mongoose.Schema({
     author: { type: String },
     title: { type: String },
     story: { type: String },
+    rating: { type: Number },
     created: { type: Date, default: Date.now() },
     visited: { type: Boolean, default: false }
 });
@@ -23,6 +24,20 @@ flightPlanSchema.methods.planned = function () {
         date: this.date,
         duration: this.duration,
         created: this.created
+    };
+};
+
+flightPlanSchema.methods.historied = function () {
+    return {
+        id: this._id,
+        country: this.country,
+        location: this.location,
+        date: this.date,
+        duration: this.duration,
+        created: this.created,
+        title: this.title,
+        story: this.story,
+        rating: this.rating
     };
 };
 

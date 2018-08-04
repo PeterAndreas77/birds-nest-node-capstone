@@ -1,4 +1,5 @@
 'use strict';
+
 function differenceInDays(start, end) {
     let startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()),
         endUTC = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()),
@@ -19,6 +20,24 @@ function formatDate(anyDate) {
     }
     date = mm + "-" + dd + "-" + yyyy;
     return date;
+}
+
+function createMyFlightHistory(newHistObj, id) {
+    $.ajax({
+        type: 'PUT',
+        url: `/flighthistory/${id}`,
+        data: JSON.stringify(newHistObj),
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        .done(() => {
+            console.log('plan updated');
+            // const username = localStorage.getItem('signedInUser');
+            // getMyFlightPlans(username);
+            // $('#update-flight-plan-view').hide();
+            // $('#my-flight-plans-view').show();
+        })
+        .fail(err => console.log(err));
 }
 
 function getMyFlightPlans(myname) {
@@ -42,6 +61,7 @@ function renderMyFlightPlans(plans) {
             <p class="plan-location">Location: ${plans[index].location}</p>
             <p class="plan-budget">duration: ${plans[index].duration} days, from ${plans[index].date.start} to ${plans[index].date.end}</p>
             <p class="plan-info">created: ${created}</p>
+            <button class="visited-btn">visited</button>
             <button class="edit-btn">edit</button>
             <button class="delete-btn">delete</button>
             </div>`;
@@ -49,16 +69,16 @@ function renderMyFlightPlans(plans) {
     $('.my-flight-plans-wrapper').html(myFlightPlans);
 }
 
-function searchMyFlightPlans(country, author) {
+function searchMyFlightPlans(place, author) {
     $.ajax({
         type: 'GET',
-        url: `/flightplan/${author}/${country}`,
+        url: `/flightplan/${author}/${place}`,
         dataType: 'json',
         contentType: 'application.json'
     })
         .done(result => {
             if (result == undefined || result.length == 0) {
-                $('.my-flight-plans-wrapper').html('No plans in that country were found!')
+                $('.my-flight-plans-wrapper').html('No plans in that country or location were found!')
             }
             else {
                 renderMyFlightPlans(result);
@@ -269,21 +289,20 @@ $(document).ready(function () {
         getMyFlightPlans(myname);
         $('#flight-plans-view').show();
     });
+
     // handle when user want to search plan by country
     $('.search-plan-btn').on('click', () => {
-
-        // this value function returns undefined
-        ///const query = $('#searchCountry').val();
-
-        const country = 'Greece';
-        const author = localStorage.getItem('signedInUser');
-        searchMyFlightPlans(country, author);
+        let place = $('#searchPlace').val(),
+            author = localStorage.getItem('signedInUser');
+        searchMyFlightPlans(place, author);
     })
+
     // handle when user want to click create new flight plan
     $('#create-flight-plan').on('click', () => {
         $('#my-flight-plans-view').hide();
         $('#create-flight-plan-view').show();
     });
+
     // handle when user click submit to create new story
     $('.create-plan-form').submit(event => {
         event.preventDefault();
@@ -295,7 +314,7 @@ $(document).ready(function () {
             author = localStorage.getItem('signedInUser'),
             startStr = formatDate(startDate),
             endStr = formatDate(endDate);
-        let createdObject = {
+        const createdObject = {
             country: country,
             location: location,
             date: { start: startStr, end: endStr },
@@ -304,6 +323,7 @@ $(document).ready(function () {
         };
         createMyFlightPlan(createdObject);
     });
+
     // handle when user click edit button to update their stories
     $('.my-flight-plans-wrapper').on('click', '.edit-btn', event => {
         let updateID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
@@ -311,28 +331,59 @@ $(document).ready(function () {
         $('#my-flight-plans-view').hide();
         $('#update-flight-plan-view').show();
     });
+
     // handle the submission of flight plan update form
     $('.update-plan-form').submit(event => {
         event.preventDefault();
-        const country = $('#updateCountry').val();
-        const location = $('#updateLocation').val();
-        const budget = $('#updateBudget').val();
-        const duration = $('#updateDuration').val();
-        const updateID = localStorage.getItem('updateID');
+        let country = $('#updateCountry').val(),
+            location = $('#updateLocation').val(),
+            startDate = new Date($('#updateStartDate').val()),
+            endDate = new Date($('#updateEndDate').val()),
+            duration = differenceInDays(startDate, endDate),
+            updateID = localStorage.getItem('updateID'),
+            startStr = formatDate(startDate),
+            endStr = formatDate(endDate);
         const updateObject = {
             id: updateID,
             country: country,
             location: location,
-            budget: budget,
-            duration: duration,
+            date: { start: startStr, end: endStr },
+            duration: duration
         };
         updateMyFlightPlan(updateObject, updateID);
     });
+
     // handle when user want to delete their flight plan
     $('.my-flight-plans-wrapper').on('click', '.delete-btn', event => {
         let deleteID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         deleteMyFlightPlan(deleteID);
     });
+
+    // handle when user check visited if they did their flight plan
+    $('.my-flight-plans-wrapper').on('click', '.visited-btn', event => {
+        let visitID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
+        localStorage.setItem('visitID', visitID);
+        $('#my-flight-plans-view').hide();
+        $('#create-flight-history-view').show();
+    });
+
+    //handle when user created a new flight history
+    $('.create-history-form').submit(event => {
+        event.preventDefault();
+        let title = $('#createTitle').val(),
+            rating = $('#createRating').val(),
+            story = $('#createStory').val(),
+            visitID = localStorage.getItem('visitID');
+        const newHistory = {
+            id: visitID,
+            title: title,
+            rating: rating,
+            story: story,
+            visited: true
+        };
+        createMyFlightHistory(newHistory, visitID);
+    });
+
     // handle logout
     $('#logout').on('click', event => {
         localStorage.removeItem('signedInUser');

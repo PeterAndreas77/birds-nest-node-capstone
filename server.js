@@ -178,16 +178,20 @@ app.post('/users/signin', function (req, res) {
 //  handle GET request from client
 app.get('/flightplan/:user', (req, res) => {
     FlightPlan
-        .find({ author: req.params.user })
+        .find({ author: req.params.user, visited: 'false' })
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
             console.error(err);
             res.status(500).json({ message: 'Internal server error' });
         });
 });
-app.get('/flightplan/:user/:country', (req, res) => {
+
+app.get('/flightplan/:user/:place', (req, res) => {
     FlightPlan
-        .find({ author: req.params.user, country: req.params.country })
+        .find({
+            author: req.params.user,
+            $or: [{ country: req.params.place }, { location: req.params.place }]
+        })
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
             console.error(err);
@@ -223,21 +227,21 @@ app.post('/flightplan/create', (req, res) => {
 });
 
 //  handle PUT request from client
-app.put('/flightplan/:id', (req, res) => {
+app.put('/flighthistory/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({ error: 'req.params.id and req.body.id must match' });
     }
 
-    let updateObj = {};
-    let updateableFields = ['country', 'location', 'budget', 'duration'];
+    let newObj = {};
+    let updateableFields = ['title', 'rating', 'story', 'visited'];
     updateableFields.forEach((field) => {
         if (field in req.body) {
-            updateObj[field] = req.body[field];
+            newObj[field] = req.body[field];
         }
     });
-
+    console.log(newObj);
     FlightPlan
-        .findByIdAndUpdate(req.params.id, { $set: updateObj }, { new: true })
+        .findByIdAndUpdate(req.params.id, { $set: newObj }, { new: true })
         .then(updatedPlan => res.status(204).end())
         .catch(err => {
             console.error(err);
@@ -257,33 +261,31 @@ app.delete('/flightplan/:id', function (req, res) {
 });
 
 
-// GET ------------------------------------
-// accessing all recent stories
-app.get('/stories/recent', function (req, res) {
-    Story.find()
-        .then(stories => res.json(stories.map(story => story.serialize())))
-        .catch((err) => {
+//****************************/
+// FLIGHT HISTORY ENDPOINTS
+//**************************/
+//  handle PUT request from client
+app.put('/flighthistory/:id', (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        res.status(400).json({ error: 'req.params.id and req.body.id must match' });
+    }
+
+    let updateObj = {};
+    let updateableFields = ['country', 'location', 'date', 'duration'];
+    updateableFields.forEach((field) => {
+        if (field in req.body) {
+            updateObj[field] = req.body[field];
+        }
+    });
+
+    FlightPlan
+        .findByIdAndUpdate(req.params.id, { $set: updateObj }, { new: true })
+        .then(updatedPlan => res.status(204).end())
+        .catch(err => {
             console.error(err);
-            res.status(500).json({
-                message: 'Internal server error'
-            });
+            res.status(500).json({ message: 'Internal Server Error' });
         });
 });
-
-
-
-app.get('/stories/location/:query', function (req, res) {
-    Story
-        .find({ storyLocation: req.params.query })
-        .then(stories => res.json(stories.map(story => story.serialize())))
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal server error'
-            });
-        });
-});
-
 app.get('/entry-performed/:user', function (req, res) {
 
     Entry
@@ -332,6 +334,4 @@ app.use('*', (req, res) => {
     });
 });
 
-exports.app = app;
-exports.runServer = runServer;
-exports.closeServer = closeServer;
+module.exports = { app, runServer, closeServer };

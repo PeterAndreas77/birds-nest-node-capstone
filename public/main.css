@@ -1,6 +1,7 @@
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 html,
 body {
@@ -134,7 +135,7 @@ button:hover {
 .navitem{
   margin-top: 10px;
 }
-.flip:hover, .navitem>a:hover, .toggle-menu:hover, #create-flight-plan:hover{
+.flip:hover, .navitem>a:hover, .toggle-menu:hover, .control-item:hover{
   color: #fdc561;
   cursor: pointer;
 }
@@ -148,6 +149,10 @@ button:hover {
 }
 
 /* FLIGHT PLANS VIEW */
-#create-flight-plan-view, #update-flight-plan-view{
+#create-flight-plan-view, #update-flight-plan-view, #create-flight-history-view {
   display: none;
+}
+textarea{
+  height: 30vh;
+  width: 100%;
 }
