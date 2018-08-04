@@ -197,7 +197,7 @@ app.get('/flightplan/:user/:country', (req, res) => {
 
 //  handle POST request from client
 app.post('/flightplan/create', (req, res) => {
-    const requiredFields = ['country', 'location', 'budget', 'author', 'duration'];
+    const requiredFields = ['country', 'location', 'date', 'author', 'duration'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -211,9 +211,9 @@ app.post('/flightplan/create', (req, res) => {
         .create({
             country: req.body.country,
             location: req.body.location,
-            budget: req.body.budget,
-            author: req.body.author,
-            duration: req.body.duration
+            date: req.body.date,
+            duration: req.body.duration,
+            author: req.body.author
         })
         .then(plans => res.status(201).json(plans.planned()))
         .catch((err) => {

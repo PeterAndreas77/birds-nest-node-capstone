@@ -1,4 +1,25 @@
 'use strict';
+function differenceInDays(start, end) {
+    let startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()),
+        endUTC = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()),
+        duration = Math.floor((endUTC - startUTC) / (1000 * 60 * 60 * 24));
+    return duration;
+}
+
+function formatDate(anyDate) {
+    let date = new Date(anyDate),
+        dd = date.getUTCDate(),
+        mm = date.getUTCMonth() + 1,
+        yyyy = date.getUTCFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+    }
+    date = mm + "-" + dd + "-" + yyyy;
+    return date;
+}
 
 function getMyFlightPlans(myname) {
     $.ajax({
@@ -14,12 +35,13 @@ function getMyFlightPlans(myname) {
 function renderMyFlightPlans(plans) {
     let myFlightPlans = [];
     for (let index in plans) {
+        let created = formatDate(plans[index].created);
         myFlightPlans +=
             `<div class="plan-item" plan-id="${plans[index].id}">
             <h4 class="plan-country">Country: ${plans[index].country}</h4>
             <p class="plan-location">Location: ${plans[index].location}</p>
-            <p class="plan-budget">budget: $ ${plans[index].budget}</p>
-            <p class="plan-info">created: ${plans[index].created}</p>
+            <p class="plan-budget">duration: ${plans[index].duration} days, from ${plans[index].date.start} to ${plans[index].date.end}</p>
+            <p class="plan-info">created: ${created}</p>
             <button class="edit-btn">edit</button>
             <button class="delete-btn">delete</button>
             </div>`;
@@ -265,15 +287,18 @@ $(document).ready(function () {
     // handle when user click submit to create new story
     $('.create-plan-form').submit(event => {
         event.preventDefault();
-        const country = $('#createCountry').val();
-        const location = $('#createLocation').val();
-        const budget = $('#createBudget').val();
-        const duration = $('#createDuration').val();
-        const author = localStorage.getItem('signedInUser');
+        let country = $('#createCountry').val(),
+            location = $('#createLocation').val(),
+            startDate = new Date($('#createStartDate').val()),
+            endDate = new Date($('#createEndDate').val()),
+            duration = differenceInDays(startDate, endDate),
+            author = localStorage.getItem('signedInUser'),
+            startStr = formatDate(startDate),
+            endStr = formatDate(endDate);
         let createdObject = {
             country: country,
             location: location,
-            budget: budget,
+            date: { start: startStr, end: endStr },
             duration: duration,
             author: author
         };
