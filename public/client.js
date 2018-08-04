@@ -1,5 +1,70 @@
 'use strict';
 
+function getMyFlightPlans(myname) {
+    $.ajax({
+        type: 'GET',
+        url: `/flightplan/${myname}`,
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        .done(result => displayMyFlightPlans(result))
+        .fail((err) => console.log(err));
+}
+
+function displayMyFlightPlans(plans) {
+    let myFlightPlans = [];
+    for (let index in plans) {
+        myFlightPlans +=
+            `<div class="plan-item" plan-id="${plans[index].id}">
+            <h4 class="plan-country">Country: ${plans[index].country}</h4>
+            <p class="plan-location">Location: ${plans[index].location}</p>
+            <p class="plan-budget">budget: $ ${plans[index].budget}</p>
+            <p class="plan-info">created: ${plans[index].created}</p>
+            <button class="edit-btn">edit</button>
+            <button class="delete-btn">delete</button>
+            </div>`;
+    };
+    $('.my-flight-plans-wrapper').append(myFlightPlans);
+}
+
+function createMyFlightPlan(newObj) {
+    $.ajax({
+        type: 'POST',
+        url: '/flightplan/create',
+        dataType: 'json',
+        data: JSON.stringify(newObj),
+        contentType: 'application/json'
+    })
+        .done(() => {
+            console.log('plan created');
+            $('#create-flight-plan-view').hide();
+            $('#recent-stories-view').show();
+        })
+        .fail(err => console.log(err));
+}
+
+function updateMyFlightPlan(updObj, id) {
+    $.ajax({
+        type: 'PUT',
+        url: `/flightplan/${id}`,
+        data: JSON.stringify(updObj),
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        .done(() => console.log('plan updated'))
+        .fail(err => console.log(err));
+}
+
+function deleteMyFlightPlan(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: `/flightplan/${id}`,
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        .done(() => console.log('plan deleted'))
+        .fail(err => console.log(err));
+}
 
 // all handlers can be used when your document is ready
 $(document).ready(function () {
@@ -176,7 +241,7 @@ $(document).ready(function () {
     }
 
     //****************************/
-    // MY STORIES PAGE
+    // FLIGHT PLANS HANDLERS
     //**************************/
     // handle when user want to see their flight plans
     $('#my-flight-plans').on('click', () => {
@@ -185,41 +250,36 @@ $(document).ready(function () {
         $('#recent-stories-view').hide();
         $('#my-flight-plans-view').show();
     });
-
-    function getMyFlightPlans(myname) {
-        $.ajax({
-            type: 'GET',
-            url: `/flightplan/${myname}`,
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-            .done((result) => { displayMyFlightPlans(result); })
-            .fail((err) => { console.log(err); });
-    }
-
-    function displayMyFlightPlans(plans) {
-        let myFlightPlans = [];
-        for (let index in plans) {
-            myFlightPlans +=
-                `<div class="plan-item" plan-id="${plans[index].id}">
-                <h4 class="plan-country">Country: ${plans[index].country}</h4>
-                <p class="plan-location">Location: ${plans[index].location}</p>
-                <p class="plan-budget">budget: $ ${plans[index].budget}</p>
-                <p class="plan-info">created: ${plans[index].created}</p>
-                <button class="edit-btn">edit</button>
-                <button class="delete-btn">delete</button>
-                </div>`;
+    // handle when user want to click create new flight plan
+    $('#create-flight-plan').on('click', () => {
+        $('#recent-stories-view').hide();
+        $('#create-flight-plan-view').show();
+    });
+    // handle when user click submit to create new story
+    $('.create-plan-form').submit(event => {
+        event.preventDefault();
+        const country = $('#createCountry').val();
+        const location = $('#createLocation').val();
+        const budget = $('#createBudget').val();
+        const duration = $('#createDuration').val();
+        const author = localStorage.getItem('signedInUser');
+        let createdObject = {
+            country: country,
+            location: location,
+            budget: budget,
+            duration: duration,
+            author: author
         };
-        $('.my-flight-plans-wrapper').append(myFlightPlans);
-    }
-    // handle when user wanted to update their stories
+        createMyFlightPlan(createdObject);
+    });
+    // handle when user click edit button to update their stories
     $('.my-flight-plans-wrapper').on('click', '.edit-btn', event => {
         let updateID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         localStorage.setItem('updateID', updateID);
         $('#my-flight-plans-view').hide();
         $('#update-story-view').show();
     });
-    // handle the submission of update form
+    // handle the submission of flight plan update form
     $('.update-plan-form').submit(event => {
         event.preventDefault();
         const country = $('#updateCountry').val();
@@ -228,123 +288,19 @@ $(document).ready(function () {
         const duration = $('#updateDuration').val();
         const updateID = localStorage.getItem('updateID');
         const updateObject = {
-            country: country,
-            location: location,
-            budget: budget,
-            duration: duration
-        };
-        console.log(updateObject);
-        $.ajax({
-            type: 'PUT',
-            url: `/flightplan/${updateID}`,
-            data: JSON.stringify(updateObject),
-            dataType: 'json',
-            contentType: 'application/json'
-        }).done(result => {
-            console.log('story updated');
-        }).fail(err =>
-            console.log(err));
-    });
-
-    // handle when user want to delete their flight plan
-    $('.my-flight-plans-wrapper').on('click', '.delete-btn', event => {
-        let deleteID = $(event.currentTarget).closest('.story-item').attr('story-id');
-        $.ajax({
-            type: 'DELETE',
-            url: `/story/${deleteID}`,
-            dataType: 'json',
-            contentType: 'application/json'
-        }).done(result => {
-            console.log('story deleted');
-        }).fail(err =>
-            console.log(err));
-    });
-
-    //****************************/
-    // CREATE NEW FLIGHT PLAN PAGE
-    //**************************/
-    // handle when user want to click create new flight plan
-    $('#create-flight-plan').on('click', () => {
-        $('#recent-stories-view').hide();
-        $('#create-flight-plan-view').show();
-    });
-
-    // handle when user click submit to create new story
-    $('.create-plan-form').submit(event => {
-        event.preventDefault();
-
-        // get input from the form user filled
-        const country = $('#createCountry').val();
-        const location = $('#createLocation').val();
-        const budget = $('#createBudget').val();
-        const duration = $('#createDuration').val();
-        const author = localStorage.getItem('signedInUser');
-        $('#createTitle').value = '';
-        $('#createLocation').value = '';
-        $('#createContent').value = '';
-        // make a new object to send to the server
-        let createdObject = {
+            id: updateID,
             country: country,
             location: location,
             budget: budget,
             duration: duration,
-            author: author
         };
-        // make a post request to the server
-        $.ajax({
-            type: 'POST',
-            url: '/flightplan/create',
-            dataType: 'json',
-            data: JSON.stringify(createdObject),
-            contentType: 'application/json'
-        })
-            // if the post request is successful, show recent stories
-            .done((response) => {
-                alert('plan has been created!');
-                $('#create-flight-plan-view').hide();
-                $('#recent-stories-view').show();
-            })
-            // if the post request fail, log the error
-            .fail((err) => {
-                console.log(err);
-            });
+        updateMyFlightPlan(updateObject, updateID);
     });
-
-    //****************************/
-    //  SEARCH LOCATION PAGE
-    //**************************/
-    // handle when user want to search for stories
-    $('#search-stories-by-loc').click(() => {
-        $('#recent-stories-view').hide();
-        $('#search-loc-view').show();
+    // handle when user want to delete their flight plan
+    $('.my-flight-plans-wrapper').on('click', '.delete-btn', event => {
+        let deleteID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
+        deleteMyFlightPlan(deleteID);
     });
-    // handle when user submitted their search queries
-    $('.search-loc-form').submit(event => {
-        event.preventDefault();
-        let query = $('#search').val();
-        $.ajax({
-            type: 'GET',
-            url: `/stories/location/${query}`,
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-            // if the call is successful, display user stories
-            .done((result) => {
-                console.log(result);
-                //display(result);
-            })
-            // if the call failed, log the error
-            .fail((err) => {
-                console.log(err);
-            });
-    });
-
-    // function displaySearchQueries(data) {
-    //     for (let i in data) {
-    //         $('.search-view').append(`<p><a class="story-item">${data[i].title}</a></p>
-    //     <p><a>${data[i].content}</a></p>`);
-    //     }
-    // }
 
     // handle logout
     $('#logout').on('click', event => {
@@ -352,5 +308,4 @@ $(document).ready(function () {
         $('#user-page').hide();
         $('#landing-page').show();
     });
-
 });

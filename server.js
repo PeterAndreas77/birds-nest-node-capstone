@@ -174,9 +174,11 @@ app.post('/users/signin', function (req, res) {
 //****************************/
 // FLIGHT PLAN ENDPOINTS
 //**************************/
-//  getting user flight plans from Database
+
+//  handle GET request from client
 app.get('/flightplan/:user', (req, res) => {
-    FlightPlan.find({ author: req.params.user })
+    FlightPlan
+        .find({ author: req.params.user })
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
             console.error(err);
@@ -184,7 +186,7 @@ app.get('/flightplan/:user', (req, res) => {
         });
 });
 
-// POST - creating new flight plan
+//  handle POST request from client
 app.post('/flightplan/create', (req, res) => {
     const requiredFields = ['country', 'location', 'budget', 'author', 'duration'];
     for (let i = 0; i < requiredFields.length; i++) {
@@ -196,39 +198,55 @@ app.post('/flightplan/create', (req, res) => {
         }
     }
 
-    FlightPlan.create({
-        country : req.body.country,
-        location : req.body.location,
-        budget : req.body.budget,
-        author : req.body.author,
-        duration : req.body.duration
-    })
-    .then(plans => res.status(201).json(plans.planned()))
-    .catch((err) => {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
-    });
-});
-
-// PUT --------------------------------------
-app.put('/flightplan/:id', (req, res) => {
-    let toUpdate = {};
-    let updateableFields = ['storyTitle', 'storyContent', 'storyLocation'];
-    updateableFields.forEach((field) => {
-        if (field in req.body) {
-            toUpdate[field] = req.body[field];
-        }
-    });
-    console.log(toUpdate);
-    Story
-        .findByIdAndUpdate(req.params.id, { $set: toUpdate }, { new: true })
-        .then(updatedStory => res.status(204).end())
-        .catch(function (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
+    FlightPlan
+        .create({
+            country: req.body.country,
+            location: req.body.location,
+            budget: req.body.budget,
+            author: req.body.author,
+            duration: req.body.duration
+        })
+        .then(plans => res.status(201).json(plans.planned()))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
         });
 });
+
+//  handle PUT request from client
+app.put('/flightplan/:id', (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        res.status(400).json({ error: 'req.params.id and req.body.id must match' });
+    }
+
+    let updateObj = {};
+    let updateableFields = ['country', 'location', 'budget', 'duration'];
+    updateableFields.forEach((field) => {
+        if (field in req.body) {
+            updateObj[field] = req.body[field];
+        }
+    });
+
+    FlightPlan
+        .findByIdAndUpdate(req.params.id, { $set: updateObj }, { new: true })
+        .then(updatedPlan => res.status(204).end())
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
+});
+
+//  handle DELETE request from client
+app.delete('/flightplan/:id', function (req, res) {
+    FlightPlan
+        .findByIdAndRemove(req.params.id)
+        .then(() => res.status(204).end())
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
+});
+
 
 // GET ------------------------------------
 // accessing all recent stories
@@ -295,18 +313,6 @@ app.get('/entry/:id', function (req, res) {
                 message: 'Internal Server Error'
             });
         });
-});
-
-// DELETE ----------------------------------------
-// deleting story by id
-app.delete('/story/:id', function (req, res) {
-    Story.findByIdAndRemove(req.params.id).then(() => {
-        return res.status(204).end();
-    }).catch(function (err) {
-        return res.status(500).json({
-            message: 'Internal Server Error'
-        });
-    });
 });
 
 // MISC ------------------------------------------
