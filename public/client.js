@@ -7,11 +7,11 @@ function getMyFlightPlans(myname) {
         dataType: 'json',
         contentType: 'application/json'
     })
-        .done(result => displayMyFlightPlans(result))
+        .done(result => renderMyFlightPlans(result))
         .fail((err) => console.log(err));
 }
 
-function displayMyFlightPlans(plans) {
+function renderMyFlightPlans(plans) {
     let myFlightPlans = [];
     for (let index in plans) {
         myFlightPlans +=
@@ -24,7 +24,25 @@ function displayMyFlightPlans(plans) {
             <button class="delete-btn">delete</button>
             </div>`;
     };
-    $('.my-flight-plans-wrapper').append(myFlightPlans);
+    $('.my-flight-plans-wrapper').html(myFlightPlans);
+}
+
+function searchMyFlightPlans(country, author) {
+    $.ajax({
+        type: 'GET',
+        url: `/flightplan/${author}/${country}`,
+        dataType: 'json',
+        contentType: 'application.json'
+    })
+        .done(result => {
+            if (result == undefined || result.length == 0) {
+                $('.my-flight-plans-wrapper').html('No plans in that country were found!')
+            }
+            else {
+                renderMyFlightPlans(result);
+            }
+        })
+        .fail(err => console.log(err));
 }
 
 function createMyFlightPlan(newObj) {
@@ -37,8 +55,10 @@ function createMyFlightPlan(newObj) {
     })
         .done(() => {
             console.log('plan created');
+            const username = localStorage.getItem('signedInUser');
+            getMyFlightPlans(username);
             $('#create-flight-plan-view').hide();
-            $('#recent-stories-view').show();
+            $('#my-flight-plans-view').show();
         })
         .fail(err => console.log(err));
 }
@@ -51,7 +71,13 @@ function updateMyFlightPlan(updObj, id) {
         dataType: 'json',
         contentType: 'application/json'
     })
-        .done(() => console.log('plan updated'))
+        .done(() => {
+            console.log('plan updated');
+            const username = localStorage.getItem('signedInUser');
+            getMyFlightPlans(username);
+            $('#update-flight-plan-view').hide();
+            $('#my-flight-plans-view').show();
+        })
         .fail(err => console.log(err));
 }
 
@@ -62,7 +88,11 @@ function deleteMyFlightPlan(id) {
         dataType: 'json',
         contentType: 'application/json'
     })
-        .done(() => console.log('plan deleted'))
+        .done(() => {
+            console.log('plan deleted');
+            const username = localStorage.getItem('signedInUser');
+            getMyFlightPlans(username);
+        })
         .fail(err => console.log(err));
 }
 
@@ -118,13 +148,13 @@ $(document).ready(function () {
                     $("#signin-signup-page").hide();
                     $("#user-page").show();
                     localStorage.setItem('signedInUser', result.username);
+                    getMyFlightPlans(localStorage.getItem('signedInUser'));
                     // $('section').hide();
                     // $('.navbar').show();
                     // $('#user-dashboard').show();
                     //$('#loggedInName').text(result.name);
                     // $('#loggedInUserName').val(result.username);
                     //            htmlUserDashboard();
-                    //getRecentStories();
                     //                noEntries();
 
                 })
@@ -207,38 +237,6 @@ $(document).ready(function () {
         $('#navbar').toggleClass('toggle');
         $('#content-container').toggleClass('toggle');
     });
-    // get recent stories from the database
-    function getRecentStories() {
-        $.ajax({
-            type: 'GET',
-            url: '/stories/recent',
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-            // if ajax call is successful, show recent view
-            .done((results) => {
-                displayRecentStories(results);
-            })
-            // if ajax call failed, show error on terminal
-            .fail((err) => {
-                console.log(err);
-            })
-    }
-    // display recent stories into the DOM
-    function displayRecentStories(stories) {
-        let recentStories = [];
-        for (let index in stories) {
-            recentStories +=
-                `<div class="story-item">
-                <h4 class="story-title">${stories[index].title}</h4>
-                <h6 class="story-location">${stories[index].location}</h6>
-                <p class="story-content">${stories[index].content}</p>
-                <p class="story-info">created: ${stories[index].date}, 
-                by: ${stories[index].author}</p>
-                </div>`;
-        };
-        $('.recent-stories-wrapper').append(recentStories);
-    }
 
     //****************************/
     // FLIGHT PLANS HANDLERS
@@ -247,12 +245,21 @@ $(document).ready(function () {
     $('#my-flight-plans').on('click', () => {
         let myname = localStorage.getItem('signedInUser');
         getMyFlightPlans(myname);
-        $('#recent-stories-view').hide();
-        $('#my-flight-plans-view').show();
+        $('#flight-plans-view').show();
     });
+    // handle when user want to search plan by country
+    $('.search-plan-btn').on('click', () => {
+
+        // this value function returns undefined
+        ///const query = $('#searchCountry').val();
+
+        const country = 'Greece';
+        const author = localStorage.getItem('signedInUser');
+        searchMyFlightPlans(country, author);
+    })
     // handle when user want to click create new flight plan
     $('#create-flight-plan').on('click', () => {
-        $('#recent-stories-view').hide();
+        $('#my-flight-plans-view').hide();
         $('#create-flight-plan-view').show();
     });
     // handle when user click submit to create new story
@@ -277,7 +284,7 @@ $(document).ready(function () {
         let updateID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         localStorage.setItem('updateID', updateID);
         $('#my-flight-plans-view').hide();
-        $('#update-story-view').show();
+        $('#update-flight-plan-view').show();
     });
     // handle the submission of flight plan update form
     $('.update-plan-form').submit(event => {
@@ -301,7 +308,6 @@ $(document).ready(function () {
         let deleteID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         deleteMyFlightPlan(deleteID);
     });
-
     // handle logout
     $('#logout').on('click', event => {
         localStorage.removeItem('signedInUser');

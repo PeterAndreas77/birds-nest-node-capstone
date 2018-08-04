@@ -185,6 +185,15 @@ app.get('/flightplan/:user', (req, res) => {
             res.status(500).json({ message: 'Internal server error' });
         });
 });
+app.get('/flightplan/:user/:country', (req, res) => {
+    FlightPlan
+        .find({ author: req.params.user, country: req.params.country })
+        .then(plans => res.json(plans.map(plan => plan.planned())))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
+        });
+});
 
 //  handle POST request from client
 app.post('/flightplan/create', (req, res) => {

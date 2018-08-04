@@ -49,11 +49,7 @@ legend{
   margin-top: 10vh;
 }
 
-/* HERE, DISPLAY THIS */
-/* .landing-page{
-  display: none;
-} */
-
+/* HERE DISPLAY THIS*/
 #signin-signup-page {
   display: none;
 }
@@ -138,12 +134,9 @@ button:hover {
 .navitem{
   margin-top: 10px;
 }
-.flip:hover, .navitem>a:hover, .toggle-menu:hover{
+.flip:hover, .navitem>a:hover, .toggle-menu:hover, #create-flight-plan:hover{
   color: #fdc561;
   cursor: pointer;
-}
-#recent-stories-view, #my-flight-plans-view{
-  text-align: center;
 }
 #search-loc-view{
   display: none;
@@ -153,7 +146,8 @@ button:hover {
   border: #062F63 2px solid;
   margin: 2px;
 }
-#create-flight-plan-view, #update-story-view{
+
+/* FLIGHT PLANS VIEW */
+#create-flight-plan-view, #update-flight-plan-view{
   display: none;
-  text-align: center;
 }
