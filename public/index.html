@@ -88,12 +88,12 @@
         <nav id="navbar">
           <ul>
             <li class="navitem">
-              <a id="my-stories" href="#">
-                <i class="fas fa-book"></i> My Stories</a>
+              <a id="my-flight-plans" href="#">
+                <i class="fas fa-book"></i> My Flight Plans</a>
             </li>
             <li class="navitem">
-              <a id="create-story" href="#">
-                <i class="fas fa-plus"></i> Create Story</a>
+              <a id="create-flight-plan" href="#">
+                <i class="fas fa-plus"></i> Create Flight Plan</a>
             </li>
             <li class="navitem">
               <a id="search-stories-by-loc" href="#">
@@ -116,57 +116,62 @@
             </div>
           </section>
 
-          <section id="my-stories-view">
-            <div class="my-stories-wrapper">
-              <!-- MY STORIES GO HERE -->
+          <section id="my-flight-plans-view">
+            <div class="my-flight-plans-wrapper">
+              <!-- MY FLIGHT PLAN GO HERE -->
             </div>
           </section>
 
-          <section id="create-story-view">
-            <div class="create-story-wrapper">
-              <form class="create-form">
+          <section id="create-flight-plan-view">
+            <div class="create-flight-plan-wrapper">
+              <form class="create-plan-form">
                 <fieldset>
-                  <legend>Create Your Story</legend>
+                  <legend>Create Your Flight Plan</legend>
                   <div class="input-field">
-                    <label for="createTitle">Title</label>
-                    <input id="createTitle" type="text" name="createTitle" required>
+                    <label for="createCountry">Country</label>
+                    <input id="createCountry" type="text" name="createCountry" required>
                   </div>
                   <div class="input-field">
                     <label for="createLocation">Location</label>
                     <input id="createLocation" type="text" name="createLocation" required>
                   </div>
                   <div class="input-field">
-                    <div>
-                      <label for="createContent">Story</label>
-                    </div>
-                    <textarea name="createContent" id="createContent" cols="50" rows="20" required></textarea>
+                    <label for="createDuration">Duration</label>
+                    <input id="createDuration" type="text" name="createDuration" required>
                   </div>
-                  <button type="submit" class="create-story-btn">submit</button>
+                  <div class="input-field">
+                    <label for="createBudget">Budget</label>
+                    <input id="createBudget" type="number" name="createBudget" required>
+                  </div>
+                  <button type="submit" class="create-flight-plan-btn">submit</button>
                 </fieldset>
               </form>
             </div>
           </section>
 
-          <section id="update-story-view">
-            <div class="update-story-wrapper">
-              <form class="update-form">
+          <section id="update-plan-view">
+            <div class="update-plan-wrapper">
+              <form class="update-plan-form">
                 <fieldset>
-                  <legend>Update Your Story</legend>
+                  <legend>Update Your Flight Plan</legend>
                   <div class="input-field">
-                    <label for="updateTitle">Title</label>
-                    <input id="updateTitle" type="text" name="updateTitle" required>
+                    <label for="updateCountry">Country</label>
+                    <input id="updateCountry" type="text" name="updateCountry" required>
                   </div>
                   <div class="input-field">
                     <label for="updateLocation">Location</label>
                     <input id="updateLocation" type="text" name="updateLocation" required>
                   </div>
                   <div class="input-field">
-                    <div>
-                      <label for="updateContent">Story</label>
+                    <div class="input-field">
+                      <label for="updateDuration">Duration</label>
+                      <input id="updateDuration" type="text" name="updateDuration" required>
                     </div>
-                    <textarea name="updateContent" id="updateContent" cols="50" rows="20" required></textarea>
-                  </div>
-                  <button type="submit" class="update-story-btn">submit</button>
+                    <div class="input-field">
+                      <label for="updateBudget">Budget</label>
+                      <input id="updateBudget" type="number" name="updateBudget" required>
+                    </div>
+                  <button type="submit" class="update-plan-btn">submit</button>
                 </fieldset>
               </form>
             </div>

@@ -59,7 +59,7 @@ $(document).ready(function () {
                     //$('#loggedInName').text(result.name);
                     // $('#loggedInUserName').val(result.username);
                     //            htmlUserDashboard();
-                    getRecentStories();
+                    //getRecentStories();
                     //                noEntries();
 
                 })
@@ -178,85 +178,76 @@ $(document).ready(function () {
     //****************************/
     // MY STORIES PAGE
     //**************************/
-    // handle when user want to see their own stories
-    $('#my-stories').on('click', () => {
+    // handle when user want to see their flight plans
+    $('#my-flight-plans').on('click', () => {
         let myname = localStorage.getItem('signedInUser');
-        getMyStories(myname);
+        getMyFlightPlans(myname);
         $('#recent-stories-view').hide();
-        $('#my-stories-view').show();
+        $('#my-flight-plans-view').show();
     });
-    // get user stories by making ajax call to the server
-    function getMyStories(myname) {
-        // make an object for the call
+
+    function getMyFlightPlans(myname) {
         $.ajax({
             type: 'GET',
-            url: `/mystories/${myname}`,
+            url: `/flightplan/${myname}`,
             dataType: 'json',
             contentType: 'application/json'
         })
-            // if the call is successful, display user stories
-            .done((result) => {
-                displayMyStories(result);
-            })
-            // if the call failed, log the error
-            .fail((err) => {
-                console.log(err);
-            });
+            .done((result) => { displayMyFlightPlans(result); })
+            .fail((err) => { console.log(err); });
     }
-    // render my stories in the DOM
-    function displayMyStories(stories) {
-        let myname = localStorage.getItem('signedInUser');
-        let myStories = [];
-        for (let index in stories) {
-            if (stories[index].author === myname) {
-                stories[index].author = 'Me';
-            }
-            myStories +=
-                `<div class="story-item" story-id="${stories[index].id}">
-                <h4 class="story-title">${stories[index].title}</h4>
-                <h6 class="story-location">${stories[index].location}</h6>
-                <p class="story-content">${stories[index].content}</p>
-                <p class="story-info">created: ${stories[index].date}, 
-                by: ${stories[index].author}</p>
+
+    function displayMyFlightPlans(plans) {
+        let myFlightPlans = [];
+        for (let index in plans) {
+            myFlightPlans +=
+                `<div class="plan-item" plan-id="${plans[index].id}">
+                <h4 class="plan-country">Country: ${plans[index].country}</h4>
+                <p class="plan-location">Location: ${plans[index].location}</p>
+                <p class="plan-budget">budget: $ ${plans[index].budget}</p>
+                <p class="plan-info">created: ${plans[index].created}</p>
                 <button class="edit-btn">edit</button>
                 <button class="delete-btn">delete</button>
                 </div>`;
         };
-        $('.my-stories-wrapper').append(myStories);
+        $('.my-flight-plans-wrapper').append(myFlightPlans);
     }
     // handle when user wanted to update their stories
-    $('.my-stories-wrapper').on('click', '.edit-btn', event => {
-        let updateID = $(event.currentTarget).closest('.story-item').attr('story-id');
+    $('.my-flight-plans-wrapper').on('click', '.edit-btn', event => {
+        let updateID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         localStorage.setItem('updateID', updateID);
-        $('#my-stories-view').hide();
+        $('#my-flight-plans-view').hide();
         $('#update-story-view').show();
     });
-    $('.update-form').submit(event => {
-            event.preventDefault();
-            const storyTitle = $('#updateTitle').val();
-            const storyLocation = $('#updateLocation').val();
-            const storyContent = $('#updateContent').val();
-            const updateID = localStorage.getItem('updateID');
-            const updateObject = {
-                storyTitle: storyTitle,
-                storyLocation: storyLocation,
-                storyContent: storyContent
-            }
-            console.log(updateObject);
-            $.ajax({
-                type: 'PUT',
-                url: `/story/${updateID}`,
-                data: JSON.stringify(updateObject),
-                dataType: 'json',
-                contentType: 'application/json'
-            }).done(result => {
-                console.log('story updated');
-            }).fail(err =>
-                console.log(err));
+    // handle the submission of update form
+    $('.update-plan-form').submit(event => {
+        event.preventDefault();
+        const country = $('#updateCountry').val();
+        const location = $('#updateLocation').val();
+        const budget = $('#updateBudget').val();
+        const duration = $('#updateDuration').val();
+        const updateID = localStorage.getItem('updateID');
+        const updateObject = {
+            country: country,
+            location: location,
+            budget: budget,
+            duration: duration
+        };
+        console.log(updateObject);
+        $.ajax({
+            type: 'PUT',
+            url: `/flightplan/${updateID}`,
+            data: JSON.stringify(updateObject),
+            dataType: 'json',
+            contentType: 'application/json'
+        }).done(result => {
+            console.log('story updated');
+        }).fail(err =>
+            console.log(err));
     });
 
-    // handle when user want to delete their stories
-    $('.my-stories-wrapper').on('click', '.delete-btn', event => {
+    // handle when user want to delete their flight plan
+    $('.my-flight-plans-wrapper').on('click', '.delete-btn', event => {
         let deleteID = $(event.currentTarget).closest('.story-item').attr('story-id');
         $.ajax({
             type: 'DELETE',
@@ -270,47 +261,47 @@ $(document).ready(function () {
     });
 
     //****************************/
-    //  CREATE STORY PAGE
+    // CREATE NEW FLIGHT PLAN PAGE
     //**************************/
-    // handle when user want to click create story
-    $('#create-story').on('click', () => {
+    // handle when user want to click create new flight plan
+    $('#create-flight-plan').on('click', () => {
         $('#recent-stories-view').hide();
-        $('#create-story-view').show();
+        $('#create-flight-plan-view').show();
     });
 
     // handle when user click submit to create new story
-    $('.create-form').submit(event => {
+    $('.create-plan-form').submit(event => {
         event.preventDefault();
 
         // get input from the form user filled
-        const storyTitle = $('#createTitle').val();
-        const storyLocation = $('#createLocation').val();
-        const storyContent = $('#createContent').val();
-        const storyAuthor = localStorage.getItem('signedInUser');
+        const country = $('#createCountry').val();
+        const location = $('#createLocation').val();
+        const budget = $('#createBudget').val();
+        const duration = $('#createDuration').val();
+        const author = localStorage.getItem('signedInUser');
         $('#createTitle').value = '';
         $('#createLocation').value = '';
         $('#createContent').value = '';
         // make a new object to send to the server
         let createdObject = {
-            storyTitle: storyTitle,
-            storyLocation: storyLocation,
-            storyContent: storyContent,
-            storyAuthor: storyAuthor,
-            storyDate: Date.now(),
-            signedInUsername: storyAuthor
+            country: country,
+            location: location,
+            budget: budget,
+            duration: duration,
+            author: author
         };
         // make a post request to the server
         $.ajax({
             type: 'POST',
-            url: '/story/create',
+            url: '/flightplan/create',
             dataType: 'json',
             data: JSON.stringify(createdObject),
             contentType: 'application/json'
         })
             // if the post request is successful, show recent stories
             .done((response) => {
-                alert('story has been created!');
-                $('#create-story-view').hide();
+                alert('plan has been created!');
+                $('#create-flight-plan-view').hide();
                 $('#recent-stories-view').show();
             })
             // if the post request fail, log the error

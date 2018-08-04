@@ -142,18 +142,18 @@ button:hover {
   color: #fdc561;
   cursor: pointer;
 }
-#recent-stories-view, #my-stories-view{
+#recent-stories-view, #my-flight-plans-view{
   text-align: center;
 }
 #search-loc-view{
   display: none;
   text-align: center;
 }
-.story-item{
+.plan-item{
   border: #062F63 2px solid;
   margin: 2px;
 }
-#create-story-view, #update-story-view{
+#create-flight-plan-view, #update-story-view{
   display: none;
   text-align: center;
 }

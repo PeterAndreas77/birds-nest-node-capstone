@@ -1,5 +1,5 @@
 const User = require('./models/user');
-const Story = require('./models/story');
+const FlightPlan = require('./models/flightplan');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose').set('debug', true);
@@ -171,50 +171,58 @@ app.post('/users/signin', function (req, res) {
     });
 });
 
+//****************************/
+// FLIGHT PLAN ENDPOINTS
+//**************************/
+//  getting user flight plans from Database
+app.get('/flightplan/:user', (req, res) => {
+    FlightPlan.find({ author: req.params.user })
+        .then(plans => res.json(plans.map(plan => plan.planned())))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
+        });
+});
 
-// -------------entry ENDPOINTS------------------------------------------------
-// POST -----------------------------------------
-// creating a new Entry
-app.post('/story/create', (req, res) => {
-    let storyTitle = req.body.storyTitle;
-    let storyContent = req.body.storyContent;
-    let storyLocation = req.body.storyLocation;
-    let storyAuthor = req.body.storyAuthor;
-    let storyDate = req.body.storyDate;
-    let signedInUserName = req.body.signedInUserName;
+// POST - creating new flight plan
+app.post('/flightplan/create', (req, res) => {
+    const requiredFields = ['country', 'location', 'budget', 'author', 'duration'];
+    for (let i = 0; i < requiredFields.length; i++) {
+        const field = requiredFields[i];
+        if (!(field in req.body)) {
+            const message = `Missing \`${field}\` in request body`;
+            console.error(message);
+            return res.status(400).send(message);
+        }
+    }
 
-    Story.create({
-        storyTitle,
-        storyContent,
-        storyLocation,
-        storyAuthor,
-        storyDate,
-        signedInUserName
-    }, (err, item) => {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        if (item) {
-            return res.json(item);
-        }
+    FlightPlan.create({
+        country : req.body.country,
+        location : req.body.location,
+        budget : req.body.budget,
+        author : req.body.author,
+        duration : req.body.duration
+    })
+    .then(plans => res.status(201).json(plans.planned()))
+    .catch((err) => {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
     });
 });
 
 // PUT --------------------------------------
-app.put('/story/:id', (req, res) => {
+app.put('/flightplan/:id', (req, res) => {
     let toUpdate = {};
     let updateableFields = ['storyTitle', 'storyContent', 'storyLocation'];
-    updateableFields.forEach( (field)=> {
+    updateableFields.forEach((field) => {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
     console.log(toUpdate);
     Story
-        .findByIdAndUpdate(req.params.id, {$set: toUpdate}, { new: true })
-        .then(updatedStory =>  res.status(204).end())
+        .findByIdAndUpdate(req.params.id, { $set: toUpdate }, { new: true })
+        .then(updatedStory => res.status(204).end())
         .catch(function (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
@@ -235,17 +243,7 @@ app.get('/stories/recent', function (req, res) {
         });
 });
 
-// accessing user's stories
-app.get('/mystories/:user', function (req, res) {
-    Story.find({ storyAuthor: req.params.user })
-        .then(stories => res.json(stories.map(story => story.serialize())))
-        .catch((err) => {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal server error'
-            });
-        });
-});
+
 
 app.get('/stories/location/:query', function (req, res) {
     Story
@@ -302,7 +300,7 @@ app.get('/entry/:id', function (req, res) {
 // DELETE ----------------------------------------
 // deleting story by id
 app.delete('/story/:id', function (req, res) {
-    Story.findByIdAndRemove(req.params.id).then(()=> {
+    Story.findByIdAndRemove(req.params.id).then(() => {
         return res.status(204).end();
     }).catch(function (err) {
         return res.status(500).json({
