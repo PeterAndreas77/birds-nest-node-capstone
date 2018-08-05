@@ -143,13 +143,14 @@ button:hover {
   display: none;
   text-align: center;
 }
-.plan-item{
+.plan-item, .history-item{
   border: #062F63 2px solid;
   margin: 2px;
 }
 
 /* FLIGHT PLANS VIEW */
-#create-flight-plan-view, #update-flight-plan-view, #create-flight-history-view {
+#create-flight-plan-view, #update-flight-plan-view, #create-flight-history-view,
+#flight-history-view {
   display: none;
 }
 textarea{

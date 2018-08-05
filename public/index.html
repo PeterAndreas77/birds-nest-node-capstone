@@ -92,8 +92,8 @@
                 <i class="fas fa-book"></i> My Flight Plans</a>
             </li>
             <li class="navitem">
-              <a id="search-stories-by-loc" href="#">
-                <i class="fas fa-search"></i> Search Location</a>
+              <a id="my-flight-histories" href="#">
+                <i class="fas fa-search"></i> My Flight Histories</a>
             </li>
             <li class="navitem">
               <a id="logout" href="#">
@@ -101,7 +101,7 @@
             </li>
           </ul>
         </nav>
-        
+
         <section id="content-container">
 
           <section id="flight-plans-view">
@@ -111,13 +111,13 @@
                 <i class="fas fa-2x fa-bars"></i>
               </span>
               <span id="create-flight-plan" class="control-item">
-                <i class="fas fa-plus"></i> Create Flight Plan
+                <i class="fas fa-plus"></i> Hatch A Plan
               </span>
               <span class="control-item search-flight-plan">
-                <label for="searchPlace">Search Plan
+                <label for="searchPlan">Search Plan
                   <i class="fas fa-search"></i>
                 </label>
-                <input type="text" id="searchPlace" name="searchPlace">
+                <input type="text" id="searchPlan" name="searchPlan">
                 <button class="search-plan-btn">search</button>
               </span>
             </div>
@@ -231,7 +231,33 @@
 
           </section>
 
+
+          <section id="flight-history-view">
+            <div class="flight-history-controls">
+              <span class="toggle-menu control-item">
+                <i class="fas fa-2x fa-bars"></i>
+              </span>
+
+              <span class="control-item search-flight-history">
+                <label for="searchHistory">Search History
+                  <i class="fas fa-search"></i>
+                </label>
+                <input type="text" id="searchHistory" name="searchHistory">
+                <button class="search-plan-btn">search</button>
+              </span>
+            </div>
+
+            <section id="my-flight-histories-view">
+              <div class="my-flight-histories-wrapper">
+
+                <!-- MY FLIGHT HISTORIES GO HERE -->
+
+              </div>
+            </section>
+
+          </section>
         </section>
+
       </div>
     </section>
 

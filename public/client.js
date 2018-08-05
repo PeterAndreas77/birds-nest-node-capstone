@@ -22,7 +22,42 @@ function formatDate(anyDate) {
     return date;
 }
 
-function createMyFlightHistory(newHistObj, id) {
+
+//  ----    HISTORY FUNCTIONS   ----    //
+function getFlightHistories(myname) {
+    $.ajax({
+        type: 'GET',
+        url: `/flighthistory/${myname}`,
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        .done(result => renderFlightHistories(result))
+        .fail((err) => console.log(err));
+}
+
+function renderFlightHistories(histories) {
+    let myFlightHistories = [];
+    for (let index in histories) {
+        let created = formatDate(histories[index].created);
+        let feathers = '';
+        for (let i = 0; i<histories[index].rating; i++) {
+            feathers += `<i class="fas fa-feather-alt"></i>`;
+        }
+        myFlightHistories +=
+            `<div class="history-item" history-id="${histories[index].id}">
+            <h4>${histories[index].title}</h4>
+            <p>${histories[index].location}, ${histories[index].country}</p>
+            <p>from ${histories[index].date.start} to ${histories[index].date.end}</p>
+            <p>${histories[index].story}</p>
+            <p>rating: ${feathers} created: ${created}</p>
+            <button class="edit-btn">edit</button>
+            <button class="delete-btn">delete</button>
+            </div>`;
+    };
+    $('.my-flight-histories-wrapper').html(myFlightHistories);
+}
+
+function createFlightHistory(newHistObj, id) {
     $.ajax({
         type: 'PUT',
         url: `/flighthistory/${id}`,
@@ -32,26 +67,41 @@ function createMyFlightHistory(newHistObj, id) {
     })
         .done(() => {
             console.log('plan updated');
-            // const username = localStorage.getItem('signedInUser');
-            // getMyFlightPlans(username);
-            // $('#update-flight-plan-view').hide();
-            // $('#my-flight-plans-view').show();
+            const username = localStorage.getItem('signedInUser');
+            getFlightHistories(username);
+            $('#create-flight-history-view').hide();
+            $('#my-flight-plans').show();
         })
         .fail(err => console.log(err));
 }
 
-function getMyFlightPlans(myname) {
+function deleteFlightHistory(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: `/flighthistory/${id}`,
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        .done(() => {
+            console.log('history deleted');
+            const username = localStorage.getItem('signedInUser');
+            getFlightHistories(username);
+        })
+        .fail(err => console.log(err));
+}
+
+function getFlightPlans(myname) {
     $.ajax({
         type: 'GET',
         url: `/flightplan/${myname}`,
         dataType: 'json',
         contentType: 'application/json'
     })
-        .done(result => renderMyFlightPlans(result))
+        .done(result => renderFlightPlans(result))
         .fail((err) => console.log(err));
 }
 
-function renderMyFlightPlans(plans) {
+function renderFlightPlans(plans) {
     let myFlightPlans = [];
     for (let index in plans) {
         let created = formatDate(plans[index].created);
@@ -69,7 +119,7 @@ function renderMyFlightPlans(plans) {
     $('.my-flight-plans-wrapper').html(myFlightPlans);
 }
 
-function searchMyFlightPlans(place, author) {
+function searchFlightPlan(place, author) {
     $.ajax({
         type: 'GET',
         url: `/flightplan/${author}/${place}`,
@@ -87,7 +137,7 @@ function searchMyFlightPlans(place, author) {
         .fail(err => console.log(err));
 }
 
-function createMyFlightPlan(newObj) {
+function createFlightPlan(newObj) {
     $.ajax({
         type: 'POST',
         url: '/flightplan/create',
@@ -98,14 +148,14 @@ function createMyFlightPlan(newObj) {
         .done(() => {
             console.log('plan created');
             const username = localStorage.getItem('signedInUser');
-            getMyFlightPlans(username);
+            getFlightPlans(username);
             $('#create-flight-plan-view').hide();
             $('#my-flight-plans-view').show();
         })
         .fail(err => console.log(err));
 }
 
-function updateMyFlightPlan(updObj, id) {
+function updateFlightPlan(updObj, id) {
     $.ajax({
         type: 'PUT',
         url: `/flightplan/${id}`,
@@ -116,24 +166,24 @@ function updateMyFlightPlan(updObj, id) {
         .done(() => {
             console.log('plan updated');
             const username = localStorage.getItem('signedInUser');
-            getMyFlightPlans(username);
+            getFlightPlan(username);
             $('#update-flight-plan-view').hide();
             $('#my-flight-plans-view').show();
         })
         .fail(err => console.log(err));
 }
 
-function deleteMyFlightPlan(id) {
+function deleteFlightPlan(id) {
     $.ajax({
         type: 'DELETE',
-        url: `/flightplan/${id}`,
+        url: `/flightitem/${id}`,
         dataType: 'json',
         contentType: 'application/json'
     })
         .done(() => {
             console.log('plan deleted');
             const username = localStorage.getItem('signedInUser');
-            getMyFlightPlans(username);
+            getFlightPlans(username);
         })
         .fail(err => console.log(err));
 }
@@ -190,7 +240,7 @@ $(document).ready(function () {
                     $("#signin-signup-page").hide();
                     $("#user-page").show();
                     localStorage.setItem('signedInUser', result.username);
-                    getMyFlightPlans(localStorage.getItem('signedInUser'));
+                    getFlightPlans(localStorage.getItem('signedInUser'));
                     // $('section').hide();
                     // $('.navbar').show();
                     // $('#user-dashboard').show();
@@ -286,15 +336,15 @@ $(document).ready(function () {
     // handle when user want to see their flight plans
     $('#my-flight-plans').on('click', () => {
         let myname = localStorage.getItem('signedInUser');
-        getMyFlightPlans(myname);
+        getFlightPlans(myname);
         $('#flight-plans-view').show();
     });
 
     // handle when user want to search plan by country
     $('.search-plan-btn').on('click', () => {
-        let place = $('#searchPlace').val(),
+        let place = $('#searchPlan').val(),
             author = localStorage.getItem('signedInUser');
-        searchMyFlightPlans(place, author);
+        searchFlightPlan(place, author);
     })
 
     // handle when user want to click create new flight plan
@@ -314,14 +364,14 @@ $(document).ready(function () {
             author = localStorage.getItem('signedInUser'),
             startStr = formatDate(startDate),
             endStr = formatDate(endDate);
-        const createdObject = {
+        const newPlanObj = {
             country: country,
             location: location,
             date: { start: startStr, end: endStr },
             duration: duration,
             author: author
         };
-        createMyFlightPlan(createdObject);
+        createFlightPlan(newPlanObj);
     });
 
     // handle when user click edit button to update their stories
@@ -343,21 +393,24 @@ $(document).ready(function () {
             updateID = localStorage.getItem('updateID'),
             startStr = formatDate(startDate),
             endStr = formatDate(endDate);
-        const updateObject = {
+        const updPlanObj = {
             id: updateID,
             country: country,
             location: location,
             date: { start: startStr, end: endStr },
             duration: duration
         };
-        updateMyFlightPlan(updateObject, updateID);
+        updateFlightPlan(updPlanObj, updateID);
     });
 
     // handle when user want to delete their flight plan
     $('.my-flight-plans-wrapper').on('click', '.delete-btn', event => {
         let deleteID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
-        deleteMyFlightPlan(deleteID);
+        deleteFlightPlan(deleteID);
     });
+
+
+
 
     // handle when user check visited if they did their flight plan
     $('.my-flight-plans-wrapper').on('click', '.visited-btn', event => {
@@ -367,7 +420,17 @@ $(document).ready(function () {
         $('#create-flight-history-view').show();
     });
 
-    //handle when user created a new flight history
+
+    //  handle when user click my flight histories
+    $('#my-flight-histories').on('click', () => {
+        let myname = localStorage.getItem('signedInUser');
+        getFlightHistories(myname);
+        $('#flight-plans-view').hide();
+        $('#flight-history-view').show();
+        $('#flight-histories-view').show();
+    });
+
+    //handle when user created a new flight history from plan
     $('.create-history-form').submit(event => {
         event.preventDefault();
         let title = $('#createTitle').val(),
@@ -381,7 +444,12 @@ $(document).ready(function () {
             story: story,
             visited: true
         };
-        createMyFlightHistory(newHistory, visitID);
+        createFlightHistory(newHistory, visitID);
+    });
+
+    $('.my-flight-histories-wrapper').on('click', '.delete-btn', event => {
+        let deleteID = $(event.currentTarget).closest('.history-item').attr('history-id');
+        deleteFlightHistory(deleteID);
     });
 
     // handle logout

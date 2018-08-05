@@ -227,13 +227,13 @@ app.post('/flightplan/create', (req, res) => {
 });
 
 //  handle PUT request from client
-app.put('/flighthistory/:id', (req, res) => {
+app.put('/flightplan/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({ error: 'req.params.id and req.body.id must match' });
     }
 
     let newObj = {};
-    let updateableFields = ['title', 'rating', 'story', 'visited'];
+    let updateableFields = ['country', 'location', 'date', 'duration'];
     updateableFields.forEach((field) => {
         if (field in req.body) {
             newObj[field] = req.body[field];
@@ -264,65 +264,49 @@ app.delete('/flightplan/:id', function (req, res) {
 //****************************/
 // FLIGHT HISTORY ENDPOINTS
 //**************************/
+
+//  handle GET request from client
+app.get('/flighthistory/:user', (req, res) => {
+    FlightPlan
+        .find({ author: req.params.user, visited: 'true' })
+        .then(histories => res.json(histories.map(history => history.historied())))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
+        });
+});
+
 //  handle PUT request from client
 app.put('/flighthistory/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({ error: 'req.params.id and req.body.id must match' });
     }
 
-    let updateObj = {};
-    let updateableFields = ['country', 'location', 'date', 'duration'];
+    let newHistObj = {};
+    let updateableFields = ['title', 'rating', 'story', 'visited'];
     updateableFields.forEach((field) => {
         if (field in req.body) {
-            updateObj[field] = req.body[field];
+            newHistObj[field] = req.body[field];
         }
     });
 
+    console.log(newHistObj);
     FlightPlan
-        .findByIdAndUpdate(req.params.id, { $set: updateObj }, { new: true })
+        .findByIdAndUpdate(req.params.id, { $set: newHistObj }, { new: true })
         .then(updatedPlan => res.status(204).end())
         .catch(err => {
             console.error(err);
             res.status(500).json({ message: 'Internal Server Error' });
         });
 });
-app.get('/entry-performed/:user', function (req, res) {
 
-    Entry
-        .find({
-            "entryType": "performed"
-        })
-        .sort('inputDate')
-        .then(function (entries) {
-            let entriesOutput = [];
-            entries.map(function (entry) {
-                if (entry.loggedInUserName == req.params.user) {
-                    entriesOutput.push(entry);
-                }
-            });
-            res.json({
-                entriesOutput
-            });
-        })
-        .catch(function (err) {
+app.delete('/flighthistory/:id', function (req, res) {
+    FlightPlan
+        .findByIdAndRemove(req.params.id)
+        .then(() => res.status(204).end())
+        .catch((err) => {
             console.error(err);
-            res.status(500).json({
-                message: 'Internal server error'
-            });
-        });
-});
-
-// accessing a single achievement by id
-app.get('/entry/:id', function (req, res) {
-    Entry
-        .findById(req.params.id).exec().then(function (entry) {
-            return res.json(entry);
-        })
-        .catch(function (entries) {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal Server Error'
-            });
+            res.status(500).json({ message: 'Internal Server Error' });
         });
 });
 
