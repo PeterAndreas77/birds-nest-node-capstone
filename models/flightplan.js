@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const flightPlanSchema = new mongoose.Schema({
     country: { type: String },
-    location: { type: String },
+    city: { type: String },
     duration: { type: Number },
     date: { start: String, end: String },
     author: { type: String },
@@ -20,7 +20,7 @@ flightPlanSchema.methods.planned = function () {
     return {
         id: this._id,
         country: this.country,
-        location: this.location,
+        city: this.city,
         date: this.date,
         duration: this.duration,
         created: this.created
@@ -31,7 +31,7 @@ flightPlanSchema.methods.historied = function () {
     return {
         id: this._id,
         country: this.country,
-        location: this.location,
+        city: this.city,
         date: this.date,
         duration: this.duration,
         created: this.created,

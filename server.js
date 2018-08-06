@@ -190,7 +190,7 @@ app.get('/flightplan/:user/:place', (req, res) => {
     FlightPlan
         .find({
             author: req.params.user,
-            $or: [{ country: req.params.place }, { location: req.params.place }]
+            $or: [{ country: req.params.place }, { city: req.params.place }]
         })
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
@@ -201,7 +201,7 @@ app.get('/flightplan/:user/:place', (req, res) => {
 
 //  handle POST request from client
 app.post('/flightplan/create', (req, res) => {
-    const requiredFields = ['country', 'location', 'date', 'author', 'duration'];
+    const requiredFields = ['country', 'city', 'date', 'author', 'duration'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -214,7 +214,7 @@ app.post('/flightplan/create', (req, res) => {
     FlightPlan
         .create({
             country: req.body.country,
-            location: req.body.location,
+            city: req.body.city,
             date: req.body.date,
             duration: req.body.duration,
             author: req.body.author
@@ -233,7 +233,7 @@ app.put('/flightplan/:id', (req, res) => {
     }
 
     let newObj = {};
-    let updateableFields = ['country', 'location', 'date', 'duration'];
+    let updateableFields = ['country', 'city', 'date', 'duration'];
     updateableFields.forEach((field) => {
         if (field in req.body) {
             newObj[field] = req.body[field];

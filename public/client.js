@@ -18,7 +18,7 @@ function formatDate(anyDate) {
             mm = '0' + mm;
         }
     }
-    date = mm + "-" + dd + "-" + yyyy;
+    date = mm + "/" + dd + "/" + yyyy;
     return date;
 }
 
@@ -46,12 +46,12 @@ function renderFlightHistories(histories) {
         myFlightHistories +=
             `<div class="history-item" history-id="${histories[index].id}">
             <h4>${histories[index].title}</h4>
-            <p>${histories[index].location}, ${histories[index].country}</p>
+            <p>${histories[index].city}, ${histories[index].country}</p>
             <p>from ${histories[index].date.start} to ${histories[index].date.end}</p>
             <p>${histories[index].story}</p>
             <p>rating: ${feathers} created: ${created}</p>
             <button class="edit-btn">edit</button>
-            <button class="delete-btn">delete</button>
+            <button class="del-btn">delete</button>
             </div>`;
     };
     $('.my-flight-histories-wrapper').html(myFlightHistories);
@@ -107,14 +107,15 @@ function renderFlightPlans(plans) {
         let created = formatDate(plans[index].created);
         myFlightPlans +=
             `<div class="plan-item" plan-id="${plans[index].id}">
-            <h4 class="plan-country">Country: ${plans[index].country}</h4>
-            <p class="plan-location">Location: ${plans[index].location}</p>
-            <p class="plan-budget">duration: ${plans[index].duration} days, from ${plans[index].date.start} to ${plans[index].date.end}</p>
+            <button class="bird-btn"><i class="fab fa-earlybirds"></i></button>
+            <p>${plans[index].city}, ${plans[index].country}</p>
+            <p class="plan-budget">duration: ( ${plans[index].duration} days )</p>
+            <p> ${plans[index].date.start} - ${plans[index].date.end}</p>
             <p class="plan-info">created: ${created}</p>
-            <button class="visited-btn">visited</button>
-            <button class="edit-btn">edit</button>
-            <button class="delete-btn">delete</button>
-            </div>`;
+            <div class="btn-groups">
+            <button class="edit-btn"><i class="fas fa-edit"></i></button>
+            <button class="del-btn"><i class="fas fa-trash"></i></button>
+            </div></div>`;
     };
     $('.my-flight-plans-wrapper').html(myFlightPlans);
 }
@@ -128,7 +129,7 @@ function searchFlightPlan(place, author) {
     })
         .done(result => {
             if (result == undefined || result.length == 0) {
-                $('.my-flight-plans-wrapper').html('No plans in that country or location were found!')
+                $('.my-flight-plans-wrapper').html('No plans in that country or city were found!')
             }
             else {
                 renderMyFlightPlans(result);
@@ -166,7 +167,7 @@ function updateFlightPlan(updObj, id) {
         .done(() => {
             console.log('plan updated');
             const username = localStorage.getItem('signedInUser');
-            getFlightPlan(username);
+            getFlightPlans(username);
             $('#update-flight-plan-view').hide();
             $('#my-flight-plans-view').show();
         })
@@ -176,7 +177,7 @@ function updateFlightPlan(updObj, id) {
 function deleteFlightPlan(id) {
     $.ajax({
         type: 'DELETE',
-        url: `/flightitem/${id}`,
+        url: `/flightplan/${id}`,
         dataType: 'json',
         contentType: 'application/json'
     })
@@ -357,7 +358,7 @@ $(document).ready(function () {
     $('.create-plan-form').submit(event => {
         event.preventDefault();
         let country = $('#createCountry').val(),
-            location = $('#createLocation').val(),
+            city = $('#createCity').val(),
             startDate = new Date($('#createStartDate').val()),
             endDate = new Date($('#createEndDate').val()),
             duration = differenceInDays(startDate, endDate),
@@ -366,7 +367,7 @@ $(document).ready(function () {
             endStr = formatDate(endDate);
         const newPlanObj = {
             country: country,
-            location: location,
+            city: city,
             date: { start: startStr, end: endStr },
             duration: duration,
             author: author
@@ -386,7 +387,7 @@ $(document).ready(function () {
     $('.update-plan-form').submit(event => {
         event.preventDefault();
         let country = $('#updateCountry').val(),
-            location = $('#updateLocation').val(),
+            city = $('#updateCity').val(),
             startDate = new Date($('#updateStartDate').val()),
             endDate = new Date($('#updateEndDate').val()),
             duration = differenceInDays(startDate, endDate),
@@ -396,7 +397,7 @@ $(document).ready(function () {
         const updPlanObj = {
             id: updateID,
             country: country,
-            location: location,
+            city: city,
             date: { start: startStr, end: endStr },
             duration: duration
         };
@@ -404,7 +405,7 @@ $(document).ready(function () {
     });
 
     // handle when user want to delete their flight plan
-    $('.my-flight-plans-wrapper').on('click', '.delete-btn', event => {
+    $('.my-flight-plans-wrapper').on('click', '.del-btn', event => {
         let deleteID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         deleteFlightPlan(deleteID);
     });
@@ -413,7 +414,7 @@ $(document).ready(function () {
 
 
     // handle when user check visited if they did their flight plan
-    $('.my-flight-plans-wrapper').on('click', '.visited-btn', event => {
+    $('.my-flight-plans-wrapper').on('click', '.bird-btn', event => {
         let visitID = $(event.currentTarget).closest('.plan-item').attr('plan-id');
         localStorage.setItem('visitID', visitID);
         $('#my-flight-plans-view').hide();
@@ -447,7 +448,7 @@ $(document).ready(function () {
         createFlightHistory(newHistory, visitID);
     });
 
-    $('.my-flight-histories-wrapper').on('click', '.delete-btn', event => {
+    $('.my-flight-histories-wrapper').on('click', '.del-btn', event => {
         let deleteID = $(event.currentTarget).closest('.history-item').attr('history-id');
         deleteFlightHistory(deleteID);
     });
