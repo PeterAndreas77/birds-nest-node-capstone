@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 // const bcrypt = require('bcryptjs');
 
-const flightPlanSchema = new mongoose.Schema({
+const flightLogSchema = new mongoose.Schema({
     country: { type: String },
     city: { type: String },
     duration: { type: Number },
@@ -16,7 +16,7 @@ const flightPlanSchema = new mongoose.Schema({
     visited: { type: Boolean, default: false }
 });
 
-flightPlanSchema.methods.planned = function () {
+flightLogSchema.methods.planned = function () {
     return {
         id: this._id,
         country: this.country,
@@ -27,7 +27,7 @@ flightPlanSchema.methods.planned = function () {
     };
 };
 
-flightPlanSchema.methods.historied = function () {
+flightLogSchema.methods.historied = function () {
     return {
         id: this._id,
         country: this.country,
@@ -41,6 +41,6 @@ flightPlanSchema.methods.historied = function () {
     };
 };
 
-const FlightPlan = mongoose.model('FlightPlan', flightPlanSchema);
+const FlightLog = mongoose.model('FlightLog', flightLogSchema);
 
-module.exports = FlightPlan;
+module.exports = FlightLog;

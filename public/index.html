@@ -13,128 +13,155 @@
 </head>
 
 <body>
-
-  <header class="header">
-    <h1>
-      <i class="fas fa-crow"></i> Bird's Nest</h1>
-  </header>
-
-  <main class="main">
+  <div class="container">
 
     <section id="landing-page">
-      <div class="landing-container">
-        <h2 class="motto">Where weary travellers share their stories.</h2>
-        <button class="start-btn">start</button>
+
+      <img class="hero-img" src="birds_nest_logo.png" alt="bird's nest logo">
+      <div class="cta-wrapper">
+        <button id="cta-btn">
+          <span>start</span>
+          <span id="wings">
+            <svg width="60px" height="40px" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+              <g class="wings" fill="white">
+                <path d="m91.526,52.299c-3.847,-0.114 -6.862,-3.22 -6.862,-7.07l0,-4.644c0,-6.211 -5.053,-11.265 -11.265,-11.265l-41.179,0l0,1.192c0,3.14 2.064,5.806 4.907,6.716l30.728,0c7.957,0 14.43,6.474 14.43,14.431l0,4.644c0,1.304 0.63,2.449 1.604,3.157l7.531,0c1.975,0 3.581,-1.607 3.581,-3.582c-0.001,-1.949 -1.527,-3.521 -3.475,-3.579z"
+                  id="svg_wing_2" />
+                <path d="m85.981,63.373c-3.847,-0.115 -6.862,-3.221 -6.862,-7.071l0,-4.644c0,-6.211 -5.053,-11.265 -11.264,-11.265l-41.179,0l0,1.192c0,3.888 3.163,7.052 7.052,7.052l0.616,0l1.583,0l14.761,0c0.874,0 1.583,0.709 1.583,1.583c0,0.875 -0.709,1.583 -1.583,1.583l-14.761,0l0,1.192c0,3.888 3.163,7.052 7.052,7.052l1.583,0l15.379,0c0.874,0 1.583,0.709 1.583,1.583c0,0.875 -0.709,1.583 -1.583,1.583l-15.379,0l0,0.267c0,3.888 3.163,7.052 7.052,7.052l34.26,0c1.975,0 3.581,-1.606 3.581,-3.581c0,-1.947 -1.526,-3.519 -3.474,-3.578z"
+                  id="svg_wing_1" />
+                <path d="m37.382,67.386l-20.091,0c-0.91,0 -1.647,0.737 -1.647,1.647s0.737,1.647 1.647,1.647l20.091,0c0.91,0 1.647,-0.737 1.647,-1.647s-0.737,-1.647 -1.647,-1.647z"
+                  id="svg_arrow_3" />
+                <path d="m32.087,61.632c0,-0.91 -0.737,-1.647 -1.647,-1.647l-18.993,0c-0.91,0 -1.647,0.737 -1.647,1.647c0,0.91 0.737,1.647 1.647,1.647l18.993,0c0.91,0 1.647,-0.737 1.647,-1.647z"
+                  id="svg_arow_2" />
+                <path d="m24.573,54.23c0,-0.91 -0.737,-1.647 -1.647,-1.647l-16.279,0c-0.91,0 -1.647,0.738 -1.647,1.647s0.737,1.647 1.647,1.647l16.279,0c0.91,0 1.647,-0.737 1.647,-1.647z"
+                  id="svg_arrow_1" />
+              </g>
+            </svg>
+          </span>
+        </button>
       </div>
     </section>
 
 
-    <section id="signin-signup-page">
-      <div class="card">
 
-        <div class="front">
-          <form class="signInForm">
-            <fieldset>
-              <legend>Sign In</legend>
-              <div class="input-field">
-                <label for="signInUsername">username </label>
-                <input value="demo" type="text" id="signInUsername" name="signInUsername">
+    <section id="inside-pages">
+      <div class="inside-container">
+        <header class="header">
+          <h1>Bird's Nest</h1>
+        </header>
+
+        <main class="main">
+
+          <section id="signin-signup-page">
+            <div class="card">
+
+              <div class="front">
+                <form class="signInForm">
+                  <fieldset>
+                    <legend> Sign In </legend>
+                    <div class="input-field">
+                      <label for="signInUsername">username </label>
+                      <input value="demo" type="text" id="signInUsername" name="signInUsername">
+                    </div>
+                    <div class="input-field">
+                      <label for="signInPassword">password </label>
+                      <input value="password123" type="password" id="signInPassword" name="signInPassword">
+                    </div>
+                    <button class="signin-btn" type="submit">sign in
+                      <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                  </fieldset>
+                </form>
+                <div class="flip">
+                  <span>Don't have an account? Sign up here</span>
+                </div>
               </div>
-              <div class="input-field">
-                <label for="signInPassword">password </label>
-                <input value="password123" type="password" id="signInPassword" name="signInPassword">
+
+              <div class="back">
+                <form action="" class="signUpForm">
+                  <fieldset>
+                    <legend> Sign Up </legend>
+                    <div class="input-field">
+                      <label for="signUpUsername">username </label>
+                      <input value="demo" type="text" id="signUpUsername" name="signUpUsername">
+                    </div>
+                    <div class="input-field">
+                      <label for="signUpPassword">password </label>
+                      <input value="password123" type="password" id="signUpPassword" name="signUpPassword">
+                    </div>
+                    <div class="input-field">
+                      <label for="confirmPassword">confirm password </label>
+                      <input value="password123" type="password" id="confirmPassword" name="confirmPassword">
+                    </div>
+                    <button class="signup-btn" type="submit">sign up
+                      <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                  </fieldset>
+                </form>
+                <div class="flip">
+                  <span>Already have an account? Sign in here</span>
+                </div>
               </div>
-              <button class="signin-btn" type="submit">sign in
-                <i class="fas fa-sign-in-alt"></i>
-              </button>
-            </fieldset>
-          </form>
-          <div class="flip">
-            <span>>> Don't have an account? Sign up here >></span>
-          </div>
-        </div>
-
-        <div class="back">
-          <form action="" class="signUpForm">
-            <fieldset>
-              <legend>Sign Up</legend>
-              <div class="input-field">
-                <label for="signUpUsername">username </label>
-                <input value="demo" type="text" id="signUpUsername" name="signUpUsername">
-              </div>
-              <div class="input-field">
-                <label for="signUpPassword">password </label>
-                <input value="password123" type="password" id="signUpPassword" name="signUpPassword">
-              </div>
-              <div class="input-field">
-                <label for="confirmPassword">confirm password </label>
-                <input value="password123" type="password" id="confirmPassword" name="confirmPassword">
-              </div>
-              <button class="signup-btn" type="submit">sign up
-                <i class="fas fa-sign-in-alt"></i>
-              </button>
-            </fieldset>
-          </form>
-          <div class="flip">
-            <span>>>Already have an account? Sign in here>></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="user-page">
-      <div class="user-view">
-        <nav id="navbar">
-          <ul>
-            <li class="navitem">
-              <a id="my-flight-plans" href="#">
-                <i class="fas fa-book"></i> My Flight Plans</a>
-            </li>
-            <li class="navitem">
-              <a id="my-flight-histories" href="#">
-                <i class="fas fa-search"></i> My Flight Histories</a>
-            </li>
-            <li class="navitem">
-              <a id="logout" href="#">
-                <i class="fas fa-sign-in-alt"></i> Logout</a>
-            </li>
-          </ul>
-        </nav>
-
-        <section id="content-container">
-
-          <section id="flight-plans-view">
-
-            <div class="flight-plans-controls">
-              <span class="toggle-menu control-item">
-                <i class="fas fa-2x fa-bars"></i>
-              </span>
-              <span id="create-flight-plan" class="control-item">
-                <i class="fas fa-plus"></i> Hatch A Plan
-              </span>
-              <span class="control-item search-flight-plan">
-                <label for="searchPlan">Search Plan
-                  <i class="fas fa-search"></i>
-                </label>
-                <input type="text" id="searchPlan" name="searchPlan">
-                <button class="search-plan-btn">search</button>
-              </span>
             </div>
+          </section>
 
 
-            <section id="my-flight-plans-view">
-              <div class="my-flight-plans-wrapper">
+          <section id="user-page">
+
+            <nav id="navbar">
+              <span class="toggle-menu">
+                <i class="fas fa-2x fa-window-close"></i> Close Menu
+              </span>
+              <div>
+                <p id="my-username">Welcome,
+                  <span class="my-username"></span>
+                </p>
+              </div>
+              <ul>
+                <li class="nav-item">
+                  <a id="create-flight-plan" href="#">
+                    <i class="fas fa-plus"></i> Hatch A Plan</a>
+                </li>
+                <li class="nav-item">
+                  <a id="my-flight-plans" href="#">
+                    <i class="fas fa-sticky-note"></i> My Flight Plans</a>
+                </li>
+                <li class="nav-item">
+                  <a id="my-flight-logs" href="#">
+                    <i class="fas fa-book"></i> My Flight Logs</a>
+                </li>
+                <li class="nav-item">
+                  <a id="how-to-use" href="#">
+                      <i class="fas fa-question-circle"></i> How To Use</a>
+                </li>
+                <li class="nav-item">
+                  <a id="logout" href="#">
+                    <i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+              </ul>
+            </nav>
+
+            <section id="content-container">
+
+              <div class="flight-plans-controls">
+                <span class="toggle-menu">
+                  <i class="fas fa-2x fa-bars"></i> Open Menu
+                </span>
+                <div class="search-divs">
+                  <label for="searchPlan">Search Plans
+                    <i class="fas fa-search"></i>
+                  </label>
+                  <input type="text" id="searchPlan" name="searchPlan">
+                  <button class="search-plan-btn">search</button>
+                </div>
+              </div>
+
+              <section id="flight-plans-view">
 
                 <!-- MY FLIGHT PLANS GO HERE -->
 
-              </div>
-            </section>
+              </section>
 
-
-            <section id="create-flight-plan-view">
-              <div class="create-flight-plan-wrapper">
-
+              <section id="create-plan-view">
                 <form class="create-plan-form">
                   <fieldset>
                     <legend>Create Your Flight Plan</legend>
@@ -159,17 +186,12 @@
                       <input id="createEndDate" type="date" name="createEndDate" required>
                     </div>
 
-                    <button type="submit" class="create-flight-plan-btn">submit</button>
+                    <button type="submit">submit</button>
                   </fieldset>
                 </form>
+              </section>
 
-              </div>
-            </section>
-
-
-            <section id="update-flight-plan-view">
-              <div class="update-flight-plan-wrapper">
-
+              <section id="update-plan-view">
                 <form class="update-plan-form">
                   <fieldset>
                     <legend>Update Your Flight Plan</legend>
@@ -194,15 +216,12 @@
                       <input id="updateEndDate" type="date" name="updateEndDate" required>
                     </div>
 
-                    <button type="submit" class="update-flight-plan-btn">submit</button>
+                    <button type="submit">submit</button>
                   </fieldset>
                 </form>
-              </div>
-            </section>
+              </section>
 
-            <section id="create-flight-history-view">
-              <div class="create-flight-history-wrapper">
-
+              <section id="create-log-view">
                 <form class="create-history-form">
                   <fieldset>
                     <legend>How was your flight?</legend>
@@ -223,51 +242,20 @@
                         </textarea>
                     </div>
 
-                    <button type="submit" class="create-flight-history-btn">submit</button>
+                    <button type="submit">submit</button>
                   </fieldset>
                 </form>
-              </div>
+              </section>
+
             </section>
-
           </section>
-
-
-          <section id="flight-history-view">
-            <div class="flight-history-controls">
-              <span class="toggle-menu control-item">
-                <i class="fas fa-2x fa-bars"></i>
-              </span>
-
-              <span class="control-item search-flight-history">
-                <label for="searchHistory">Search History
-                  <i class="fas fa-search"></i>
-                </label>
-                <input type="text" id="searchHistory" name="searchHistory">
-                <button class="search-plan-btn">search</button>
-              </span>
-            </div>
-
-            <section id="my-flight-histories-view">
-              <div class="my-flight-histories-wrapper">
-
-                <!-- MY FLIGHT HISTORIES GO HERE -->
-
-              </div>
-            </section>
-
-          </section>
-        </section>
-
+        </main>
+        <footer class="footer">
+          <p>2018 &copy; Andreas Soedharto</p>
+        </footer>
       </div>
     </section>
-
-  </main>
-
-
-  <footer class="footer">
-    <p>2018 &copy; Andreas Soedharto</p>
-  </footer>
-
+  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="client.js"></script>

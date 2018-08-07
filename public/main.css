@@ -1,196 +1,320 @@
+/* RESET EVERYTHING */
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
-html,
-body {
-  height: 100vh;
-  width: 100vw;
+
+/* THE CONTAINER THAT WRAPS AROUND ALL */
+.container{
+  margin: 0 auto;
+  max-width: 1280px;
 }
-body {
-  display: grid;
-  color: #062F63;
-  grid-template-rows: 60px auto 40px;
-  grid-template-areas:
-    "header"
-    "main"
-    "footer";
-}
-.header {
-  grid-area: header;
-}
-.main {
-  padding: 0 20px;
-  font-family: "Roboto", sans-serif;
-  grid-area: main;
-}
-.footer {
-  grid-area: footer;
-}
-.header,
-.footer,
-.form {
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-}
-.header,
-.footer,
-#signin-signup-page,
+
+/* LANDING PAGE */
 #landing-page {
+  overflow-y: hidden; 
   text-align: center;
 }
-legend{
-  font-size: 20px;
+
+/* HERO IMAGE */
+.hero-img{
+  margin-top: 10vh;
+  width: 70%;
 }
-#landing-page{
-  margin-top: 20vh;
+
+/* CTA BUTTON */
+.cta-wrapper{
+  margin-top: 40px;
+  text-align: center;
 }
+#cta-btn {
+  height: 80px;
+  width: 200px;
+  font-weight: bold;
+  background-color: #3a4660;
+  border: 2px solid #3a4660;
+  color: white;
+  -webkit-box-shadow: 4px 4px 0 skyblue;
+          box-shadow: 4px 4px 0 skyblue;
+  font-family: 'Poppins';
+  text-transform: uppercase;
+  font-size: 40px;
+  padding: 10px;
+  -webkit-transition: width .5s ease;
+  -o-transition: width .5s ease;
+  transition: width .5s ease;
+  -webkit-transform: skewX(-15deg);
+      -ms-transform: skewX(-15deg);
+          transform: skewX(-15deg);
+}
+#cta-btn:hover .wings{
+  -webkit-animation: color_anim 1s infinite;
+          animation: color_anim 1s infinite;
+}
+#cta-btn:hover #wings{
+  -webkit-animation: up_down 1s infinite;
+          animation: up_down 1s infinite;
+}
+#cta-btn:hover {
+  width: 280px;
+  -webkit-box-shadow: 10px 6px 0 skyblue;
+          box-shadow: 10px 6px 0 skyblue;
+}
+@-webkit-keyframes color_anim {
+    0% {fill: #fff}
+    50% {fill: #3a4660}
+    100% {fill: #fff}
+}
+@keyframes color_anim {
+    0% {fill: #fff}
+    50% {fill: #3a4660}
+    100% {fill: #fff}
+}
+@-webkit-keyframes up_down {
+  0%{margin-left: 0}
+  50%{margin-left: 30px}
+  100%{margin-left: 0}
+}
+@keyframes up_down {
+  0%{margin-left: 0}
+  50%{margin-left: 30px}
+  100%{margin-left: 0}
+}
+
+/* SIGN IN & SIGN UP CARD */
 #signin-signup-page{
   margin-top: 10vh;
-}
-
-/* HERE DISPLAY THIS*/
-#signin-signup-page {
-  display: none;
-}
-
-#user-page {
-  display: none;
-}
-
-/* HERE DISPLAY THIS*/
-
-fieldset {
-  border: none;
-}
-#navbar {
-  position: fixed;
-  left: 20px;
-  height: 90%;
-  transform: translateX(-180px);
-  transition: transform 0.75s ease;
-}
-#navbar.toggle{
-  transform: translateX(0);
-}
-#content-container {
-  transform: translateX(0);
-  transition: transform 0.75s ease;
-}
-#content-container.toggle{
-  transform: translateX(180px);
-}
-li > a {
-  text-decoration: none;
-}
-li > a,
-.user-view {
-  color: #062F63;
-}
-ul {
-  list-style-type: none;
-}
-.input-field,
-button,
-.flip {
-  margin-top: 25px;
-}
-button {
-  font-weight: bold;
-  padding: 8px 12px;
-  font-size: 16px;
-  text-transform: uppercase;
-  border: 2px solid #fdc561;
-  color: #fff;
-  background-color: #fdc561;
-}
-button:hover {
-  cursor: pointer;
-  background-color: #fff;
-  color: #fdc561;
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
 }
 .card {
   width: 100%;
-  height: 50vh;
+  text-align: center;
   position: absolute;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  -o-transition: transform 0.5s;
   transition: transform 0.5s;
-  transform-style: preserve-3d;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
-.card.flipped,
-.card .back {
-  transform: rotateY(180deg);
+.card.flipped, .card .back {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
 }
-.card .front,
-.card .back {
+.card .front, .card .back {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
   transition: 0.5s;
 }
 .card.back {
   display: block;
 }
-.navitem{
-  margin-top: 10px;
-}
-.flip:hover, .navitem>a:hover, .toggle-menu:hover, .control-item:hover{
-  color: #fdc561;
-  cursor: pointer;
-}
-#search-loc-view{
-  display: none;
-  text-align: center;
-}
-.history-item{
-  border: #062F63 2px solid;
-  margin: 2px;
+.flip {
+  margin-top: 25px;
 }
 
-/* FLIGHT PLANS VIEW */
-#create-flight-plan-view, #update-flight-plan-view, #create-flight-history-view,
-#flight-history-view {
+/* USER PAGE */
+#user-page{
   display: none;
+}
+#inside-container {
+  display: -ms-grid;
+  display: grid;
+  color: #062F63;
+      -ms-grid-rows: 60px auto 40px;
+      grid-template-rows: 60px auto 40px;
+      grid-template-areas:
+    " header "
+    " main "
+    " footer ";
+}
+#inside-pages{
+  display: none;
+}
+.header {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: header;
+}
+.main {
+  padding: 0 20px;
+  font-family: "Roboto", sans-serif;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: main;
+}
+.footer {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: footer;
+  z-index: 1;
+}
+.header, .footer {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* LOG ITEMS & FORMS */
+.log-item, form {
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+  -webkit-box-shadow: 2px 2px 4px grey;
+          box-shadow: 2px 2px 4px grey;
+  background-color:  #3a4660;
+  text-align: center;
+}
+input{
+  color: #3a4660;
+  font-weight: bold;
+}
+.input-field {
+  margin-top: 25px;
 }
 textarea{
   height: 30vh;
   width: 100%;
 }
+legend{
+  font-size: 20px;
+}
+fieldset{
+  border:#fff solid 2px;
+}
 
-/* PLAN ITEMS */
-.my-flight-plans-wrapper {
-  margin: 20px 10px;
-  text-align: center;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, 200px);
+/* BUTTONS */
+button {
+  margin:  10px;
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  background-color: #3a4660;
+  -webkit-box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
+          box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
+  text-transform: uppercase;
+  padding: 6px 8px;
+}
+button:hover {
+  cursor: pointer;
+  -webkit-transform: translateY(2px) translateX(2px);
+      -ms-transform: translateY(2px) translateX(2px);
+          transform: translateY(2px) translateX(2px);
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .button-groups {
+  display: -ms-grid;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, 40px);
 }
-.plan-item, .bird-btn, .edit-btn, .del-btn {
-  padding: 5px;
-  color: #3a4660;
+
+/* SIDE NAVBAR */
+#navbar {
+  position: fixed;
   font-weight: bold;
-  box-shadow: 2px 2px 0 #3a4660;
-  border: 2px solid #3a4660;
+  color: #3a4660;
+  left: 20px;
+  height: 90%;
+  -webkit-transform: translateX(-180px);
+      -ms-transform: translateX(-180px);
+          transform: translateX(-180px);
+  -webkit-transition: -webkit-transform 0.75s ease;
+  transition: -webkit-transform 0.75s ease;
+  -o-transition: transform 0.75s ease;
+  transition: transform 0.75s ease;
+  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
 }
-.edit-btn, .del-btn{
-  border-radius: 5px;
+#navbar.toggle{
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
 }
-.bird-btn{
-  border-radius: 50%;
+#content-container {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+  -webkit-transition: -webkit-transform 0.75s ease;
+  transition: -webkit-transform 0.75s ease;
+  -o-transition: transform 0.75s ease;
+  transition: transform 0.75s ease;
+  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
 }
-.bird-btn, .edit-btn, .del-btn{
-  background-color: transparent;
-  margin: 0 10px 10px 10px;
-  padding: 6px 8px;
-  text-transform: uppercase;
+#content-container.toggle{
+  -webkit-transform: translateX(180px);
+      -ms-transform: translateX(180px);
+          transform: translateX(180px);
 }
-.bird-btn:hover, .edit-btn:hover, .del-btn:hover{
-  transform: translate(2px, 2px);
-  box-shadow: none;
+li > a {
+  text-decoration: none;
+}
+li > a, .user-view {
+  color: #062F63;
+}
+ul {
+  list-style-type: none;
+}
+#my-username{
+  margin-top: 30px;
+}
+.nav-item{
+  margin-top: 25px;
+}
+
+/* PLANS AND LOGS VIEWS */
+#flight-plans-view {
+  margin: 20px 10px;
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+}
+
+/* SEARCH BARS */
+.search-divs{
+  margin: 10px 0 10px 40px;
+}
+.search-plan-btn{
+    margin:  10px;
+    color: #3a4660;
+    font-weight: bold;
+    border: 2px solid #3a4660;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
+            box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
+    text-transform: uppercase;
+    padding: 6px 8px;
+}
+.search-plan-btn:hover {
+  cursor: pointer;
+  -webkit-transform: translateY(2px) translateX(2px);
+      -ms-transform: translateY(2px) translateX(2px);
+          transform: translateY(2px) translateX(2px);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+/* LINKS & SPANS HOVER */
+.flip:hover, .nav-item>a:hover, .toggle-menu:hover{
+  color: #fdc561;
+  cursor: pointer;
+}
+
+/* DISPLAY NONES */
+#create-plan-view, #update-plan-view, #create-log-view {
+  display: none;
 }

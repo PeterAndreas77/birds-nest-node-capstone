@@ -1,5 +1,5 @@
 const User = require('./models/user');
-const FlightPlan = require('./models/flightplan');
+const FlightLog = require('./models/flightlog');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose').set('debug', true);
@@ -177,7 +177,7 @@ app.post('/users/signin', function (req, res) {
 
 //  handle GET request from client
 app.get('/flightplan/:user', (req, res) => {
-    FlightPlan
+    FlightLog
         .find({ author: req.params.user, visited: 'false' })
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
@@ -187,7 +187,7 @@ app.get('/flightplan/:user', (req, res) => {
 });
 
 app.get('/flightplan/:user/:place', (req, res) => {
-    FlightPlan
+    FlightLog
         .find({
             author: req.params.user,
             $or: [{ country: req.params.place }, { city: req.params.place }]
@@ -211,7 +211,7 @@ app.post('/flightplan/create', (req, res) => {
         }
     }
 
-    FlightPlan
+    FlightLog
         .create({
             country: req.body.country,
             city: req.body.city,
@@ -240,7 +240,7 @@ app.put('/flightplan/:id', (req, res) => {
         }
     });
     console.log(newObj);
-    FlightPlan
+    FlightLog
         .findByIdAndUpdate(req.params.id, { $set: newObj }, { new: true })
         .then(updatedPlan => res.status(204).end())
         .catch(err => {
@@ -251,7 +251,7 @@ app.put('/flightplan/:id', (req, res) => {
 
 //  handle DELETE request from client
 app.delete('/flightplan/:id', function (req, res) {
-    FlightPlan
+    FlightLog
         .findByIdAndRemove(req.params.id)
         .then(() => res.status(204).end())
         .catch((err) => {
@@ -267,7 +267,7 @@ app.delete('/flightplan/:id', function (req, res) {
 
 //  handle GET request from client
 app.get('/flighthistory/:user', (req, res) => {
-    FlightPlan
+    FlightLog
         .find({ author: req.params.user, visited: 'true' })
         .then(histories => res.json(histories.map(history => history.historied())))
         .catch((err) => {
@@ -291,7 +291,7 @@ app.put('/flighthistory/:id', (req, res) => {
     });
 
     console.log(newHistObj);
-    FlightPlan
+    FlightLog
         .findByIdAndUpdate(req.params.id, { $set: newHistObj }, { new: true })
         .then(updatedPlan => res.status(204).end())
         .catch(err => {
@@ -301,7 +301,7 @@ app.put('/flighthistory/:id', (req, res) => {
 });
 
 app.delete('/flighthistory/:id', function (req, res) {
-    FlightPlan
+    FlightLog
         .findByIdAndRemove(req.params.id)
         .then(() => res.status(204).end())
         .catch((err) => {
