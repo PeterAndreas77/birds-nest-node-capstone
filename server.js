@@ -176,7 +176,7 @@ app.post('/users/signin', function (req, res) {
 //**************************/
 
 //  handle GET request from client
-app.get('/flightplan/:user', (req, res) => {
+app.get('/flight-plan/:user', (req, res) => {
     FlightLog
         .find({ author: req.params.user, visited: 'false' })
         .then(plans => res.json(plans.map(plan => plan.planned())))
@@ -186,7 +186,7 @@ app.get('/flightplan/:user', (req, res) => {
         });
 });
 
-app.get('/flightplan/:user/:place', (req, res) => {
+app.get('/flight-plan/:user/:place', (req, res) => {
     FlightLog
         .find({
             author: req.params.user,
@@ -200,7 +200,7 @@ app.get('/flightplan/:user/:place', (req, res) => {
 });
 
 //  handle POST request from client
-app.post('/flightplan/create', (req, res) => {
+app.post('/flight-plan/create', (req, res) => {
     const requiredFields = ['country', 'city', 'date', 'author', 'duration'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -227,7 +227,7 @@ app.post('/flightplan/create', (req, res) => {
 });
 
 //  handle PUT request from client
-app.put('/flightplan/:id', (req, res) => {
+app.put('/flight-plan/update/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({ error: 'req.params.id and req.body.id must match' });
     }
@@ -250,7 +250,7 @@ app.put('/flightplan/:id', (req, res) => {
 });
 
 //  handle DELETE request from client
-app.delete('/flightplan/:id', function (req, res) {
+app.delete('/flight-plan/delete/:id', function (req, res) {
     FlightLog
         .findByIdAndRemove(req.params.id)
         .then(() => res.status(204).end())
@@ -262,45 +262,68 @@ app.delete('/flightplan/:id', function (req, res) {
 
 
 //****************************/
-// FLIGHT HISTORY ENDPOINTS
+// FLIGHT LOGS ENDPOINTS
 //**************************/
 
 //  handle GET request from client
-app.get('/flighthistory/:user', (req, res) => {
+app.get('/flight-log/:user', (req, res) => {
     FlightLog
-        .find({ author: req.params.user, visited: 'true' })
-        .then(histories => res.json(histories.map(history => history.historied())))
+        .find({ author: req.params.user, visited: true })
+        .then(logs => res.json(logs.map(log => log.logged())))
         .catch((err) => {
             console.error(err);
             res.status(500).json({ message: 'Internal server error' });
         });
 });
 
-//  handle PUT request from client
-app.put('/flighthistory/:id', (req, res) => {
+//  creating new log object with PUT request
+app.put('/flight-log/create/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({ error: 'req.params.id and req.body.id must match' });
     }
 
-    let newHistObj = {};
-    let updateableFields = ['title', 'rating', 'story', 'visited'];
-    updateableFields.forEach((field) => {
+    let newLogObj = {};
+    let newLogFields = ['title', 'rating', 'story', 'visited', 'created'];
+    newLogFields.forEach((field) => {
         if (field in req.body) {
-            newHistObj[field] = req.body[field];
+            newLogObj[field] = req.body[field];
         }
     });
 
-    console.log(newHistObj);
     FlightLog
-        .findByIdAndUpdate(req.params.id, { $set: newHistObj }, { new: true })
-        .then(updatedPlan => res.status(204).end())
+        .findByIdAndUpdate(req.params.id, { $set: newLogObj }, { new: true })
+        .then(createdLog => res.status(204).end())
         .catch(err => {
             console.error(err);
             res.status(500).json({ message: 'Internal Server Error' });
         });
 });
 
-app.delete('/flighthistory/:id', function (req, res) {
+//  updating new log object with PUT request
+app.put('/flight-log/update/:id', (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        res.status(400).json({ error: 'req.params.id and req.body.id must match' });
+    }
+
+    let updLogObj = {};
+    let updLogFields = ['title', 'rating', 'story'];
+    updLogFields.forEach((field) => {
+        if (field in req.body) {
+            updLogObj[field] = req.body[field];
+        }
+    });
+
+    FlightLog
+        .findByIdAndUpdate(req.params.id, { $set: updLogObj }, { new: true })
+        .then(updatedLog => res.status(204).end())
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal Server Error' });
+        });
+});
+
+//deleting log object
+app.delete('/flight-log/delete/:id', function (req, res) {
     FlightLog
         .findByIdAndRemove(req.params.id)
         .then(() => res.status(204).end())

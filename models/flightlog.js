@@ -27,7 +27,7 @@ flightLogSchema.methods.planned = function () {
     };
 };
 
-flightLogSchema.methods.historied = function () {
+flightLogSchema.methods.logged= function () {
     return {
         id: this._id,
         country: this.country,

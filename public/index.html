@@ -60,11 +60,11 @@
                     <legend> Sign In </legend>
                     <div class="input-field">
                       <label for="signInUsername">username </label>
-                      <input value="demo" type="text" id="signInUsername" name="signInUsername">
+                      <input type="text" value="demo" id="signInUsername" name="signInUsername">
                     </div>
                     <div class="input-field">
                       <label for="signInPassword">password </label>
-                      <input value="password123" type="password" id="signInPassword" name="signInPassword">
+                      <input type="password" value="password123" id="signInPassword" name="signInPassword">
                     </div>
                     <button class="signin-btn" type="submit">sign in
                       <i class="fas fa-sign-in-alt"></i>
@@ -118,10 +118,6 @@
               </div>
               <ul>
                 <li class="nav-item">
-                  <a id="create-flight-plan" href="#">
-                    <i class="fas fa-plus"></i> Hatch A Plan</a>
-                </li>
-                <li class="nav-item">
                   <a id="my-flight-plans" href="#">
                     <i class="fas fa-sticky-note"></i> My Flight Plans</a>
                 </li>
@@ -131,7 +127,7 @@
                 </li>
                 <li class="nav-item">
                   <a id="how-to-use" href="#">
-                      <i class="fas fa-question-circle"></i> How To Use</a>
+                    <i class="fas fa-question-circle"></i> How To Use</a>
                 </li>
                 <li class="nav-item">
                   <a id="logout" href="#">
@@ -142,109 +138,183 @@
 
             <section id="content-container">
 
-              <div class="flight-plans-controls">
-                <span class="toggle-menu">
-                  <i class="fas fa-2x fa-bars"></i> Open Menu
-                </span>
-                <div class="search-divs">
-                  <label for="searchPlan">Search Plans
-                    <i class="fas fa-search"></i>
-                  </label>
-                  <input type="text" id="searchPlan" name="searchPlan">
-                  <button class="search-plan-btn">search</button>
+              <section id="flight-plans">
+
+                <div class="flight-controls">
+                  <span class="toggle-menu">
+                    <i class="fas fa-2x fa-bars"></i> Open Menu</span>
+                  <span id="create-flight-plan">
+                    <i class="fas fa-plus"></i> Hatch A Plan</a>
+                  </span>
+                  <div class="search-divs">
+                    <label for="searchPlan">Search Plans
+                      <i class="fas fa-search"></i>
+                    </label>
+                    <input type="text" id="searchPlan" name="searchPlan" placeholder="( Query Here )">
+                    <button class="search-plan-btn">search</button>
+                  </div>
                 </div>
-              </div>
 
-              <section id="flight-plans-view">
+                <section id="flight-plans-view">
+                  <!-- FLIGHT PLANS GO HERE -->
+                </section>
 
-                <!-- MY FLIGHT PLANS GO HERE -->
+                <section id="create-plan-view">
+                  <form class="create-plan-form">
+                    <fieldset>
+                      <legend>Create Your Flight Plan</legend>
+
+                      <div class="input-field">
+                        <label for="createCity">I'd like to visit </label>
+                        <input id="createCity" type="text" name="createCity" placeholder="( city name here )" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="createCountry">in </label>
+                        <input id="createCountry" type="text" name="createCountry" placeholder="( country name here )" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="createStartDate">from </label>
+                        <input id="createStartDate" type="date" name="createStartDate" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="createEndDate">to </label>
+                        <input id="createEndDate" type="date" name="createEndDate" required>
+                      </div>
+                      <div class="btn-groups">
+                        <button type="submit">create</button>
+                        <button class="cancel-btn">cancel</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </section>
+
+                <section id="update-plan-view">
+                  <form class="update-plan-form">
+                    <fieldset>
+                      <legend>Update Your Flight Plan</legend>
+
+                      <div class="input-field">
+                        <label for="updateCity">Actually, I want to visit </label>
+                        <input id="updateCity" type="text" name="updateCity" placeholder="( city name here )" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="updateCountry">in </label>
+                        <input id="updateCountry" type="text" name="updateCountry" placeholder="( country name here )" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="updateStartDate">from </label>
+                        <input id="updateStartDate" type="date" name="updateStartDate" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="updateEndDate">to </label>
+                        <input id="updateEndDate" type="date" name="updateEndDate" required>
+                      </div>
+
+                      <div class="btn-groups">
+                        <button type="submit">update</button>
+                        <button class="cancel-btn">cancel</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </section>
 
               </section>
 
-              <section id="create-plan-view">
-                <form class="create-plan-form">
-                  <fieldset>
-                    <legend>Create Your Flight Plan</legend>
+              <section id="flight-logs">
 
-                    <div class="input-field">
-                      <label for="createCountry">Country</label>
-                      <input id="createCountry" type="text" name="createCountry" required>
-                    </div>
+                <div class="flight-controls">
+                  <span class="toggle-menu">
+                    <i class="fas fa-2x fa-bars"></i> Open Menu</span>
+                  <span id="create-flight-log">
+                    <i class="fas fa-plus"></i> Pick A Plan</a>
+                  </span>
+                  <div class="search-divs">
+                    <label for="searchLog">Search Logs
+                      <i class="fas fa-search"></i>
+                    </label>
+                    <input type="text" id="searchLog" name="searchLog" placeholder="( Query Here )">
+                    <button class="search-log-btn">search</button>
+                  </div>
+                </div>
 
-                    <div class="input-field">
-                      <label for="createCity">City</label>
-                      <input id="createCity" type="text" name="createCity" required>
-                    </div>
+                <section id="flight-logs-view">
+                  <!-- FLIGHT LOGS GO HERE -->
+                </section>
 
-                    <div class="input-field">
-                      <label for="createStartDate">Start Date</label>
-                      <input id="createStartDate" type="date" name="createStartDate" required>
-                    </div>
+                <section id="create-log-view">
+                  <form class="create-log-form">
+                    <fieldset>
+                      <legend>Create Flight Log</legend>
 
-                    <div class="input-field">
-                      <label for="createEndDate">End Date</label>
-                      <input id="createEndDate" type="date" name="createEndDate" required>
-                    </div>
+                      <div class="input-field">
+                        <label for="createTitle">Title</label>
+                        <input id="createTitle" type="text" name="createTitle" required>
+                      </div>
 
-                    <button type="submit">submit</button>
-                  </fieldset>
-                </form>
+                      <div class="input-field">
+                        <label for="createRating">Rating</label>
+                        <input id="createRating" type="number" min="1" max="5" name="createRating" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="createStory">Your Story</label>
+                        <textarea id="createStory" type="text" name="createStory" required>
+                          </textarea>
+                      </div>
+
+                      <div class="btn-groups">
+                        <button type="submit">create</button>
+                        <button class="cancel-btn">cancel</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </section>
+
+                <section id="update-log-view">
+                  <form class="update-log-form">
+                    <fieldset>
+                      <legend>Update Log</legend>
+
+                      <div class="input-field">
+                        <label for="updateTitle">Title</label>
+                        <input id="updateTitle" type="text" name="updateTitle" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="updateRating">Rating</label>
+                        <input id="updateRating" type="number" min="1" max="5" name="updateRating" required>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="updateStory">Your Story</label>
+                        <textarea id="updateStory" type="text" name="updateStory" required>
+                          </textarea>
+                      </div>
+
+                      <div class="btn-groups">
+                        <button type="submit">update</button>
+                        <button class="cancel-btn">cancel</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </section>
+
               </section>
 
-              <section id="update-plan-view">
-                <form class="update-plan-form">
-                  <fieldset>
-                    <legend>Update Your Flight Plan</legend>
-
-                    <div class="input-field">
-                      <label for="updateCountry">Country</label>
-                      <input id="updateCountry" type="text" name="updateCountry" required>
-                    </div>
-
-                    <div class="input-field">
-                      <label for="updateCity">City</label>
-                      <input id="updateCity" type="text" name="updateCity" required>
-                    </div>
-
-                    <div class="input-field">
-                      <label for="updateStartDate">Start Date</label>
-                      <input id="updateStartDate" type="date" name="updateStartDate" required>
-                    </div>
-
-                    <div class="input-field">
-                      <label for="updateEndDate">End Date</label>
-                      <input id="updateEndDate" type="date" name="updateEndDate" required>
-                    </div>
-
-                    <button type="submit">submit</button>
-                  </fieldset>
-                </form>
-              </section>
-
-              <section id="create-log-view">
-                <form class="create-history-form">
-                  <fieldset>
-                    <legend>How was your flight?</legend>
-
-                    <div class="input-field">
-                      <label for="createTitle">Title</label>
-                      <input id="createTitle" type="text" name="createTitle" required>
-                    </div>
-
-                    <div class="input-field">
-                      <label for="createRating">Rating</label>
-                      <input id="createRating" type="number" min="1" max="5" name="createRating" required>
-                    </div>
-
-                    <div class="input-field">
-                      <label for="createStory">Your Story</label>
-                      <textarea id="createStory" type="text" name="createStory" required>
-                        </textarea>
-                    </div>
-
-                    <button type="submit">submit</button>
-                  </fieldset>
-                </form>
+              <section id="how-to-page">
+                <div class="how-to-container">
+                  <h3>How To Use</h3>
+                  <h4>Creating a Plan</h4>
+                  <p>To create a travel plan, click
+                    <span class="tag">Hatch a Plan</span>
+                  </p>
+                </div>
               </section>
 
             </section>
