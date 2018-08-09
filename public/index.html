@@ -22,7 +22,8 @@
         <button id="cta-btn">
           <span>start</span>
           <span id="wings">
-            <svg width="60px" height="40px" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+            <svg aria-labelledby="button" role="animation" width="60px" height="40px" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+              xmlns:svg="http://www.w3.org/2000/svg">
               <g class="wings" fill="white">
                 <path d="m91.526,52.299c-3.847,-0.114 -6.862,-3.22 -6.862,-7.07l0,-4.644c0,-6.211 -5.053,-11.265 -11.265,-11.265l-41.179,0l0,1.192c0,3.14 2.064,5.806 4.907,6.716l30.728,0c7.957,0 14.43,6.474 14.43,14.431l0,4.644c0,1.304 0.63,2.449 1.604,3.157l7.531,0c1.975,0 3.581,-1.607 3.581,-3.582c-0.001,-1.949 -1.527,-3.521 -3.475,-3.579z"
                   id="svg_wing_2" />
@@ -46,7 +47,14 @@
     <section id="inside-pages">
       <div class="inside-container">
         <header class="header">
-          <h1>Bird's Nest</h1>
+          <h1>
+            <span id="toggle-nav">
+              <i class="fas fa-bars"></i>
+            </span> Bird's Nest
+            <span id="username-container">Welcome,
+              <span class="my-username"></span>
+            </span>
+          </h1>
         </header>
 
         <main class="main">
@@ -108,32 +116,26 @@
           <section id="user-page">
 
             <nav id="navbar">
-              <span class="toggle-menu">
-                <i class="fas fa-2x fa-window-close"></i> Close Menu
-              </span>
-              <div>
-                <p id="my-username">Welcome,
-                  <span class="my-username"></span>
-                </p>
+              <div class="nav-container">
+                <ul>
+                  <li>
+                    <a id="my-flight-plans" href="#">
+                      <i class="fas fa-sticky-note"></i> My Flight Plans</a>
+                  </li>
+                  <li>
+                    <a id="my-flight-logs" href="#">
+                      <i class="fas fa-book"></i> My Flight Logs</a>
+                  </li>
+                  <li>
+                    <a id="how-to-use" href="#">
+                      <i class="fas fa-question-circle"></i> How To Use</a>
+                  </li>
+                  <li>
+                    <a id="logout" href="#">
+                      <i class="fas fa-sign-out-alt"></i> Logout</a>
+                  </li>
+                </ul>
               </div>
-              <ul>
-                <li class="nav-item">
-                  <a id="my-flight-plans" href="#">
-                    <i class="fas fa-sticky-note"></i> My Flight Plans</a>
-                </li>
-                <li class="nav-item">
-                  <a id="my-flight-logs" href="#">
-                    <i class="fas fa-book"></i> My Flight Logs</a>
-                </li>
-                <li class="nav-item">
-                  <a id="how-to-use" href="#">
-                    <i class="fas fa-question-circle"></i> How To Use</a>
-                </li>
-                <li class="nav-item">
-                  <a id="logout" href="#">
-                    <i class="fas fa-sign-out-alt"></i> Logout</a>
-                </li>
-              </ul>
             </nav>
 
             <section id="content-container">
@@ -141,16 +143,12 @@
               <section id="flight-plans">
 
                 <div class="flight-controls">
-                  <span class="toggle-menu">
-                    <i class="fas fa-2x fa-bars"></i> Open Menu</span>
                   <span id="create-flight-plan">
-                    <i class="fas fa-plus"></i> Hatch A Plan</a>
+                    <i class="fas fa-plus"></i> Hatch A Plan
                   </span>
                   <div class="search-divs">
-                    <label for="searchPlan">Search Plans
-                      <i class="fas fa-search"></i>
-                    </label>
-                    <input type="text" id="searchPlan" name="searchPlan" placeholder="( Query Here )">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchPlan" name="searchPlan" placeholder="( search plans )">
                     <button class="search-plan-btn">search</button>
                   </div>
                 </div>
@@ -160,65 +158,65 @@
                 </section>
 
                 <section id="create-plan-view">
-                  <form class="create-plan-form">
+                  <form id="create-plan-form">
                     <fieldset>
                       <legend>Create Your Flight Plan</legend>
 
                       <div class="input-field">
                         <label for="createCity">I'd like to visit </label>
-                        <input id="createCity" type="text" name="createCity" placeholder="( city name here )" required>
+                        <input id="createCity" type="text" name="createCity" placeholder="( city name here )">
                       </div>
 
                       <div class="input-field">
                         <label for="createCountry">in </label>
-                        <input id="createCountry" type="text" name="createCountry" placeholder="( country name here )" required>
+                        <input id="createCountry" type="text" name="createCountry" placeholder="( country name here )">
                       </div>
 
                       <div class="input-field">
                         <label for="createStartDate">from </label>
-                        <input id="createStartDate" type="date" name="createStartDate" required>
+                        <input id="createStartDate" type="date" name="createStartDate">
                       </div>
 
                       <div class="input-field">
                         <label for="createEndDate">to </label>
-                        <input id="createEndDate" type="date" name="createEndDate" required>
+                        <input id="createEndDate" type="date" name="createEndDate">
                       </div>
                       <div class="btn-groups">
                         <button type="submit">create</button>
-                        <button class="cancel-btn">cancel</button>
+                        <button type="button" class="cancel-btn">cancel</button>
                       </div>
                     </fieldset>
                   </form>
                 </section>
 
                 <section id="update-plan-view">
-                  <form class="update-plan-form">
+                  <form id="update-plan-form">
                     <fieldset>
                       <legend>Update Your Flight Plan</legend>
 
                       <div class="input-field">
                         <label for="updateCity">Actually, I want to visit </label>
-                        <input id="updateCity" type="text" name="updateCity" placeholder="( city name here )" required>
+                        <input id="updateCity" type="text" name="updateCity" placeholder="( city name here )">
                       </div>
 
                       <div class="input-field">
                         <label for="updateCountry">in </label>
-                        <input id="updateCountry" type="text" name="updateCountry" placeholder="( country name here )" required>
+                        <input id="updateCountry" type="text" name="updateCountry" placeholder="( country name here )">
                       </div>
 
                       <div class="input-field">
                         <label for="updateStartDate">from </label>
-                        <input id="updateStartDate" type="date" name="updateStartDate" required>
+                        <input id="updateStartDate" type="date" name="updateStartDate">
                       </div>
 
                       <div class="input-field">
                         <label for="updateEndDate">to </label>
-                        <input id="updateEndDate" type="date" name="updateEndDate" required>
+                        <input id="updateEndDate" type="date" name="updateEndDate">
                       </div>
 
                       <div class="btn-groups">
                         <button type="submit">update</button>
-                        <button class="cancel-btn">cancel</button>
+                        <button type="button" class="cancel-btn">cancel</button>
                       </div>
                     </fieldset>
                   </form>
@@ -227,18 +225,13 @@
               </section>
 
               <section id="flight-logs">
-
                 <div class="flight-controls">
-                  <span class="toggle-menu">
-                    <i class="fas fa-2x fa-bars"></i> Open Menu</span>
                   <span id="create-flight-log">
-                    <i class="fas fa-plus"></i> Pick A Plan</a>
+                    <i class="fas fa-plus"></i> Pick A Plan
                   </span>
                   <div class="search-divs">
-                    <label for="searchLog">Search Logs
-                      <i class="fas fa-search"></i>
-                    </label>
-                    <input type="text" id="searchLog" name="searchLog" placeholder="( Query Here )">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchLog" name="searchLog" placeholder="( search logs )">
                     <button class="search-log-btn">search</button>
                   </div>
                 </div>
@@ -248,58 +241,58 @@
                 </section>
 
                 <section id="create-log-view">
-                  <form class="create-log-form">
+                  <form id="create-log-form">
                     <fieldset>
                       <legend>Create Flight Log</legend>
 
                       <div class="input-field">
-                        <label for="createTitle">Title</label>
-                        <input id="createTitle" type="text" name="createTitle" required>
+                        <label for="createTitle">My</label>
+                        <input id="createTitle" type="text" name="createTitle" placeholder="( trip name )">
                       </div>
 
                       <div class="input-field">
-                        <label for="createRating">Rating</label>
-                        <input id="createRating" type="number" min="1" max="5" name="createRating" required>
-                      </div>
-
-                      <div class="input-field">
-                        <label for="createStory">Your Story</label>
-                        <textarea id="createStory" type="text" name="createStory" required>
+                        <label for="createStory">was so </label>
+                        <textarea id="createStory" type="text" name="createStory">
                           </textarea>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="createRating">I'd give it </label>
+                        <input id="createRating" type="number" min="1" max="5" name="createRating" placeholder="(1-5)">
                       </div>
 
                       <div class="btn-groups">
                         <button type="submit">create</button>
-                        <button class="cancel-btn">cancel</button>
+                        <button type="button" class="cancel-btn">cancel</button>
                       </div>
                     </fieldset>
                   </form>
                 </section>
 
                 <section id="update-log-view">
-                  <form class="update-log-form">
+                  <form id="update-log-form">
                     <fieldset>
                       <legend>Update Log</legend>
 
                       <div class="input-field">
-                        <label for="updateTitle">Title</label>
-                        <input id="updateTitle" type="text" name="updateTitle" required>
+                        <label for="updateTitle">My </label>
+                        <input id="updateTitle" type="text" name="updateTitle" placeholder="( trip name )">
                       </div>
 
                       <div class="input-field">
-                        <label for="updateRating">Rating</label>
-                        <input id="updateRating" type="number" min="1" max="5" name="updateRating" required>
-                      </div>
-
-                      <div class="input-field">
-                        <label for="updateStory">Your Story</label>
-                        <textarea id="updateStory" type="text" name="updateStory" required>
+                        <label for="updateStory">was so </label>
+                        <textarea id="updateStory" type="text" name="updateStory">
                           </textarea>
+                      </div>
+
+                      <div class="input-field">
+                        <label for="updateRating">I'd give it </label>
+                        <input id="updateRating" type="number" min="1" max="5" name="updateRating" placeholder="(1- 5)">
                       </div>
 
                       <div class="btn-groups">
                         <button type="submit">update</button>
-                        <button class="cancel-btn">cancel</button>
+                        <button type="button" class="cancel-btn">cancel</button>
                       </div>
                     </fieldset>
                   </form>

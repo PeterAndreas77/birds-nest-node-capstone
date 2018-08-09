@@ -1,3 +1,5 @@
+'use strict';
+
 // declare and use chai, a js assertion library
 const chai = require("chai");
 // declare and use chai-http, a plugin for chai

@@ -5,7 +5,10 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-
+body, html{
+  height: 100vh;
+  width: 100vw;
+}
 /* THE CONTAINER THAT WRAPS AROUND ALL */
 .container{
   margin: 0 auto;
@@ -14,7 +17,7 @@
 
 /* LANDING PAGE */
 #landing-page {
-  overflow-y: hidden; 
+  overflow: hidden; 
   text-align: center;
 }
 
@@ -26,7 +29,7 @@
 
 /* CTA BUTTON */
 .cta-wrapper{
-  margin-top: 40px;
+  margin: 40px 0;
   text-align: center;
 }
 #cta-btn {
@@ -125,42 +128,39 @@
 .flip {
   margin-top: 25px;
 }
+.flip:hover {
+  color: gold;
+  cursor: pointer;
+}
 
 /* USER PAGE */
 #inside-pages, #user-page {
   display: none;
 }
-#inside-container {
-  display: -ms-grid;
-  display: grid;
-  color: #062F63;
-      -ms-grid-rows: 60px auto 40px;
-      grid-template-rows: 60px auto 40px;
-      grid-template-areas:
-    " header "
-    " main "
-    " footer ";
-}
-.header {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  grid-area: header;
+#user-page {
+  position: relative;
 }
 .main {
   padding: 0 20px;
   font-family: "Poppins", sans-serif;
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: main;
+}
+h1 {
+  padding: 10px 0;
+}
+#username-container {
+  display: none;
+  float: right;
+}
+.my-username{
+  margin: 0 10px;
 }
 .footer {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: footer;
-  z-index: 1;
+  position: sticky;
 }
 .header, .footer {
-  color: #3a4660;
+  box-shadow: 0 2px 2px grey;
+  background-color: #3a4660;
+  color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   text-align: center;
@@ -183,6 +183,9 @@ input, textarea{
   border-bottom: 2px dashed white;
   color: #fff;
   font-weight: bold;
+}
+#create-plan-view, #update-plan-view, #create-log-view, #update-log-view {
+  margin-bottom: 20px;
 }
 .input-field {
   margin-top: 16px;
@@ -223,57 +226,43 @@ button:hover {
   margin: 16px auto;
 }
 
-/* SIDE NAVBAR */
-#navbar {
-  position: fixed;
-  font-weight: bold;
-  color: #3a4660;
-  left: 20px;
-  height: 90%;
-  -webkit-transform: translateX(-180px);
-      -ms-transform: translateX(-180px);
-          transform: translateX(-180px);
-  -webkit-transition: -webkit-transform 0.75s ease;
-  transition: -webkit-transform 0.75s ease;
-  -o-transition: transform 0.75s ease;
-  transition: transform 0.75s ease;
-  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
+/* NAVBAR */
+#navbar{
+  display: none;
 }
 #navbar.toggle{
-  -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
+  display: block;
 }
-#content-container {
-  -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
-  -webkit-transition: -webkit-transform 0.75s ease;
-  transition: -webkit-transform 0.75s ease;
-  -o-transition: transform 0.75s ease;
-  transition: transform 0.75s ease;
-  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
+#toggle-nav {
+  display: none;
+  padding: 0 10px;
+  float: left;
 }
-#content-container.toggle{
-  -webkit-transform: translateX(180px);
-      -ms-transform: translateX(180px);
-          transform: translateX(180px);
+#toggle-nav:hover{
+  color: gold;
+  cursor: pointer;
 }
-li > a {
-  text-decoration: none;
-}
-li > a, .user-view {
-  color: #062F63;
+.nav-container{
+  max-width: 1200px;
+  margin: 0 auto;
 }
 ul {
+  text-align: center;
   list-style-type: none;
 }
-#my-username{
-  margin-top: 30px;
+ul li a {
+  display: block;
+  padding: 20px 0;
+  background-color: #3a4660;
+  text-decoration: none;
+  color: #fff; 
 }
-.nav-item{
-  margin-top: 25px;
+ul li a:hover{
+    color: #3a4660;
+    background-color: #fff;
+    cursor: pointer;
 }
+
 
 /* PLANS AND LOGS VIEWS */
 #flight-plans-view {
@@ -314,6 +303,10 @@ ul {
     text-transform: uppercase;
     padding: 6px 8px;
 }
+#create-flight-plan:hover, #create-flight-log:hover {
+  cursor: pointer;
+  color: gold;
+}
 .search-plan-btn:hover, .search-log-btn:hover {
   cursor: pointer;
   -webkit-transform: translateY(2px) translateX(2px);
@@ -321,12 +314,6 @@ ul {
           transform: translateY(2px) translateX(2px);
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
-/* LINKS & SPANS HOVER */
-span:hover, .nav-item>a:hover{
-  color: #fdc561;
-  cursor: pointer;
 }
 
 /* DISPLAY NONES */

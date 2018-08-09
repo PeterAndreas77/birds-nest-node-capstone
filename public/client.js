@@ -216,6 +216,11 @@ function deleteFlightLog(delLogID) {
 
 
 //  ----    MISCELLANEOUS FUNCTIONS   ----    //
+function resetForms() {
+    $('input').val('');
+    $('textarea').val('');
+}
+
 function differenceInDays(start, end) {
     let startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()),
         endUTC = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()),
@@ -292,6 +297,8 @@ $(document).ready(function () {
                     localStorage.setItem('signedInUser', result.username);
                     $('.my-username').html(result.username);
                     getFlightPlans(localStorage.getItem('signedInUser'));
+                    $('#toggle-nav').show();
+                    $('#username-container').show();
                     // $('section').hide();
                     // $('.navbar').show();
                     // $('#user-dashboard').show();
@@ -376,9 +383,8 @@ $(document).ready(function () {
     //  MAIN USER PAGE
     //**************************/
     // handle when user click menu to open & close side navbar
-    $('.toggle-menu').on('click', () => {
+    $('#toggle-nav').on('click', () => {
         $('#navbar').toggleClass('toggle');
-        $('#content-container').toggleClass('toggle');
     });
 
     //****************************/
@@ -401,12 +407,15 @@ $(document).ready(function () {
 
     // handle when user want to click create new flight plan
     $('#create-flight-plan').on('click', () => {
+        if ($('#update-plan-view').css('display') == 'block') {
+            $('#update-plan-view').hide();
+        }
         $('#flight-plans-view').hide();
         $('#create-plan-view').show();
     });
 
     // handle when user click submit to create new story
-    $('.create-plan-form').submit(event => {
+    $('#create-plan-form').submit(event => {
         event.preventDefault();
         let country = $('#createCountry').val(),
             city = $('#createCity').val(),
@@ -427,6 +436,7 @@ $(document).ready(function () {
     });
     // handle when user cancel plan creation
     $('#create-plan-view').on('click', '.cancel-btn', () => {
+        document.getElementById('create-plan-form').reset();
         $('#create-plan-view').hide();
         $('#flight-plans-view').show();
     });
@@ -440,7 +450,7 @@ $(document).ready(function () {
     });
 
     // handle the submission of flight plan update form
-    $('.update-plan-form').submit(event => {
+    $('#update-plan-form').submit(event => {
         event.preventDefault();
         let country = $('#updateCountry').val(),
             city = $('#updateCity').val(),
@@ -461,6 +471,7 @@ $(document).ready(function () {
     });
     // handle when user cancel plan update
     $('#update-plan-view').on('click', '.cancel-btn', () => {
+        document.getElementById('update-plan-form').reset();
         $('#update-plan-view').hide();
         $('#flight-plans-view').show();
     });
@@ -484,8 +495,12 @@ $(document).ready(function () {
 
     // handle when user wanted to create new log
     $('#create-flight-log').on('click', event => {
+        if ($('#update-log-view').css('display') == 'block') {
+            $('#update-log-view').hide();
+        }
         let myname = localStorage.getItem('signedInUser');
         getMyFlightPlans(myname);
+        $('#flight-logs-view').show();
     });
 
     // handle when user want to click create new flight plan
@@ -496,7 +511,7 @@ $(document).ready(function () {
         $('#create-log-view').show();
     });
     //handle when user created a new flight log from plan
-    $('.create-log-form').submit(event => {
+    $('#create-log-form').submit(event => {
         event.preventDefault();
         let title = $('#createTitle').val(),
             rating = $('#createRating').val(),
@@ -515,6 +530,7 @@ $(document).ready(function () {
     });
     // handle when user cancelled log creation
     $('#create-log-view').on('click', '.cancel-btn', () => {
+        document.getElementById('create-log-form').reset();
         $('#create-log-view').hide();
         $('#flight-logs-view').show();
     });
@@ -524,14 +540,14 @@ $(document).ready(function () {
         $('#flight-logs-view').hide();
         $('#update-log-view').show();
     });
-    $('.update-log-form').submit(event => {
+    $('#update-log-form').submit(event => {
         event.preventDefault();
         let title = $('#updateTitle').val(),
             rating = $('#updateRating').val(),
             story = $('#updateStory').val(),
             created = Date.now(),
             updLogID = localStorage.getItem('updLogID');
-            console.log(updLogID);
+        console.log(updLogID);
         const updLogObj = {
             id: updLogID,
             title: title,
@@ -542,6 +558,7 @@ $(document).ready(function () {
     });
     // handle when user cancelled log update
     $('#update-log-view').on('click', '.cancel-btn', () => {
+        document.getElementById('create-plan-form').reset();
         $('#update-log-view').hide();
         $('#flight-logs-view').show();
     });
