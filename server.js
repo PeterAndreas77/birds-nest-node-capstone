@@ -1,8 +1,8 @@
 const User = require('./models/user');
-const FlightLog = require('./models/flightlog');
+const { FlightLog } = require('./models/flightlog');
 const bodyParser = require('body-parser');
 const config = require('./config');
-const mongoose = require('mongoose').set('debug', true);
+const mongoose = require('mongoose');//.set('debug', true)//
 const moment = require('moment');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');

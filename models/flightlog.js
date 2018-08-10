@@ -27,7 +27,7 @@ flightLogSchema.methods.planned = function () {
     };
 };
 
-flightLogSchema.methods.logged= function () {
+flightLogSchema.methods.logged = function () {
     return {
         id: this._id,
         country: this.country,
@@ -43,4 +43,4 @@ flightLogSchema.methods.logged= function () {
 
 const FlightLog = mongoose.model('FlightLog', flightLogSchema);
 
-module.exports = FlightLog;
+module.exports = { FlightLog };
