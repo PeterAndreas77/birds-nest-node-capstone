@@ -1,6 +1,7 @@
 'use strict';
 
 //  ----    FLIGHT PLAN FUNCTIONS   ----    //
+
 function getFlightPlans(myname) {
     $.ajax({
         type: 'GET',
@@ -39,7 +40,7 @@ function searchFlightPlans(place, author) {
     })
         .done(result => {
             if (result == undefined || result.length == 0) {
-                $('#flight-logs-view').html('No plans in that country or city were found!')
+                $('#flight-plans-view').html('No plans in that country or city were found!')
             }
             else {
                 renderFlightPlans(result);
@@ -101,6 +102,7 @@ function deleteFlightPlan(delPlanID) {
 
 
 //  ----    FLIGHT LOG FUNCTIONS   ----    //
+
 function getMyFlightPlans(myname) {
     $.ajax({
         type: 'GET',
@@ -127,6 +129,24 @@ function renderMyFlightPlans(plans) {
             </div></div>`;
     };
     $('#flight-logs-view').html(myFlightPlans);
+}
+
+function searchFlightLogs(place, author) {
+    $.ajax({
+        type: 'GET',
+        url: `/flight-log/${author}/${place}`,
+        dataType: 'json',
+        contentType: 'application.json'
+    })
+        .done(result => {
+            if (result == undefined || result.length == 0) {
+                $('#flight-logs-view').html('No logs in that country or city were found!')
+            }
+            else {
+                renderFlightLogs(result);
+            }
+        })
+        .fail(err => console.log(err));
 }
 
 function getFlightLogs(myname) {
@@ -279,7 +299,6 @@ $(document).ready(function () {
                 username: username,
                 password: password
             };
-            //console.log(signinUserObject);
 
             //make the api call using the payload above
             $.ajax({
@@ -299,15 +318,9 @@ $(document).ready(function () {
                     getFlightPlans(localStorage.getItem('signedInUser'));
                     $('#toggle-nav').show();
                     $('#username-container').show();
-                    // $('section').hide();
-                    // $('.navbar').show();
-                    // $('#user-dashboard').show();
-                    //$('#loggedInName').text(result.name);
-                    // $('#loggedInUserName').val(result.username);
-                    //            htmlUserDashboard();
-                    //                noEntries();
-
+                    $('.footer').show();
                 })
+
                 //if the call is failing
                 .fail(function (jqXHR, error, errorThrown) {
                     console.log(jqXHR);
@@ -342,7 +355,6 @@ $(document).ready(function () {
                 username: username,
                 password: password
             };
-            console.log(newUserObject);
 
             //make the api call using the payload above
             $.ajax({
@@ -358,13 +370,12 @@ $(document).ready(function () {
                     $("#signin-signup-page").hide();
                     $("#user-page").show();
                     localStorage.setItem('signedInUser', result.username);
-                    // $('#loggedInName').text(result.name);
-                    // $('#loggedInUserName').val(result.username);
-                    // $('section').hide();
-                    // $('.navbar').show();
-                    // $('#user-dashboard').show();
-                    // populateUserDashboardDate(result.username);
+                    $('.my-username').html(result.username);
+                    $('#toggle-nav').show();
+                    $('#username-container').show();
+                    $('.footer').show();
                 })
+
                 //if the call is failing
                 .fail((jqXHR, error, errorThrown) => {
                     console.log(jqXHR);
@@ -398,12 +409,12 @@ $(document).ready(function () {
         $('#flight-logs').hide();
     });
 
-    // handle when user want to search plan by country
+    // handle when user want to search plan by location
     $('.search-plan-btn').on('click', () => {
         let place = $('#searchPlan').val(),
             author = localStorage.getItem('signedInUser');
         searchFlightPlans(place, author);
-    })
+    });
 
     // handle when user want to click create new flight plan
     $('#create-flight-plan').on('click', () => {
@@ -493,6 +504,13 @@ $(document).ready(function () {
         $('#flight-logs').show();
     });
 
+    // handle when user want to search log by country
+    $('.search-log-btn').on('click', () => {
+        let place = $('#searchLog').val(),
+            author = localStorage.getItem('signedInUser');
+        searchFlightLogs(place, author);
+    });
+
     // handle when user wanted to create new log
     $('#create-flight-log').on('click', event => {
         if ($('#update-log-view').css('display') == 'block') {
@@ -568,6 +586,14 @@ $(document).ready(function () {
         let delLogID = $(event.currentTarget).closest('.log-item').attr('log-id');
         deleteFlightLog(delLogID);
     });
+
+    // handle how to use modal
+    $('#open-how-to').on('click', ()=>{
+        $('#how-to-container').show();
+    })
+    $('#close-how-to').on('click', ()=>{
+        $('#how-to-container').hide();
+    })
 
     // handle logout
     $('#logout').on('click', event => {

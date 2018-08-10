@@ -276,6 +276,19 @@ app.get('/flight-log/:user', (req, res) => {
         });
 });
 
+app.get('/flight-log/:user/:place', (req, res) => {
+    FlightLog
+        .find({
+            author: req.params.user,
+            $or: [{ country: req.params.place }, { city: req.params.place }]
+        })
+        .then(logs => res.json(logs.map(log => log.logged())))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
+        });
+});
+
 //  creating new log object with PUT request
 app.put('/flight-log/create/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
