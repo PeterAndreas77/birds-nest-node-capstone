@@ -8,6 +8,18 @@ This is a simple two in one travel planner and logger app for families who love 
 
 My family loves to travel and we would take notes to capture our memories. We always bring out small notebooks and diaries for our trips. I wanted to make an app that will make our load lighter.
 # Screenshots
+![screenshot1](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/landing-page.png)
+![screenshot2](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/sign-in-page.png)
+![screenshot3](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/sign-up-page.png)
+![screenshot4](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/user-main-page.png)
+![screenshot5](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/top-menu.png)
+![screenshot6](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/create-plan-form.png)
+![screenshot7](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/update-plan-form.png)
+![screenshot8](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/flight-logs-page.png)
+![screenshot9](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/plan-selection.png)
+![screenshot10](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/create-log-form.png)
+![screenshot11](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/update-log-form.png)
+![screenshot12](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/how-to-page.png)
 
 # User Stories & Initial UX
 
