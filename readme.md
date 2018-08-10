@@ -4,9 +4,10 @@ Link to live NODE application: https://birds-nest.herokuapp.com/
 
 # Goal & Use Case
 
-This is a simple travel diary app for people who love to travel. People can share their stories with others.
+This is a simple two in one travel planner and logger app for families who love to travel.
 
-My family love to travel and we would take pictures to capture our memories. Most of the times my colleagues or relatives asked how the trip was, and It was such a hassle to tell them about our trip. So, I wanted to create an app to post our stories so others can see it. 
+My family loves to travel and we would take notes to capture our memories. We always bring out small notebooks and diaries for our trips. I wanted to make an app that will make our load lighter.
+# Screenshots
 
 # User Stories & Initial UX
 

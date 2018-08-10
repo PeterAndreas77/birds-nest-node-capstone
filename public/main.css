@@ -20,6 +20,11 @@ body, html{
   overflow: hidden; 
   text-align: center;
 }
+#landing-page p {
+  font-weight: bold;
+  font-family: 'Poppins';
+  color: #3a4660;
+}
 
 /* HERO IMAGE */
 .hero-img{
@@ -156,10 +161,12 @@ h1 {
 }
 .footer {
   display: none;
+  position: -webkit-sticky;
   position: sticky;
 }
 .header, .footer {
-  box-shadow: 0 2px 2px grey;
+  -webkit-box-shadow: 0 2px 2px grey;
+          box-shadow: 0 2px 2px grey;
   background-color: #3a4660;
   color: #fff;
   font-family: "Roboto", sans-serif;
@@ -247,7 +254,7 @@ button:hover {
   max-width: 1200px;
   margin: 0 auto;
 }
-ul {
+nav ul {
   text-align: center;
   list-style-type: none;
 }
@@ -342,7 +349,7 @@ ul li a:hover{
   width: 80%;
 }
 .how-to-content p {
-  margin-left: 10px;
+  line-height: 2;
 }
 .howto-headings{
   text-align: center;
@@ -354,4 +361,11 @@ ul li a:hover{
   padding: 10px;
   background-color: #3a4660;
   color: #fff;
+}
+.howto-btn {
+  padding: 0 4px;
+  background-color: transparent;
+  color: #fff;
+  border: #fff 2px solid;
+  border-radius: 5px;
 }
