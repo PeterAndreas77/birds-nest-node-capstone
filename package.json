@@ -4,24 +4,24 @@
   "description": "where weary travellers share their stories",
   "main": "server.js",
   "dependencies": {
-    "bcrypt": "^0.8.7",
-    "bcryptjs": "^2.3.0",
+    "bcrypt": "^3.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "cors": "^2.8.4",
     "express": "^4.14.0",
-    "mongodb": "^2.2.9",
-    "moment": "^2.18.1",
-    "mongoose": "^4.5.10",
-    "passport": "^0.3.2",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.7",
+    "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "unirest": "^0.5.1"
-},
-"devDependencies": {
+  },
+  "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "faker": "^3.1.0",
     "mocha": "^3.2.0"
-},
+  },
   "scripts": {
     "test": "mocha",
     "start": "node server.js"
