@@ -332,7 +332,7 @@ $(document).ready(function () {
     });
 
     // handle when user sign up for the app
-    $(".signUpForm").on("click", event => {
+    $(".signUpForm").submit(event => {
         event.preventDefault();
 
         //take the input from the user
@@ -421,6 +421,7 @@ $(document).ready(function () {
         if ($('#update-plan-view').css('display') == 'block') {
             $('#update-plan-view').hide();
         }
+        document.getElementById('create-plan-form').reset();
         $('#flight-plans-view').hide();
         $('#create-plan-view').show();
     });
@@ -456,6 +457,7 @@ $(document).ready(function () {
     $('#flight-plans-view').on('click', '.edit-btn', event => {
         let updPlanID = $(event.currentTarget).closest('.log-item').attr('plan-id');
         localStorage.setItem('updPlanID', updPlanID);
+        document.getElementById('update-plan-form').reset();
         $('#flight-plans-view').hide();
         $('#update-plan-view').show();
     });
@@ -525,6 +527,7 @@ $(document).ready(function () {
     $('#flight-logs-view').on('click', '.log-btn', event => {
         let newLogID = $(event.currentTarget).closest('.log-item').attr('plan-id');
         localStorage.setItem('newLogID', newLogID);
+        document.getElementById('create-log-form').reset();
         $('#flight-logs-view').hide();
         $('#create-log-view').show();
     });
@@ -555,6 +558,7 @@ $(document).ready(function () {
 
     // handle when user wanted to update their flight logs
     $('#flight-logs-view').on('click', '.edit-btn', event => {
+        document.getElementById('update-log-form').reset();
         $('#flight-logs-view').hide();
         $('#update-log-view').show();
     });
@@ -576,7 +580,7 @@ $(document).ready(function () {
     });
     // handle when user cancelled log update
     $('#update-log-view').on('click', '.cancel-btn', () => {
-        document.getElementById('create-plan-form').reset();
+        document.getElementById('update-log-form').reset();
         $('#update-log-view').hide();
         $('#flight-logs-view').show();
     });
@@ -588,17 +592,19 @@ $(document).ready(function () {
     });
 
     // handle how to use modal
-    $('#open-how-to').on('click', ()=>{
+    $('#open-how-to').on('click', () => {
         $('#how-to-container').show();
     })
-    $('#close-how-to').on('click', ()=>{
+    $('#close-how-to').on('click', () => {
         $('#how-to-container').hide();
     })
 
     // handle logout
     $('#logout').on('click', event => {
         localStorage.removeItem('signedInUser');
-        $('#user-page').hide();
+        $('.signInForm').trigger('reset');
+        $('.signUpForm').trigger('reset');
+        $('#inside-pages').hide();
         $('#landing-page').show();
     });
 });

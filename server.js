@@ -178,7 +178,8 @@ app.post('/users/signin', function (req, res) {
 //  handle GET request from client
 app.get('/flight-plan/:user', (req, res) => {
     FlightLog
-        .find({ author: req.params.user, visited: 'false' })
+        .find({ author: req.params.user })
+        .where('visited').equals(false)
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
             console.error(err);
@@ -188,10 +189,9 @@ app.get('/flight-plan/:user', (req, res) => {
 
 app.get('/flight-plan/:user/:place', (req, res) => {
     FlightLog
-        .find({
-            author: req.params.user,
-            $or: [{ country: req.params.place }, { city: req.params.place }]
-        })
+        .find({ $or: [{ country: req.params.place }, { city: req.params.place }] })
+        .where('visited').equals(false)
+        .where('author').equals(req.params.user)
         .then(plans => res.json(plans.map(plan => plan.planned())))
         .catch((err) => {
             console.error(err);
@@ -239,7 +239,7 @@ app.put('/flight-plan/update/:id', (req, res) => {
             newObj[field] = req.body[field];
         }
     });
-    console.log(newObj);
+
     FlightLog
         .findByIdAndUpdate(req.params.id, { $set: newObj }, { new: true })
         .then(updatedPlan => res.status(204).end())
@@ -268,7 +268,8 @@ app.delete('/flight-plan/delete/:id', function (req, res) {
 //  handle GET request from client
 app.get('/flight-log/:user', (req, res) => {
     FlightLog
-        .find({ author: req.params.user, visited: true })
+        .find({ author: req.params.user })
+        .where('visited').equals(true)
         .then(logs => res.json(logs.map(log => log.logged())))
         .catch((err) => {
             console.error(err);
@@ -278,10 +279,9 @@ app.get('/flight-log/:user', (req, res) => {
 
 app.get('/flight-log/:user/:place', (req, res) => {
     FlightLog
-        .find({
-            author: req.params.user,
-            $or: [{ country: req.params.place }, { city: req.params.place }]
-        })
+        .find({ $or: [{ country: req.params.place }, { city: req.params.place }] })
+        .where('author').equals(req.params.user)
+        .where('visited').equals(true)
         .then(logs => res.json(logs.map(log => log.logged())))
         .catch((err) => {
             console.error(err);
