@@ -7,18 +7,31 @@ Link to live NODE application: https://birds-nest.herokuapp.com/
 This is a simple two in one travel planner and logger app for families who love to travel.
 
 My family loves to travel and we would take notes to capture our memories. We always bring out small notebooks and diaries for our trips. I wanted to make an app that will make our load lighter.
+
 # Screenshots
+* Screenshot 1.Landing Page
 ![screenshot1](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/landing-page.png)
+* Screenshot 2. Sign In Page
 ![screenshot2](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/sign-in-page.png)
+* Screenshot 3. Sign Up Page
 ![screenshot3](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/sign-up-page.png)
+* Screenshot 4. User Main Page / Flight Plans Page
 ![screenshot4](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/user-main-page.png)
+* Screenshot 5. Menu
 ![screenshot5](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/top-menu.png)
+* Screenshot 6. Form for plan creation
 ![screenshot6](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/create-plan-form.png)
+* Screenshot 7. Form forr plan update
 ![screenshot7](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/update-plan-form.png)
+* Screenshot 8. Flight Logs Pagee
 ![screenshot8](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/flight-logs-page.png)
+* Screenshot 9. Plan Selection Page
 ![screenshot9](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/plan-selection.png)
+* Screenshot 10. Form for log creation
 ![screenshot10](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/create-log-form.png)
+* Screenshot 11. Form for log update
 ![screenshot11](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/update-log-form.png)
+* Screenshot 12. How To Use Page
 ![screenshot12](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/how-to-page.png)
 
 # User Stories & Initial UX
@@ -75,3 +88,8 @@ If the story is other user story, then the menu will be comment and like.
 * npm install ==> install all node modules in package.json
 * nodemon server.js ==> run node server
 * npm test ==> run the tests (using mocha and chai's should)
+
+# Development Roadmap
+
+### Version 1.1
+ *Users can download their travel plans and travel logs as pdf.
