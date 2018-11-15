@@ -1,39 +1,40 @@
 /* RESET EVERYTHING */
-*{
+* {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
-body, html{
+body,
+html {
   height: 100vh;
   width: 100vw;
 }
 /* THE CONTAINER THAT WRAPS AROUND ALL */
-.container{
+.container {
   margin: 0 auto;
   max-width: 1280px;
 }
 
 /* LANDING PAGE */
 #landing-page {
-  overflow: hidden; 
+  overflow: hidden;
   text-align: center;
 }
 #landing-page p {
   font-weight: bold;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: #3a4660;
 }
 
 /* HERO IMAGE */
-.hero-img{
+.hero-img {
   margin-top: 10vh;
   width: 70%;
 }
 
 /* CTA BUTTON */
-.cta-wrapper{
+.cta-wrapper {
   margin: 40px 0;
   text-align: center;
 }
@@ -45,54 +46,78 @@ body, html{
   border: 2px solid #3a4660;
   color: white;
   -webkit-box-shadow: 4px 4px 0 skyblue;
-          box-shadow: 4px 4px 0 skyblue;
-  font-family: 'Poppins';
+  box-shadow: 4px 4px 0 skyblue;
+  font-family: "Poppins";
   text-transform: uppercase;
   font-size: 40px;
   padding: 10px;
-  -webkit-transition: width .5s ease;
-  -o-transition: width .5s ease;
-  transition: width .5s ease;
+  -webkit-transition: width 0.5s ease;
+  -o-transition: width 0.5s ease;
+  transition: width 0.5s ease;
   -webkit-transform: skewX(-15deg);
-      -ms-transform: skewX(-15deg);
-          transform: skewX(-15deg);
+  -ms-transform: skewX(-15deg);
+  transform: skewX(-15deg);
 }
-#cta-btn:hover .wings{
+#cta-btn:hover .wings {
   -webkit-animation: color_anim 1s infinite;
-          animation: color_anim 1s infinite;
+  animation: color_anim 1s infinite;
 }
-#cta-btn:hover #wings{
+#cta-btn:hover #wings {
   -webkit-animation: up_down 1s infinite;
-          animation: up_down 1s infinite;
+  animation: up_down 1s infinite;
 }
 #cta-btn:hover {
   width: 280px;
   -webkit-box-shadow: 10px 6px 0 skyblue;
-          box-shadow: 10px 6px 0 skyblue;
+  box-shadow: 10px 6px 0 skyblue;
 }
 @-webkit-keyframes color_anim {
-    0% {fill: #fff}
-    50% {fill: #3a4660}
-    100% {fill: #fff}
+  0% {
+    fill: #fff;
+  }
+  50% {
+    fill: #3a4660;
+  }
+  100% {
+    fill: #fff;
+  }
 }
 @keyframes color_anim {
-    0% {fill: #fff}
-    50% {fill: #3a4660}
-    100% {fill: #fff}
+  0% {
+    fill: #fff;
+  }
+  50% {
+    fill: #3a4660;
+  }
+  100% {
+    fill: #fff;
+  }
 }
 @-webkit-keyframes up_down {
-  0%{margin-left: 0}
-  50%{margin-left: 30px}
-  100%{margin-left: 0}
+  0% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left: 30px;
+  }
+  100% {
+    margin-left: 0;
+  }
 }
 @keyframes up_down {
-  0%{margin-left: 0}
-  50%{margin-left: 30px}
-  100%{margin-left: 0}
+  0% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left: 30px;
+  }
+  100% {
+    margin-left: 0;
+  }
 }
 
 /* SIGN IN & SIGN UP CARD */
-#signin-signup-page{
+#signin-signup-page {
   max-width: 960px;
   margin: 0 auto;
   position: relative;
@@ -108,23 +133,26 @@ body, html{
   transition: transform 0.5s;
   transition: transform 0.5s, -webkit-transform 0.5s;
   -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
-.card.flipped, .card .back {
+.card.flipped,
+.card .back {
   -webkit-transform: rotateY(180deg);
-          transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
-.card .front, .card .back {
+.card .front,
+.card .back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
-.signin-btn, .signup-btn{
+.signin-btn,
+.signup-btn {
   margin: 20px auto;
 }
 .card.back {
@@ -139,34 +167,49 @@ body, html{
 }
 
 /* USER PAGE */
-#inside-pages, #user-page {
+#inside-pages,
+#user-page {
   display: none;
 }
 #user-page {
   position: relative;
 }
 .main {
+  height: 91vh;
   padding: 0 20px;
   font-family: "Poppins", sans-serif;
-}
-h1 {
-  padding: 10px 0;
 }
 #username-container {
   display: none;
   float: right;
 }
-.my-username{
+.my-username {
   margin: 0 10px;
 }
 .footer {
   display: none;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0.25rem 0;
 }
-.header, .footer {
+h1 {
+  background-color: skyblue;
+  padding: 0.2rem 0;
+}
+header {
+  height: 66px;
+  padding-bottom: 0.2rem;
+}
+header div {
+  font-size: 20px;
+  padding: 0.2rem;
+}
+.header,
+.footer {
   -webkit-box-shadow: 0 2px 2px grey;
-          box-shadow: 0 2px 2px grey;
+  box-shadow: 0 2px 2px grey;
   background-color: #3a4660;
   color: #fff;
   font-family: "Roboto", sans-serif;
@@ -175,38 +218,45 @@ h1 {
 }
 
 /* LOG ITEMS & FORMS */
-.log-item, form, .how-to-container {
+.log-item,
+form,
+.how-to-container {
   padding: 5px;
   color: #fff;
   font-weight: bold;
   -webkit-box-shadow: 2px 2px 4px grey;
-          box-shadow: 2px 2px 4px grey;
-  background-color:  #3a4660;
+  box-shadow: 2px 2px 4px grey;
+  background-color: #3a4660;
   text-align: center;
 }
-input, textarea{
+input,
+textarea {
+  font-size: 16px;
   border: none;
   background-color: transparent;
-  outline:none;
+  outline: none;
   border-bottom: 2px dashed white;
   color: #fff;
   font-weight: bold;
 }
-#create-plan-view, #update-plan-view, #create-log-view, #update-log-view {
+#create-plan-view,
+#update-plan-view,
+#create-log-view,
+#update-log-view {
   margin-bottom: 20px;
 }
 .input-field {
   margin-top: 16px;
 }
-textarea{
+textarea {
   height: 30vh;
   width: 100%;
 }
-legend{
+legend {
   font-size: 20px;
 }
-fieldset{
-  border:#fff solid 2px;
+fieldset {
+  border: #fff solid 2px;
 }
 
 /* BUTTONS */
@@ -218,27 +268,27 @@ button {
   border-radius: 5px;
   background-color: #3a4660;
   -webkit-box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
-          box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
+  box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
   text-transform: uppercase;
   padding: 6px 8px;
 }
 button:hover {
   cursor: pointer;
   -webkit-transform: translateY(2px) translateX(2px);
-      -ms-transform: translateY(2px) translateX(2px);
-          transform: translateY(2px) translateX(2px);
+  -ms-transform: translateY(2px) translateX(2px);
+  transform: translateY(2px) translateX(2px);
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .btn-groups {
   margin: 16px auto;
 }
 
 /* NAVBAR */
-#navbar{
+#navbar {
   display: none;
 }
-#navbar.toggle{
+#navbar.toggle {
   display: block;
 }
 #toggle-nav {
@@ -246,11 +296,11 @@ button:hover {
   padding: 0 10px;
   float: left;
 }
-#toggle-nav:hover{
+#toggle-nav:hover {
   color: gold;
   cursor: pointer;
 }
-.nav-container{
+.nav-container {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -263,14 +313,13 @@ ul li a {
   padding: 20px 0;
   background-color: #3a4660;
   text-decoration: none;
-  color: #fff; 
+  color: #fff;
 }
-ul li a:hover{
-    color: #3a4660;
-    background-color: #fff;
-    cursor: pointer;
+ul li a:hover {
+  color: #3a4660;
+  background-color: #fff;
+  cursor: pointer;
 }
-
 
 /* PLANS AND LOGS VIEWS */
 #flight-plans-view {
@@ -279,7 +328,7 @@ ul li a:hover{
   display: -ms-grid;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 #flight-logs-view {
   margin: 20px 10px;
@@ -287,7 +336,7 @@ ul li a:hover{
   display: -ms-grid;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit,minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 /* HORIZONTAL NAV BARS */
@@ -295,37 +344,46 @@ ul li a:hover{
   color: #3a4660;
   font-weight: bold;
 }
-#searchPlan, #searchLog {
+#searchPlan,
+#searchLog {
   color: #3a4660;
   border-bottom: dashed 2px #3a4660;
 }
-.search-plan-btn, .search-log-btn{
-    margin:  10px;
-    color: #3a4660;
-    font-weight: bold;
-    border: 2px solid #3a4660;
-    border-radius: 5px;
-    background-color: #fff;
-    -webkit-box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
-            box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
-    text-transform: uppercase;
-    padding: 6px 8px;
+.search-plan-btn,
+.search-log-btn {
+  margin: 10px;
+  color: #3a4660;
+  font-weight: bold;
+  border: 2px solid #3a4660;
+  border-radius: 5px;
+  background-color: #fff;
+  -webkit-box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
+  box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
+  text-transform: uppercase;
+  padding: 6px 8px;
 }
-#create-flight-plan:hover, #create-flight-log:hover {
+#create-flight-plan:hover,
+#create-flight-log:hover {
   cursor: pointer;
   color: gold;
 }
-.search-plan-btn:hover, .search-log-btn:hover {
+.search-plan-btn:hover,
+.search-log-btn:hover {
   cursor: pointer;
   -webkit-transform: translateY(2px) translateX(2px);
-      -ms-transform: translateY(2px) translateX(2px);
-          transform: translateY(2px) translateX(2px);
+  -ms-transform: translateY(2px) translateX(2px);
+  transform: translateY(2px) translateX(2px);
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 /* DISPLAY NONES */
-#create-plan-view, #update-plan-view, #create-log-view, #update-log-view, #flight-logs, #how-to-page {
+#create-plan-view,
+#update-plan-view,
+#create-log-view,
+#update-log-view,
+#flight-logs,
+#how-to-page {
   display: none;
 }
 
@@ -339,7 +397,7 @@ ul li a:hover{
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(255, 255, 255, .75 );
+  background-color: rgba(255, 255, 255, 0.75);
 }
 .how-to-content {
   background-color: #3a4660;
@@ -351,7 +409,7 @@ ul li a:hover{
 .how-to-content p {
   line-height: 2;
 }
-.howto-headings{
+.howto-headings {
   text-align: center;
 }
 #close-how-to {
