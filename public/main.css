@@ -13,7 +13,12 @@ html {
 /* THE CONTAINER THAT WRAPS AROUND ALL */
 .container {
   margin: 0 auto;
-  max-width: 1280px;
+  width: 100%;
+}
+#flight-plans,
+#flight-logs,
+#how-to-container {
+  padding: 1rem;
 }
 
 /* LANDING PAGE */
@@ -30,7 +35,7 @@ html {
 /* HERO IMAGE */
 .hero-img {
   margin-top: 10vh;
-  width: 70%;
+  width: 50%;
 }
 
 /* CTA BUTTON */
@@ -176,7 +181,6 @@ html {
 }
 .main {
   height: 91vh;
-  padding: 0 20px;
   font-family: "Poppins", sans-serif;
 }
 #username-container {
@@ -196,11 +200,7 @@ html {
 }
 h1 {
   background-color: skyblue;
-  padding: 0.2rem 0;
-}
-header {
-  height: 66px;
-  padding-bottom: 0.2rem;
+  padding: 0.5rem 0;
 }
 header div {
   font-size: 20px;
@@ -210,8 +210,8 @@ header div {
 .footer {
   -webkit-box-shadow: 0 2px 2px grey;
   box-shadow: 0 2px 2px grey;
-  background-color: #3a4660;
-  color: #fff;
+  background-color: skyblue;
+  color: black;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   text-align: center;
@@ -291,18 +291,18 @@ button:hover {
 #navbar.toggle {
   display: block;
 }
-#toggle-nav {
+#head-bar {
   display: none;
+  height: 30px;
+  padding-bottom: 0.2rem;
+}
+#toggle-nav {
   padding: 0 10px;
   float: left;
 }
 #toggle-nav:hover {
   color: gold;
   cursor: pointer;
-}
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
 }
 nav ul {
   text-align: center;
@@ -311,13 +311,13 @@ nav ul {
 ul li a {
   display: block;
   padding: 20px 0;
-  background-color: #3a4660;
+  background-color: skyblue;
   text-decoration: none;
-  color: #fff;
+  color: black;
 }
 ul li a:hover {
-  color: #3a4660;
-  background-color: #fff;
+  color: skyblue;
+  background-color: black;
   cursor: pointer;
 }
 

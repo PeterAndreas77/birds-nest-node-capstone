@@ -5,9 +5,6 @@ const config = require("./config");
 const mongoose = require("mongoose"); //.set('debug', true)//
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
-// const passport = require('passport');
-// const BasicStrategy = require('passport-http').BasicStrategy;
-// const moment = require('moment');
 const express = require("express");
 const app = express();
 app.use(bodyParser.json());
