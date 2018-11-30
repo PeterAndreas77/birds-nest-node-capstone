@@ -208,8 +208,8 @@ header div {
 }
 .header,
 .footer {
-  -webkit-box-shadow: 0 2px 2px grey;
-  box-shadow: 0 2px 2px grey;
+  -webkit-box-shadow: 0 2px 2px black;
+  box-shadow: 0 2px 2px black;
   background-color: skyblue;
   color: black;
   font-family: "Roboto", sans-serif;
@@ -222,11 +222,11 @@ header div {
 form,
 .how-to-container {
   padding: 5px;
-  color: #fff;
+  color: black;
   font-weight: bold;
-  -webkit-box-shadow: 2px 2px 4px grey;
-  box-shadow: 2px 2px 4px grey;
-  background-color: #3a4660;
+  -webkit-box-shadow: 2px 2px 4px black;
+  box-shadow: 2px 2px 4px black;
+  background-color: skyblue;
   text-align: center;
 }
 input,
@@ -235,8 +235,8 @@ textarea {
   border: none;
   background-color: transparent;
   outline: none;
-  border-bottom: 2px dashed white;
-  color: #fff;
+  border-bottom: 2px dashed black;
+  color: black;
   font-weight: bold;
 }
 #create-plan-view,
@@ -262,13 +262,13 @@ fieldset {
 /* BUTTONS */
 button {
   margin: 0 16px;
-  color: #fff;
+  color: black;
   font-weight: bold;
-  border: 2px solid #fff;
+  border: 2px solid skyblue;
   border-radius: 5px;
-  background-color: #3a4660;
-  -webkit-box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
-  box-shadow: 1px 1px 0 #fff, 2px 2px 0 #fff;
+  background-color: skyblue;
+  -webkit-box-shadow: 1px 1px 0 black, 2px 2px 0 black;
+  box-shadow: 1px 1px 0 black, 2px 2px 0 black;
   text-transform: uppercase;
   padding: 6px 8px;
 }
@@ -341,24 +341,24 @@ ul li a:hover {
 
 /* HORIZONTAL NAV BARS */
 .flight-controls {
-  color: #3a4660;
+  color: black;
   font-weight: bold;
 }
 #searchPlan,
 #searchLog {
-  color: #3a4660;
-  border-bottom: dashed 2px #3a4660;
+  color: black;
+  border-bottom: dashed 2px black;
 }
 .search-plan-btn,
 .search-log-btn {
   margin: 10px;
-  color: #3a4660;
+  color: black;
   font-weight: bold;
-  border: 2px solid #3a4660;
+  border: 2px solid black;
   border-radius: 5px;
-  background-color: #fff;
-  -webkit-box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
-  box-shadow: 1px 1px 0 #3a4660, 2px 2px 0 #3a4660;
+  background-color: skyblue;
+  -webkit-box-shadow: 1px 1px 0 black, 2px 2px 0 black;
+  box-shadow: 1px 1px 0 black, 2px 2px 0 black;
   text-transform: uppercase;
   padding: 6px 8px;
 }
@@ -400,8 +400,8 @@ ul li a:hover {
   background-color: rgba(255, 255, 255, 0.75);
 }
 .how-to-content {
-  background-color: #3a4660;
-  color: #fff;
+  background-color: skyblue;
+  color: black;
   margin: 10px auto;
   padding: 10px;
   width: 80%;
@@ -417,14 +417,14 @@ ul li a:hover {
   cursor: pointer;
   font-weight: bold;
   padding: 10px;
-  background-color: #3a4660;
-  color: #fff;
+  background-color: skyblue;
+  color: black;
 }
 .howto-btn {
   padding: 0 4px;
   background-color: transparent;
-  color: #fff;
-  border: #fff 2px solid;
+  color: black;
+  border: black 2px solid;
   border-radius: 5px;
 }
 
@@ -436,8 +436,13 @@ ul li a:hover {
   #toggle-nav {
     display: none;
   }
+  form {
+    max-width: 720px;
+    margin: 1rem auto;
+  }
   #username-container {
     float: left;
+    padding-left: 20px;
   }
   #navbar {
     display: block;
