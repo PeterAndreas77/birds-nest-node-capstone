@@ -123,7 +123,7 @@ html {
 
 /* SIGN IN & SIGN UP CARD */
 #signin-signup-page {
-  max-width: 960px;
+  max-width: 720px;
   margin: 0 auto;
   position: relative;
 }
@@ -328,7 +328,7 @@ ul li a:hover {
   display: -ms-grid;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
 }
 #flight-logs-view {
   margin: 20px 10px;
@@ -336,7 +336,7 @@ ul li a:hover {
   display: -ms-grid;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
 }
 
 /* HORIZONTAL NAV BARS */
@@ -426,4 +426,21 @@ ul li a:hover {
   color: #fff;
   border: #fff 2px solid;
   border-radius: 5px;
+}
+
+/* MEDIA QUERIES */
+@media (min-width: 768px) {
+  .hero-img {
+    width: 30%;
+  }
+  #toggle-nav {
+    display: none;
+  }
+  #navbar {
+    display: block;
+  }
+  nav ul li {
+    float: left;
+    width: 20vw;
+  }
 }

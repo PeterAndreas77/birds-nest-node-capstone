@@ -43,7 +43,7 @@ Picture 1. Initial landing page explains what app is for. When the user clicks s
 
 **Sign In & Log In Screen**
 Picture 2. Sign in form asks the user to create a new username and password to use this app. Log in form asks the user to log in to their account if they have one.
-![sketch2](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/signin-login-views.jpg)
+![sketch2](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/signin-login-view.jpg)
 
 **User Main Screen**
 Picture 3. If the user login is successful, they will go to this user main screen, where they can add their own story and search other people stories.
@@ -52,13 +52,13 @@ Picture 3. If the user login is successful, they will go to this user main scree
 **Add & Search Screens**
 Picture 4. In add story screen, a user can submit their own story (title and content only), with a date set at the current time of input.
 In Search screen, the user can search for either the other stories by username or their title.
-![sketch4](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/add-search-views.jpg)
+![sketch4](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/add-search-view.jpg)
 
 **Stories Screens**
 Picture 5. This story screen will pop up when a user clicks one of the stories, either their own or others.
 If the story is their own, then the menu will be edit and delete.
 If the story is another user story, then the menu will be a comment and like.
-![sketch5](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/stories-views.jpg)
+![sketch5](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/stories-view.jpg)
 
 # Technical stack
 
