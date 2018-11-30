@@ -18,13 +18,13 @@ My family loves to travel and we would take notes to capture our memories. We al
   ![screenshot3](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/sign-up-page.png)
 - Screenshot 4. User Main Page / Flight Plans Page
   ![screenshot4](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/user-main-page.png)
-- Screenshot 5. Menu
-  ![screenshot5](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/top-menu.png)
+- Screenshot 5. Mobile Menu
+  ![screenshot5](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/mobile-menu.png)
 - Screenshot 6. Form for plan creation
   ![screenshot6](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/create-plan-form.png)
-- Screenshot 7. Form forr plan update
+- Screenshot 7. Form for plan update
   ![screenshot7](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/update-plan-form.png)
-- Screenshot 8. Flight Logs Pagee
+- Screenshot 8. Flight Logs Page
   ![screenshot8](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/flight-logs-page.png)
 - Screenshot 9. Plan Selection Page
   ![screenshot9](https://github.com/PeterAndreas77/birds-nest-node-capstone/blob/master/github-pictures/plan-selection.png)
