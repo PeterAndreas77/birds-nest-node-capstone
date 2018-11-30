@@ -436,11 +436,14 @@ ul li a:hover {
   #toggle-nav {
     display: none;
   }
+  #username-container {
+    float: left;
+  }
   #navbar {
     display: block;
   }
   nav ul li {
     float: left;
-    width: 20vw;
+    width: 25vw;
   }
 }
