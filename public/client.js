@@ -367,7 +367,6 @@ $(document).ready(function() {
       })
         //if call is succefull
         .done(result => {
-          console.log(result);
           $("#signin-signup-page").hide();
           $("#user-page").show();
           localStorage.setItem("signedInUser", result.username);
