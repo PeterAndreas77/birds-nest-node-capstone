@@ -340,6 +340,10 @@ ul li a:hover {
 }
 
 /* HORIZONTAL NAV BARS */
+#create-flight-plan {
+  display: inline-block;
+  margin: 1rem;
+}
 .flight-controls {
   color: black;
   font-weight: bold;
@@ -449,6 +453,9 @@ ul li a:hover {
   }
   nav ul li {
     float: left;
-    width: 25vw;
+    width: 25%;
+  }
+  nav ul li a {
+    font-size: 1.5rem;
   }
 }
